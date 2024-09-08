@@ -1041,7 +1041,7 @@ List:"""
 
     def get_list(self,text,list_max):
         response = openai.Completion.create(
-            model="text-davinci-002",
+            model="gpt-3.5-turbo-instruct",
             prompt=self.prompt_template.format(list_max=list_max,text=text),
             temperature=0.7,
             max_tokens=256,
