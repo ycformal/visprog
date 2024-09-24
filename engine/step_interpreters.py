@@ -12,11 +12,12 @@ from PIL import Image,ImageDraw,ImageFont,ImageFilter
 from transformers import (ViltProcessor, ViltForQuestionAnswering, 
     OwlViTProcessor, OwlViTForObjectDetection,
     MaskFormerFeatureExtractor, MaskFormerForInstanceSegmentation,
-    CLIPProcessor, CLIPModel, AutoProcessor, BlipForQuestionAnswering)
+    CLIPProcessor, CLIPModel, AutoProcessor, BlipForQuestionAnswering, AutoModelForCausalLM)
 from diffusers import StableDiffusionInpaintPipeline
 
 from .nms import nms
 from vis_utils import html_embed_image, html_colored_span, vis_masks
+import json
 
 
 def parse_step(step_str,partial=False):
@@ -318,6 +319,58 @@ class LocInterpreter():
             return bboxes, html_str
 
         return bboxes
+    
+class CapInterpreter():
+    step_name = 'CAP'
+
+    def __init__(self):
+        print(f'Registering {self.step_name} step')
+        self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
+        self.processor = AutoProcessor.from_pretrained("microsoft/Florence-2-large", trust_remote_code=True)
+        self.model = AutoModelForCausalLM.from_pretrained("microsoft/Florence-2-large", torch_dtype=torch_dtype, trust_remote_code=True).to(self.device)
+        self.model.eval()
+        self.torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
+
+    def parse(self,prog_step):
+        parse_result = parse_step(prog_step.prog_str)
+        step_name = parse_result['step_name']
+        img_var = parse_result['args']['image']
+        output_var = parse_result['output_var']
+        assert(step_name==self.step_name)
+        return img_var,output_var
+
+    def predict(self,img):
+        prompt = "<MORE_DETAILED_CAPTION>"
+        inputs = self.processor(text=prompt, images=img, return_tensors="pt").to(self.device, self.torch_dtype)
+        generated_ids = self.model.generate(
+            input_ids=inputs["input_ids"],
+            pixel_values=inputs["pixel_values"],
+            max_new_tokens=1024,
+            num_beams=3,
+            do_sample=False
+        )
+        generated_text = self.processor.batch_decode(generated_ids, skip_special_tokens=False)[0]
+        parsed_answer = self.processor.post_process_generation(generated_text, task="<MORE_DETAILED_CAPTION>", image_size=(img.width, img.height))
+        return json.loads(parsed_answer)['<MORE_DETAILED_CAPTION>']
+
+    def html(self,img,output,output_var):
+        step_name = html_step_name(self.step_name)
+        img_str = html_embed_image(img)
+        output = html_output(output)
+        output_var = html_var_name(output_var)
+        image_arg = html_arg_name('image')
+        return f"""<div>{output_var}={step_name}({image_arg}={img_str})={output}</div>"""
+
+    def execute(self,prog_step,inspect=False):
+        img_var,output_var = self.parse(prog_step)
+        img = prog_step.state[img_var]
+        caption = self.predict(img)
+        prog_step.state[output_var] = caption
+        if inspect:
+            html_str = self.html(img, caption, output_var)
+            return caption, html_str
+
+        return caption
 
 
 class Loc2Interpreter(LocInterpreter):
