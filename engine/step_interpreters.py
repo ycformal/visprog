@@ -1409,7 +1409,8 @@ def register_step_interpreters(dataset='nlvr'):
             CROP_ABOVE=CropAboveInterpreter(),
             VQA=VQAInterpreter(),
             EVAL=EvalInterpreter(),
-            RESULT=ResultInterpreter()
+            RESULT=ResultInterpreter(),
+            CAP=CapInterpreter()
         )
     elif dataset=='imageEdit':
         return dict(
