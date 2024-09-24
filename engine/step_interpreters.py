@@ -327,7 +327,7 @@ class CapInterpreter():
         print(f'Registering {self.step_name} step')
         self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
         self.processor = AutoProcessor.from_pretrained("microsoft/Florence-2-large", trust_remote_code=True)
-        self.model = AutoModelForCausalLM.from_pretrained("microsoft/Florence-2-large", torch_dtype=torch_dtype, trust_remote_code=True).to(self.device)
+        self.model = AutoModelForCausalLM.from_pretrained("microsoft/Florence-2-large", torch_dtype=self.torch_dtype, trust_remote_code=True).to(self.device)
         self.model.eval()
         self.torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
 
