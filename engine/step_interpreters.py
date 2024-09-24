@@ -17,7 +17,6 @@ from diffusers import StableDiffusionInpaintPipeline
 
 from .nms import nms
 from vis_utils import html_embed_image, html_colored_span, vis_masks
-import json
 
 
 def parse_step(step_str,partial=False):
@@ -351,7 +350,7 @@ class CapInterpreter():
         )
         generated_text = self.processor.batch_decode(generated_ids, skip_special_tokens=False)[0]
         parsed_answer = self.processor.post_process_generation(generated_text, task="<MORE_DETAILED_CAPTION>", image_size=(img.width, img.height))
-        return json.loads(parsed_answer)['<MORE_DETAILED_CAPTION>']
+        return parsed_answer['<MORE_DETAILED_CAPTION>']
 
     def html(self,img,output,output_var):
         step_name = html_step_name(self.step_name)
