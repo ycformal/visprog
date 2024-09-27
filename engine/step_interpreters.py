@@ -501,11 +501,12 @@ class CropRightOfInterpreter(CropInterpreter):
         return [cx,0,w-1,h-1]
 
     def execute(self,prog_step,inspect=False):
-        img_var,box_var,output_var = self.parse(prog_step)
+        img_var,box_var,index,output_var = self.parse(prog_step)
         img = prog_step.state[img_var]
         boxes = prog_step.state[box_var]
+        index = prog_step.state[index]
         if len(boxes) > 0:
-            box = boxes[0]
+            box = boxes[index]
             right_box = self.right_of(box, img.size)
         else:
             w,h = img.size
