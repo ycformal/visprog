@@ -533,11 +533,11 @@ class CropLeftOfInterpreter(CropInterpreter):
         return [0,0,cx,h-1]
 
     def execute(self,prog_step,inspect=False):
-        img_var,box_var,output_var = self.parse(prog_step)
+        img_var,box_var,index,output_var = self.parse(prog_step)
         img = prog_step.state[img_var]
         boxes = prog_step.state[box_var]
         if len(boxes) > 0:
-            box = boxes[0]
+            box = boxes[index]
             left_box = self.left_of(box, img.size)
         else:
             w,h = img.size
@@ -565,11 +565,11 @@ class CropAboveInterpreter(CropInterpreter):
         return [0,0,w-1,cy]
 
     def execute(self,prog_step,inspect=False):
-        img_var,box_var,output_var = self.parse(prog_step)
+        img_var,box_var,index,output_var = self.parse(prog_step)
         img = prog_step.state[img_var]
         boxes = prog_step.state[box_var]
         if len(boxes) > 0:
-            box = boxes[0]
+            box = boxes[index]
             above_box = self.above(box, img.size)
         else:
             w,h = img.size
@@ -596,11 +596,11 @@ class CropBelowInterpreter(CropInterpreter):
         return [0,cy,w-1,h-1]
 
     def execute(self,prog_step,inspect=False):
-        img_var,box_var,output_var = self.parse(prog_step)
+        img_var,box_var,index,output_var = self.parse(prog_step)
         img = prog_step.state[img_var]
         boxes = prog_step.state[box_var]
         if len(boxes) > 0:
-            box = boxes[0]
+            box = boxes[index]
             below_box = self.below(box, img.size)
         else:
             w,h = img.size
