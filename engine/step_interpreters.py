@@ -454,9 +454,12 @@ class CropInterpreter():
         step_name = parse_result['step_name']
         img_var = parse_result['args']['image']
         box_var = parse_result['args']['box']
+        index = 0
+        if 'index' in parse_result['args']:
+            index = int(parse_result['args']['index'])
         output_var = parse_result['output_var']
         assert(step_name==self.step_name)
-        return img_var,box_var,output_var
+        return img_var,box_var,index,output_var
 
     def html(self,img,out_img,output_var,box_img):
         img = html_embed_image(img)
@@ -468,11 +471,11 @@ class CropInterpreter():
         return f"""<div>{output_var}={step_name}({box_arg}={box_img})={out_img}</div>"""
 
     def execute(self,prog_step,inspect=False):
-        img_var,box_var,output_var = self.parse(prog_step)
+        img_var,box_var,index,output_var = self.parse(prog_step)
         img = prog_step.state[img_var]
         boxes = prog_step.state[box_var]
         if len(boxes) > 0:
-            box = boxes[0]
+            box = boxes[index]
             box = self.expand_box(box, img.size)
             out_img = img.crop(box)
         else:
