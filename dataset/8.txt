@@ -1,0 +1,21 @@
+multimodal input: IMAGE
+
+CAPTION_IMAGE="The image shows a plate with a sandwich and a salad on it. The plate is white with blue stripes and has a blue rim. The sandwich is made with a toasted bun and is placed on top of a bed of green arugula leaves. There are two slices of red apple on the plate, one on each side of the sandwich. The salad is made up of broccoli, red bell peppers, and yellow cheese. There is a fork and knife on the table next to the plate. In the background, there is a glass of water and a black and white patterned cup."
+
+Q="Is there broccoli near the round food?"
+
+<End of Context>
+
+From the caption, we know the round food is the sandwich, and there is indeed a salad with broccoli near the sandwich. It is hard for LOC to locate "round food" because the object is too vague, so I can only judge the answer by the caption. However, the caption is clear enough. It directly points out there's a salad near the sandwich made of broccoli. In this situation, the caption is likely to be accurete. I can directly give my answer.
+
+<End of Thought>
+
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Summarize and answer.)
+Thought(Since we know that the round food is the sandwich, and from the caption, we know the salad is made of broccoli and it is near the sandwich. The answer is "Yes".)
+Implement(ANSWER0=RESULT(var='yes'))
+
+<End of Modified Plan>

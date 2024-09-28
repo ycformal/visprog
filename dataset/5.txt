@@ -1,0 +1,92 @@
+multimodal input: IMAGE
+
+CAPTION_IMAGE="The image shows a young man performing a skateboard trick on a concrete ramp. He is wearing a black Nike t-shirt, blue jeans, and black and white sneakers. The skateboarder is in mid-air, with his left leg extended behind him and his right leg bent at the knee. His arms are stretched out to the sides and his head is tilted back, as if he is about to land on the skateboard. In the background, there is a building and some trees. The sky is overcast and the ground is wet, suggesting that it has recently rained."
+
+Q="Are there windows in this photo that are long?"
+
+<End of Context>
+
+There are a lot of windows in the photo. LOC cannot perform well on this photo because it fails when the target object is dense. Therefore, I need to locate the building and ask whether there are long windows on the building.
+
+<End of Thought>
+
+Step(Locate the building.)
+Step(Crop the building.)
+Step(Ask VQA on the cropped image to know whether there are long windows on the building.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the building.)
+Thought(Directly use LOC to locate the building. From the caption, I know there is probably only one building, so LOC will succeed on finding the building. Store bounding boxes in BOX0)
+Implement(BOX0=LOC(image=IMAGE,object='building'))
+Step(Crop the building.)
+Step(Ask VQA on the cropped image to know whether there are long windows on the building.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the building.)
+Thought(Directly use LOC to locate the building. From the caption, I know there is probably only one building, so LOC will succeed on finding the building. Store bounding boxes in BOX0)
+Implement(BOX0=LOC(image=IMAGE,object='building'))
+<result>
+[[156, 100, 330, 314]]
+</result>
+Thought(There is only one bounding box in BOX0. I'm sure this is the building. Proceed to the next step.)
+Step(Crop the building.)
+Thought(Directly use CROP. Store the cropped image in IMAGE0. The index argument is 0, the default value.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0))
+Step(Ask VQA on the cropped image to know whether there are long windows on the building.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the building.)
+Thought(Directly use LOC to locate the building. From the caption, I know there is probably only one building, so LOC will succeed on finding the building. Store bounding boxes in BOX0)
+Implement(BOX0=LOC(image=IMAGE,object='building'))
+<result>
+[[156, 100, 330, 314]]
+</result>
+Thought(There is only one bounding box in BOX0. I'm sure this is the building. Proceed to the next step.)
+Step(Crop the building.)
+Thought(Directly use CROP. Store the cropped image in IMAGE0. The index argument is 0, the default value.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0))
+<result>
+<PIL.Image.Image image mode=RGB size=220x320 at 0x7A9E7C122290>
+The image shows a young man performing a skateboard trick on a concrete surface. He is wearing a black Nike t-shirt with the word "Nike" written in yellow on the front. He has dark hair and is wearing glasses. His arms are stretched out to the sides and his legs are bent at the knees. In the background, there is a building with large windows and a tree. The sky is overcast and the overall mood of the image is playful and energetic.
+</result>
+Thought(Now I know there are large windows on the building. I only need to know whether there are long windows. Proceed to the next step to figure out.)
+Step(Ask VQA on the cropped image to know whether there are long windows on the building.)
+Thought(Directly call VQA on the cropped image. Store the result in ANSWER0. Note to make the question brief and accurate. I can use "on the building" in the question to make VQA more focused on the building.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Are there long windows on the building?'))
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the building.)
+Thought(Directly use LOC to locate the building. From the caption, I know there is probably only one building, so LOC will succeed on finding the building. Store bounding boxes in BOX0)
+Implement(BOX0=LOC(image=IMAGE,object='building'))
+<result>
+[[156, 100, 330, 314]]
+</result>
+Thought(There is only one bounding box in BOX0. I'm sure this is the building. Proceed to the next step.)
+Step(Crop the building.)
+Thought(Directly use CROP. Store the cropped image in IMAGE0. The index argument is 0, the default value.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0))
+<result>
+<PIL.Image.Image image mode=RGB size=220x320 at 0x7A9E7C122290>
+The image shows a young man performing a skateboard trick on a concrete surface. He is wearing a black Nike t-shirt with the word "Nike" written in yellow on the front. He has dark hair and is wearing glasses. His arms are stretched out to the sides and his legs are bent at the knees. In the background, there is a building with large windows and a tree. The sky is overcast and the overall mood of the image is playful and energetic.
+</result>
+Thought(Now I know there are large windows on the building. I only need to know whether there are long windows. Proceed to the next step to figure out.)
+Step(Ask VQA on the cropped image to know whether there are long windows on the building.)
+Thought(Directly call VQA on the cropped image. Store the result in ANSWER0. Note to make the question brief and accurate. I can use "on the building" in the question to make VQA more focused on the building.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Are there long windows on the building?'))
+<result>
+yes
+</result>
+Thought(There are long windows. The answer should be "yes".)
+Step(Summarize and answer.)
+Thought(Give the "yes" answer. ANSWER0 is already used to ask the shape of the windows. So store the final result in ANSWER1.)
+Implement(ANSWER1=RESULT(var='yes'))
+
+<End of Modified Plan>

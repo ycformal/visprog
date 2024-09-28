@@ -5,3 +5,62 @@ CAPTION_IMAGE="The image shows a kitchen countertop with various kitchen items o
 Q="Do you see canisters near the appliance below the chalkboard?"
 
 <End of Context>
+
+From the caption, I know there is indeed a chalkboard. The chalkboard is the central object for this question. I need to locate it first. After that, I need to crop the region below the chalkboard to see what is the appliance and whether there are canisters nearby.
+
+<End of Thought>
+
+Step(Locate the chalkboard.)
+Step(Crop the region below the chalkboard.)
+Step(Figure out what the appliance is.)
+Step(Locate canisters.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the chalkboard.)
+Thought(Directly use LOC to locate it. Store the result in BOX0)
+Implement(BOX0=LOC(image=IMAGE,object='chalkboard'))
+Step(Crop the region below the chalkboard.)
+Step(Figure out what the appliance is.)
+Step(Locate canisters.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the chalkboard.)
+Thought(Directly use LOC to locate it. Store the result in BOX0)
+Implement(BOX0=LOC(image=IMAGE,object='chalkboard'))
+<result>
+[[21, 310, 156, 446]]
+</result>
+Thought(Exactly one bounding box is detected. It must be the chalkboard.)
+Step(Crop the region below the chalkboard.)
+Thought(Use CROP_BELOW to achieve this. The index argument is 0 so I can omit it. Store the result in IMAGE0.)
+Implement(IMAGE0=CROP_BELOW(image=IMAGE,box=BOX0))
+Step(Figure out what the appliance is.)
+Step(Locate canisters.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the chalkboard.)
+Thought(Directly use LOC to locate it. Store the result in BOX0)
+Implement(BOX0=LOC(image=IMAGE,object='chalkboard'))
+<result>
+[[21, 310, 156, 446]]
+</result>
+Thought(Exactly one bounding box is detected. It must be the chalkboard.)
+Step(Crop the region below the chalkboard.)
+Thought(Use CROP_BELOW to achieve this. The index argument is 0 so I can omit it. Store the result in IMAGE0.)
+Implement(IMAGE0=CROP_BELOW(image=IMAGE,box=BOX0))
+<result>
+<PIL.Image.Image image mode=RGB size=426x261 at 0x7A9FF6381F00>
+The image shows a kitchen countertop with various kitchen items on it. On the left side of the countertop, there is a white toaster with the words "Happy New Year" written on it in black chalk. Next to the toaster, there are two white salt and pepper shakers, a black coffee maker, and a glass jar with a lid. In the center of the image, there appears to be a potted plant with green leaves and a wooden cutting board with a knife on it next to a window. There are also a few onions and a bowl of fruit on the counter. The countertop is made of wood and there are white tiles on the wall behind it.
+</result>
+Thought(The caption is very clear. I already know the appliance is a toaster, and there are shakers and a glass jar near by, both of them are canisters. The next two steps are no longer necessary. I'm going to delete them. Directly summarize and answer.)
+Step(Summarize and answer.)
+Thought(The answer is "yes".)
+Implement(ANSWER0=RESULT(var='yes')).
+
+<End of Modified Plan>

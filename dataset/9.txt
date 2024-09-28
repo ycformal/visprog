@@ -1,0 +1,21 @@
+multimodal input: IMAGE
+
+CAPTION_IMAGE="The image shows a busy street in a city with tall buildings on both sides. The street is lined with trees and there are cars driving on the road. On the left side of the image, there is a tall building with a sign that reads "Main Street" and on the right side, there are several other buildings with shops and restaurants. The sky is blue and the weather appears to be sunny and clear. In the center of the street, a man is crossing the street at a red traffic light. He is wearing a black jacket and pants and is standing on the sidewalk."
+
+Q="What is this, a fire hydrant or a traffic light?"
+
+<End of Context>
+
+The caption directly points out that there is a traffic light, and even tells the light is red. I'm sure the caption here is accurate because it is easy to recognize a traffic light and the caption even tells the detail about the light. Morever, the caption doesn't mention any fire hydrant. Therefore, the answer obtained from the caption is confidential. I can directly give the result without intermediate steps like LOC or VQA.
+
+<End of Thought>
+
+Step(Directly answer the question.)
+
+<End of Plan>
+
+Step(Directly answer the question.)
+Thought(From the above analysis, I can directly call RESULT and return "traffic light".)
+Implement(ANSWER=RESULT(var='traffic light))
+
+<End of Modified Plan>

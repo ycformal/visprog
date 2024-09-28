@@ -1,0 +1,36 @@
+multimodal input: IMAGE
+
+CAPTION_IMAGE="The image shows a group of horses running on a rocky hillside. The hill is covered in shrubs and bushes, and the sky is blue with a few scattered clouds. The horses are of different sizes and colors, with some being brown and others being black. They are galloping across the hill, with their manes and tails flowing in the wind. The sky is clear and blue, and there are no clouds in sight. The overall mood of the image is peaceful and serene."
+
+Q="Do you think the horse is walking?"
+
+<End of Context>
+
+From the caption, I know there are a group of horses. I'm sure this information is accurate because the question Q already mentions "horse". However, the caption says they are running instead of walking. I need to ask VQA whether horses are running or walking. Since it is hard for LOC to detect a group of objects, let's directly ask VQA on the original image.
+
+<End of Thought>
+
+Step(Ask VQA whether those horses running or walking, let it make a choice between running and walking.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Ask VQA whether those horses running or walking, let it make a choice between running and walking.)
+Thought(Directly use VQA on IMAGE to ask. Store the result in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE,question='Are those horses running or walking?'))
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Ask VQA whether those horses running or walking, let it make a choice between running and walking.)
+Thought(Directly use VQA on IMAGE to ask. Store the result in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE,question='Are those horses running or walking?'))
+<result>
+running
+</result>
+Thought(Those horses are running. So Give a "no" answer and tell the user they are running.)
+Step(Summarize and answer.)
+Thought(I already know those horses are running instead of walking. Give a "no" answer now. The final result should be stored in ANSWER1.)
+Implement(ANSWER1=RESULT(var='No. Those horses are running.'))
+
+<End of Modified Plan>

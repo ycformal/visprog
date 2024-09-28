@@ -1,0 +1,93 @@
+multimodal input: IMAGE
+
+CAPTION_IMAGE="The image shows a modern bathroom with a walk-in shower. The shower has a glass door and a tiled floor. The walls are covered in beige tiles and there is a large mirror above the sink. On the left side of the shower, there are two wooden cabinets with a white countertop and a wooden vanity with a sink and a mirror above it. The countertop has a few items on it, including a pink towel, a soap dispenser, and a few bottles of soap and lotion. There is also a brown towel hanging on a towel rack next to the shower. On top of the countertop, there is an open shelf with a few framed pictures hanging on the wall. The floor is covered with a beige area rug. The overall color scheme of the bathroom is neutral and modern."
+
+Q="Are the books to the left or to the right of the wood cabinet?"
+
+<End of Context>
+
+From the caption, I know there are probably two wooden cabinets (but may be one or three, because the caption may not be 100% accurate). It is hard to determine the orientation of the cabinet, so "left" and "right" indicates the position on the image instead of the spatial position. To determine the relative position, I need to locate two major objects, wood cabinet and the book. I will determine the relative position according to the bounding boxes.
+
+<End of Thought>
+
+Step(Locate the book.)
+Step(Locate the cabinet.)
+Step(Judge their relative position according to bounding boxes.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the book.)
+Thought(Directly call LOC to locate the book. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='book'))
+Step(Locate the cabinet.)
+Step(Judge their relative position according to bounding boxes.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the book.)
+Thought(Directly call LOC to locate the book. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='book'))
+<result>
+[[1, 257, 65, 283], [1, 263, 39, 273]]
+</result>
+Thought(There are two bounding boxes. x coordinates 1 to 65 includes 1 to 39, y coordinates 257 to 283 includes 263 to 273. There might be multiple books. For this question, I need to consider them as a whole, so use [1, 257, 65, 283] as the bounding box.)
+Step(Locate the cabinet.)
+Thought(Also use LOC to locate. This result should be stored in BOX1.)
+Implement(BOX1=LOC(image=IMAGE,object='cabinet'))
+Step(Judge their relative position according to bounding boxes.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the book.)
+Thought(Directly call LOC to locate the book. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='book'))
+<result>
+[[1, 257, 65, 283], [1, 263, 39, 273]]
+</result>
+Thought(There are two bounding boxes. x coordinates 1 to 65 includes 1 to 39, y coordinates 257 to 283 includes 263 to 273. There might be multiple books. For this question, I need to consider them as a whole, so use [1, 257, 65, 283] as the bounding box.)
+Step(Locate the cabinet.)
+Thought(Also use LOC to locate. This result should be stored in BOX1.)
+Implement(BOX1=LOC(image=IMAGE,object='cabinet'))
+<result>
+[[123, 253, 278, 381], [181, 152, 206, 187], [0, 259, 138, 426], [125, 264, 206, 379]]
+</result>
+Thought(Four bounding boxes are detected. However, [181, 152, 206, 187] is a very small one, only 206-181=25 pixels in x and 187-152=35 pixels in y. According to the caption, there is a mirror, so this bounding box must be the image in the mirror. 125>123, 206<274, so [125, 264, 206, 379] is included or heavily overlapped with [123, 253, 278, 381]. This might be a wrong detection or there are multiple cabinets in [123, 253, 278, 381]. No matter what, I must adopt the larger one [123, 253, 278, 381] as the bounding box. Now there remains two bounding boxes: [123, 253, 278, 381] and [0, 259, 138, 426]. 123>>0 and 123<138 a little (138-123=15, which is small), y coordinate span 253 to 381 heavily overlaps with 259 to 426. They probably two cabinets in a row. This result is consistent with the caption which says there are two wood cabinets. Merge them to be a larger bounding box [0,253,278,426]. I can now get the relative position of bounding boxes.)
+Step(Judge their relative position according to bounding boxes.)
+Thought(We need to get the vertical central line of two bounding boxes and compare them to get the relative position. Let's divide this into substeps.)
+Substep(Get the vertical central line of the book's bounding box [1, 257, 65, 283].)
+Substep(Get the vertical central line of the cabinets' bounding box [0,253,278,426].)
+Substep(Get the relative position.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the book.)
+Thought(Directly call LOC to locate the book. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='book'))
+<result>
+[[1, 257, 65, 283], [1, 263, 39, 273]]
+</result>
+Thought(There are two bounding boxes. x coordinates 1 to 65 includes 1 to 39, y coordinates 257 to 283 includes 263 to 273. There might be multiple books. For this question, I need to consider them as a whole, so use [1, 257, 65, 283] as the bounding box.)
+Step(Locate the cabinet.)
+Thought(Also use LOC to locate. This result should be stored in BOX1.)
+Implement(BOX1=LOC(image=IMAGE,object='cabinet'))
+<result>
+[[123, 253, 278, 381], [181, 152, 206, 187], [0, 259, 138, 426], [125, 264, 206, 379]]
+</result>
+Thought(Four bounding boxes are detected. However, [181, 152, 206, 187] is a very small one, only 206-181=25 pixels in x and 187-152=35 pixels in y. According to the caption, there is a mirror, so this bounding box must be the image in the mirror. 125>123, 206<274, so [125, 264, 206, 379] is included or heavily overlapped with [123, 253, 278, 381]. This might be a wrong detection or there are multiple cabinets in [123, 253, 278, 381]. No matter what, I must adopt the larger one [123, 253, 278, 381] as the bounding box. Now there remains two bounding boxes: [123, 253, 278, 381] and [0, 259, 138, 426]. 123>>0 and 123<138 a little (138-123=15, which is small), y coordinate span 253 to 381 heavily overlaps with 259 to 426. They probably two cabinets in a row. This result is consistent with the caption which says there are two wood cabinets. Merge them to be a larger bounding box [0,253,278,426]. I can now get the relative position of bounding boxes.)
+Step(Judge their relative position according to bounding boxes.)
+Thought(We need to get the vertical central line of two bounding boxes and compare them to get the relative position. Let's divide this into substeps.)
+Substep(Get the vertical central line of the books' bounding box [1, 257, 65, 283].)
+Thought(The x boundaries are 1 and 65. So the vertical central line is x=(65+1)/2. This addition is simple so I don't need to call EVAL. The answer is x=66/2=33. I can head to the next step.)
+Substep(Get the vertical central line of the cabinets' bounding box [0,253,278,426].)
+Thought(The x boundaries are 0 and 278. So the vertical central line is x=(0+278)/2. This addition is simple so I don't need to call EVAL. The answer is x=278/2=139. Now I can compare them and get the relative position.)
+Substep(Get the relative position.)
+Thought(33<<139, so the books are to the left of the cabinets. But note that I considered the two cabinets as a whole. Let's answer the question.)
+Step(Summarize and answer.)
+Thought(I should tell the answer is "left". But also notice the user that I detected two cabinets and combined them as a whole. So the books may be to the center of one cabinet and to the right of the other one. Since I haven't got any answer, store the result in ANSWER0.)
+Implement(ANSWER0=RESULT(var='The books are to the left of the cabinet. However, I detected two cabinets and combined them as a whole. So in fact, the books may be to the center of one cabinet and to the right of the other one.)
+
+<End of Modified Plan>

@@ -1,0 +1,160 @@
+multimodal input: IMAGE
+
+CAPTION_IMAGE="The image shows a herd of elephants walking through a dry grassy field. There are around 10 elephants in total, with a large number of them in the foreground and a few smaller ones in the background. The elephants are walking in a line, with some in the front and some behind them. The field is covered in tall, dry grass and there are trees and bushes scattered throughout. The sky is overcast and the overall mood of the image is peaceful and serene."
+
+Q="Which direction is the gray elephant facing?"
+
+<End of Context>
+
+There is a herd of elephants so LOC may not detect them well. Therefore, the answer of this question is not confidential. We should first locate the gray elephant, and crop the bounding box with the highest probability (the 1st element in the list). Then we ask VQA whether the elephant is gray. If it is, then we ask its direction. Otherwise, start with the second bounding box and so on.
+
+<End of Thought>
+
+Step(Locate the gray elephant.)
+Step(Verify the color.)
+Step(Ask the direction.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the gray elephant.)
+Thought(Use LOC to locate the gray elephant. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='gray elephant'))
+Step(Verify the color.)
+Step(Ask the direction if the color is gray.)
+Step(Consider subsequent bounding boxes if necessary.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the gray elephant.)
+Thought(Use LOC to locate the gray elephant. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='gray elephant'))
+<result>
+[[370, 137, 437, 228], [159, 113, 271, 251], [37, 142, 125, 249], [97, 119, 175, 231], [267, 140, 343, 228], [285, 124, 385, 210], [429, 130, 499, 213], [1, 135, 97, 236], [265, 128, 313, 215], [25, 196, 62, 244], [273, 123, 310, 146], [269, 119, 453, 226], [24, 196, 50, 226], [5, 104, 499, 253], [69, 138, 105, 154], [305, 123, 337, 132], [52, 135, 91, 156]]
+</result>
+Thought(Indeed, there are a lot of bounding boxes. Only some of them are correct. Let's start from the first one, who has the largest likelihood.)
+Step(Verify the color.)
+Thought(I need to crop the image and ask VQA the color.)
+Substep(Crop the first bounding box.)
+Substep(Ask VQA whether the color of the elephant is gray.)
+Step(Ask the direction if the color is gray.)
+Step(Consider subsequent bounding boxes if necessary.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the gray elephant.)
+Thought(Use LOC to locate the gray elephant. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='gray elephant'))
+<result>
+[[370, 137, 437, 228], [159, 113, 271, 251], [37, 142, 125, 249], [97, 119, 175, 231], [267, 140, 343, 228], [285, 124, 385, 210], [429, 130, 499, 213], [1, 135, 97, 236], [265, 128, 313, 215], [25, 196, 62, 244], [273, 123, 310, 146], [269, 119, 453, 226], [24, 196, 50, 226], [5, 104, 499, 253], [69, 138, 105, 154], [305, 123, 337, 132], [52, 135, 91, 156]]
+</result>
+Thought(Indeed, there are a lot of bounding boxes. Only some of them are correct. Let's start from the first one, who has the largest likelihood.)
+Step(Verify the color.)
+Thought(I need to crop the image and ask VQA the color.)
+Substep(Crop the first bounding box.)
+Thought(Use CROP. The result should be stored in IMAGE0.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=0))
+Substep(Ask VQA whether the color of the elephant is gray.)
+Step(Ask the direction if the color is gray.)
+Step(Consider subsequent bounding boxes if necessary.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the gray elephant.)
+Thought(Use LOC to locate the gray elephant. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='gray elephant'))
+<result>
+[[370, 137, 437, 228], [159, 113, 271, 251], [37, 142, 125, 249], [97, 119, 175, 231], [267, 140, 343, 228], [285, 124, 385, 210], [429, 130, 499, 213], [1, 135, 97, 236], [265, 128, 313, 215], [25, 196, 62, 244], [273, 123, 310, 146], [269, 119, 453, 226], [24, 196, 50, 226], [5, 104, 499, 253], [69, 138, 105, 154], [305, 123, 337, 132], [52, 135, 91, 156]]
+</result>
+Thought(Indeed, there are a lot of bounding boxes. Only some of them are correct. Let's start from the first one, who has the largest likelihood.)
+Step(Verify the color.)
+Thought(I need to crop the image and ask VQA the color.)
+Substep(Crop the first bounding box.)
+Thought(Use CROP. The result should be stored in IMAGE0.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=0))
+<result>
+<PIL.Image.Image image mode=RGB size=100x136 at 0x7A9E7C121420>
+The image shows two elephants in a grassy area with trees and bushes in the background. The elephant on the left is standing with its trunk up in the air, while the one on the right is standing next to it. Both elephants are facing the same direction and appear to be in a close proximity to each other. The adult elephant is slightly larger than the baby elephant and is slightly smaller than the adult. There is a small white bird perched on a rock in the foreground. The ground is covered in dry grass and there are a few plants scattered around.
+</result>
+Thought(There are two elephant in the view. But it doesn't matter because they are facing the same direction. I need to verify if any of them is gray and know their direction.)
+Substep(Ask VQA whether the color of the elephant is gray.)
+Thought(Ask whether any of those elephants are gray. Store the result in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Is any of those elephant gray?'))
+Step(Ask the direction if the color is gray.)
+Step(Consider subsequent bounding boxes if necessary.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the gray elephant.)
+Thought(Use LOC to locate the gray elephant. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='gray elephant'))
+<result>
+[[370, 137, 437, 228], [159, 113, 271, 251], [37, 142, 125, 249], [97, 119, 175, 231], [267, 140, 343, 228], [285, 124, 385, 210], [429, 130, 499, 213], [1, 135, 97, 236], [265, 128, 313, 215], [25, 196, 62, 244], [273, 123, 310, 146], [269, 119, 453, 226], [24, 196, 50, 226], [5, 104, 499, 253], [69, 138, 105, 154], [305, 123, 337, 132], [52, 135, 91, 156]]
+</result>
+Thought(Indeed, there are a lot of bounding boxes. Only some of them are correct. Let's start from the first one, who has the largest likelihood.)
+Step(Verify the color.)
+Thought(I need to crop the image and ask VQA the color.)
+Substep(Crop the first bounding box.)
+Thought(Use CROP. The result should be stored in IMAGE0.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=0))
+<result>
+<PIL.Image.Image image mode=RGB size=100x136 at 0x7A9E7C121420>
+The image shows two elephants in a grassy area with trees and bushes in the background. The elephant on the left is standing with its trunk up in the air, while the one on the right is standing next to it. Both elephants are facing the same direction and appear to be in a close proximity to each other. The adult elephant is slightly larger than the baby elephant and is slightly smaller than the adult. There is a small white bird perched on a rock in the foreground. The ground is covered in dry grass and there are a few plants scattered around.
+</result>
+Thought(There are two elephant in the view. But it doesn't matter because they are facing the same direction. I need to verify if any of them is gray and know their direction.)
+Substep(Ask VQA whether the color of the elephant is gray.)
+Thought(Ask whether any of those elephants are gray. Store the result in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Is any of those elephant gray?'))
+<result>
+yes
+</result>
+Thought(OK. The color is gray. Let's get their direction.)
+Step(Ask the direction if the color is gray.)
+Thought(Ask VQA about the direction of elephants facing. Store the result in ANSWER1.)
+Implement(ANSWER1=VQA(image=IMAGE0,question='What is the direction those elephants facing?'))
+Step(Consider subsequent bounding boxes if necessary.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the gray elephant.)
+Thought(Use LOC to locate the gray elephant. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='gray elephant'))
+<result>
+[[370, 137, 437, 228], [159, 113, 271, 251], [37, 142, 125, 249], [97, 119, 175, 231], [267, 140, 343, 228], [285, 124, 385, 210], [429, 130, 499, 213], [1, 135, 97, 236], [265, 128, 313, 215], [25, 196, 62, 244], [273, 123, 310, 146], [269, 119, 453, 226], [24, 196, 50, 226], [5, 104, 499, 253], [69, 138, 105, 154], [305, 123, 337, 132], [52, 135, 91, 156]]
+</result>
+Thought(Indeed, there are a lot of bounding boxes. Only some of them are correct. Let's start from the first one, who has the largest likelihood.)
+Step(Verify the color.)
+Thought(I need to crop the image and ask VQA the color.)
+Substep(Crop the first bounding box.)
+Thought(Use CROP. The result should be stored in IMAGE0.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=0))
+<result>
+<PIL.Image.Image image mode=RGB size=100x136 at 0x7A9E7C121420>
+The image shows two elephants in a grassy area with trees and bushes in the background. The elephant on the left is standing with its trunk up in the air, while the one on the right is standing next to it. Both elephants are facing the same direction and appear to be in a close proximity to each other. The adult elephant is slightly larger than the baby elephant and is slightly smaller than the adult. There is a small white bird perched on a rock in the foreground. The ground is covered in dry grass and there are a few plants scattered around.
+</result>
+Thought(There are two elephant in the view. But it doesn't matter because they are facing the same direction. I need to verify if any of them is gray and know their direction.)
+Substep(Ask VQA whether the color of the elephant is gray.)
+Thought(Ask whether any of those elephants are gray. Store the result in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Is any of those elephant gray?'))
+<result>
+yes
+</result>
+Thought(OK. The color is gray. Let's get their direction.)
+Step(Ask the direction if the color is gray.)
+Thought(Ask VQA about the direction of elephants facing. Store the result in ANSWER1.)
+Implement(ANSWER1=VQA(image=IMAGE0,question='What is the direction those elephants facing?'))
+<result>
+left
+</result>
+Thought(The result is "left". No need to check other bounding boxes. I'll remove the next step and directly head to the summarization step.)
+Step(Summarize and answer.)
+Thought(The answer is "left". It should be stored in ANSWER2.)
+Implement(ANSWER2=RESULT(var='Left. Note that this answer might not be accuracy since the LOC module may not correctly detect the gray elephant.'))
+
+<End of Modified Plan>
+

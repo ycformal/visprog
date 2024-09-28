@@ -18,7 +18,7 @@ Step(Summarize and answer)
 
 Step(Locate umbrellas)
 Thought(I can call LOC to locate all umbrellas in the image.)
-Implement(LOC(image=IMAGE,object='umbrella'))
+Implement(BOX0=LOC(image=IMAGE,object='umbrella'))
 Step(Check if any of those umbrellas is not closed)
 Step(Summarize and answer)
 
@@ -30,7 +30,7 @@ Implement(BOX0=LOC(image=IMAGE,object='umbrella'))
 <result>
 [[61, 169, 289, 266], [416, 212, 595, 401]]
 </result>
-Thought(289<416, so these are two non-overlapped boxes. I can almost make sure that LOC gets the correct result and there are two umbrellas. Let's move to the next step.)
+Thought(289<416, thus these are two non-overlapping boxes. I can almost be sure that LOC has accurately identified two umbrellas. Let's move to the next step.)
 Step(Check if any of those umbrellas is not closed.)
 Thought(Check the first umbrella. If it is not closed, I don't need to check other ones).
 Substep(Check if the first umbrella is closed.)
@@ -45,7 +45,7 @@ Implement(BOX0=LOC(image=IMAGE,object='umbrella'))
 <result>
 [[61, 169, 289, 266], [416, 212, 595, 401]]
 </result>
-Thought(289<416, so these are two non-overlapped boxes. I can almost make sure that LOC gets the correct result and there are two umbrellas. Let's move to the next step.)
+Thought(289<416, thus these are two non-overlapping boxes. I can almost be sure that LOC has accurately identified two umbrellas. Let's move to the next step.)
 Step(Check if any of those umbrellas is not closed.)
 Thought(Check the first umbrella. If it is not closed, I don't need to check other ones).
 Substep(Check if the first umbrella is closed.)
@@ -63,7 +63,7 @@ Implement(BOX0=LOC(image=IMAGE,object='umbrella'))
 <result>
 [[61, 169, 289, 266], [416, 212, 595, 401]]
 </result>
-Thought(289<416, so these are two non-overlapped boxes. I can almost make sure that LOC gets the correct result and there are two umbrellas. Let's move to the next step.)
+Thought(289<416, thus these are two non-overlapping boxes. I can almost be sure that LOC has accurately identified two umbrellas. Let's move to the next step.)
 Step(Check if any of those umbrellas is not closed.)
 Thought(Check the first umbrella. If it is not closed, I don't need to check other ones).
 Substep(Check if the first umbrella is closed.)
@@ -83,7 +83,7 @@ Implement(BOX0=LOC(image=IMAGE,object='umbrella'))
 <result>
 [[61, 169, 289, 266], [416, 212, 595, 401]]
 </result>
-Thought(289<416, so these are two non-overlapped boxes. I can almost make sure that LOC gets the correct result and there are two umbrellas. Let's move to the next step.)
+Thought(289<416, thus these are two non-overlapping boxes. I can almost be sure that LOC has accurately identified two umbrellas. Let's move to the next step.)
 Step(Check if any of those umbrellas is not closed.)
 Thought(Check the first umbrella. If it is not closed, I don't need to check other ones).
 Substep(Check if the first umbrella is closed.)

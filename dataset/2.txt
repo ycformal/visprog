@@ -35,7 +35,7 @@ Implement(BOX0=LOC(image=IMAGE,object="cat"))
 Thought(Perfect! There is only one detected object. I'm sure this is the cat. Now proceed to the next step.)
 Step(Crop the right side of the cat.)
 Thought(Directly use CROP_RIGHTOF to do this. Store the cropped image in IMAGE0. The index argument is 0, the default value, so I don't need to set it.)
-Implement(IMAGE0=CROP_RIGHTOF(image=IMAGE0,box=BOX0))
+Implement(IMAGE0=CROP_RIGHTOF(image=IMAGE,box=BOX0))
 Step(Check whether there is a curtain.)
 Step(Summarize and answer.)
 

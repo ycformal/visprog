@@ -1,0 +1,111 @@
+multimodal input: IMAGE
+
+CAPTION_IMAGE="The image shows a young boy running on a street with a colorful kite in the air. The boy is wearing a red t-shirt and blue shorts and appears to be in mid-stride, with his arms and legs stretched out in front of him. He is running towards the kite, which is flying high in the sky. The kite has a red, yellow, and blue design on it. The street is lined with trees and there is a white garage door on the right side of the image. There is a trash can and a green bag on the ground next to the garage door. The sky is blue and there are a few clouds in the background."
+
+Q="Do you see any fences that are not made of brick?"
+
+<End of Context>
+
+From the caption, I can't see any fence. I don't know whether there is indeed no fence, or just because the caption is not detailed. As fence is the main object for this question, I need to first locate the fence. If I get no result, then I should tell the user there is no fence. Otherwise, I need to crop the fense and ask whether it is made of brick.
+
+<End of Thought>
+
+Step(Locate the fence.)
+Step(If there is a fence, then check whether it is made of brick.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the fence.)
+Thought(Directly use LOC to locate the fence. Store the result in BOX0)
+Implement(BOX0=LOC(image=IMAGE,object='fence'))
+Step(If there is a fence, then check whether it is made of brick.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the fence.)
+Thought(Directly use LOC to locate the fence. Store the result in BOX0)
+Implement(BOX0=LOC(image=IMAGE,object='fence'))
+<result>
+[[30, 226, 52, 302], [138, 198, 347, 368]]
+</result>
+Thought(I got two bounding boxes. However, the first bounding box is too narrow as its width is only 52-30=22 pixels. It should be a wrong detection or not the fence this question asks. The second one is large enough. I guess the true fence is the second one. Therefore, I only need to focus on the second bounding box.)
+Step(If there is a fence, then check whether it is made of brick.)
+Thought(I need to crop the image on the second bounding box and ask the question to VQA. Let's divide this into two substeps.)
+Substep(Crop on the second bounding box.)
+Substep(Ask VQA whether the fence is made of brick.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the fence.)
+Thought(Directly use LOC to locate the fence. Store the result in BOX0)
+Implement(BOX0=LOC(image=IMAGE,object='fence'))
+<result>
+[[30, 226, 52, 302], [138, 198, 347, 368]]
+</result>
+Thought(I got two bounding boxes. However, the first bounding box is too narrow as its width is only 52-30=22 pixels. It should be a wrong detection or not the fence this question asks. The second one is large enough. I guess the true fence is the second one. Therefore, I only need to focus on the second bounding box.)
+Step(If there is a fence, then check whether it is made of brick.)
+Thought(I need to crop the image on the second bounding box and ask the question to VQA. Let's divide this into two substeps.)
+Substep(Crop on the second bounding box.)
+Thought(Directly use CROP. This is a common module and no need to test it. The result is the cropped image, store it in IMAGE0. Since I need to crop on the second bounding box, I should set index argument to 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+Substep(Ask VQA whether the fence is made of brick.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the fence.)
+Thought(Directly use LOC to locate the fence. Store the result in BOX0)
+Implement(BOX0=LOC(image=IMAGE,object='fence'))
+<result>
+[[30, 226, 52, 302], [138, 198, 347, 368]]
+</result>
+Thought(I got two bounding boxes. However, the first bounding box is too narrow as its width is only 52-30=22 pixels. It should be a wrong detection or not the fence this question asks. The second one is large enough. I guess the true fence is the second one. Therefore, I only need to focus on the second bounding box.)
+Step(If there is a fence, then check whether it is made of brick.)
+Thought(I need to crop the image on the second bounding box and ask the question to VQA. Let's divide this into two substeps.)
+Substep(Crop on the second bounding box.)
+Thought(Directly use CROP. This is a common module and no need to test it. The result is the cropped image, store it in IMAGE0. Since I need to crop on the second bounding box, I should set index argument to 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=312x254 at 0x78F1D99AB610>
+The image shows a young child, probably around 2-3 years old, standing on the side of a street. The child is wearing a red t-shirt and blue and white patterned pants. They are looking up at a colorful kite that is flying in the air. The kite has a red, yellow, and blue design on it. The street is lined with trees and there is a white garage door on the right side of the image. The sky is overcast and the ground is wet, suggesting that it has recently rained.
+</result>
+Thought(Now I know there is a fence because BOX0 is not empty, and also get the cropped image on the region of fence. I can head to the next step to ask if is made of brick.)
+Substep(Ask VQA whether the fence is made of brick.)
+Thought(Directly ask VQA. Store the answer in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Is the fence made of brick?'))
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the fence.)
+Thought(Directly use LOC to locate the fence. Store the result in BOX0)
+Implement(BOX0=LOC(image=IMAGE,object='fence'))
+<result>
+[[30, 226, 52, 302], [138, 198, 347, 368]]
+</result>
+Thought(I got two bounding boxes. However, the first bounding box is too narrow as its width is only 52-30=22 pixels. It should be a wrong detection or not the fence this question asks. The second one is large enough. I guess the true fence is the second one. Therefore, I only need to focus on the second bounding box.)
+Step(If there is a fence, then check whether it is made of brick.)
+Thought(I need to crop the image on the second bounding box and ask the question to VQA. Let's divide this into two substeps.)
+Substep(Crop on the second bounding box.)
+Thought(Directly use CROP. This is a common module and no need to test it. The result is the cropped image, store it in IMAGE0. Since I need to crop on the second bounding box, I should set index argument to 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=312x254 at 0x78F1D99AB610>
+The image shows a young child, probably around 2-3 years old, standing on the side of a street. The child is wearing a red t-shirt and blue and white patterned pants. They are looking up at a colorful kite that is flying in the air. The kite has a red, yellow, and blue design on it. The street is lined with trees and there is a white garage door on the right side of the image. The sky is overcast and the ground is wet, suggesting that it has recently rained.
+</result>
+Thought(Now I know there is a fence because BOX0 is not empty, and also get the cropped image on the region of fence. I can head to the next step to ask if is made of brick.)
+Substep(Ask VQA whether the fence is made of brick.)
+Thought(Directly ask VQA. Store the answer in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Is the fence made of brick?'))
+<result>
+yes
+</result>
+Thought(The answer is yes. Now I am sure the fence is made of brick.)
+Step(Summarize and answer.)
+Thought(There is indeed a fence, but it is made of brick. The answer should be "no" because the question asks whether there is a fence made NOT of brick. ANSWER0 is already used to ask the material of the fence. So use ANSWER1 to give the final answer.)
+Implement(ANSWER1=RESULT(var='No, there is a fence but it is made of brick.'))
+
+<End of Modified Plan>

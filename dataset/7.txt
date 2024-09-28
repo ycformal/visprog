@@ -1,0 +1,70 @@
+multimodal input: IMAGE
+
+CAPTION_IMAGE="The image shows an orange tabby cat lying on its side on a glass desk. The cat is resting its head on a white mouse pad and appears to be sleeping. On the desk, there is a laptop, a keyboard, a lamp, and a few pens and pencils in a holder. There are also a few books and a potted plant on the desk."
+
+Q="Is the tall lamp to the left or to the right of the laptop computer?"
+
+<End of Context>
+
+From the caption, I know there is indeed a laptop and a lamp. Since they are main objects of the question Q, I need to first locate them, and then judge the relative position according to bounding boxes. It is also hard to define the spatial "left" or "right", so "left" and "right" in this question are plane position. It is OK to directly judge by bounding boxes.
+
+<End of Thought>
+
+Step(Locate the lamp.)
+Step(Locate the laptop.)
+Step(Judge the relative position of them.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the lamp.)
+Thought(Directly use LOC to locate the lamp. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='lamp'))
+Step(Locate the laptop.)
+Step(Judge the relative position of them.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the lamp.)
+Thought(Directly use LOC to locate the lamp. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='lamp'))
+<result>
+[[95, 1, 183, 231]]
+</result>
+Thought(This is a long rectangle whose left top is (95,1) and right bottom is (183,231), so it must be the tall lamp. I can move to the next step.)
+Step(Locate the laptop.)
+Thought(Directly use LOC to locate the laptop. Store the result in BOX1.)
+Implement(BOX1=LOC(image=IMAGE,object='laptop'))
+Step(Judge the relative position of them.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the lamp.)
+Thought(Directly use LOC to locate the lamp. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='lamp'))
+<result>
+[[95, 1, 183, 231]]
+</result>
+Thought(This is a long rectangle whose left top is (95,1) and right bottom is (183,231), so it must be the tall lamp. I can move to the next step.)
+Step(Locate the laptop.)
+Thought(Directly use LOC to locate the laptop. Store the result in BOX1.)
+Implement(BOX1=LOC(image=IMAGE,object='laptop'))
+<result>
+[[0, 0, 120, 222]]
+</result>
+Thought(One bounding box is detected. It must be the laptop. Now I get the two bounding boxes. I can move to the next step and judge their relative position.)
+Step(Judge the relative position of them.)
+Thought(I need to get the vertical central line of the lamp and laptop, and judge the relative position by comparing them. Let's divide this into three substeps.)
+Substep(Get the vertical central line of the lamp.)
+Thought(The bounding box of the lamp is [95, 1, 183, 231]. Note that the x axis grows horizontally. So get the vertical central line (symmetric line), I need to average the vertical boarder (x coordinates) of the rectangle. The result is (95+183)/2. It is a simple formula so I don't need to call EVAL. The result equals to 278/2=139. I can also get the vertical central line of the laptop in the same way.)
+Substep(Get the vertical central line of the laptop.)
+Thought(Similarly, the bounding box of the laptop is [0 ,0, 120, 222], so I can directly average 0 and 120 and get 60. I can proceed to the next step.)
+Substep(Judge the relative position.)
+Thought(Since 139 is larger than 60, the lamp is to the right of the laptop.)
+Step(Summarize and answer.)
+Thought(I already know that the lamp is to the right of the laptop. Let's answer the question.)
+Implement(ANSWER0=RESULT(var='right'))
+
+<End of Modified Plan>
