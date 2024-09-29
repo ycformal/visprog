@@ -423,7 +423,11 @@ class CountInterpreter():
         count = len(boxes)
         prog_step.state[output_var] = count
         if inspect:
-            box_img = prog_step.state[box_var+'_IMAGE']
+            box_img = None
+            try:
+                box_img = prog_step.state[box_var+'_IMAGE']
+            except:
+                box_img = Image.new('RGB',(100,100),'black')
             html_str = self.html(box_img, output_var, count)
             return count, html_str
 
@@ -484,7 +488,11 @@ class CropInterpreter():
 
         prog_step.state[output_var] = out_img
         if inspect:
-            box_img = prog_step.state[box_var+'_IMAGE']
+            box_img = None
+            try:
+                box_img = prog_step.state[box_var+'_IMAGE']
+            except:
+                box_img = img
             html_str = self.html(img, out_img, output_var, box_img)
             return out_img, html_str
 
@@ -516,7 +524,11 @@ class CropRightOfInterpreter(CropInterpreter):
 
         prog_step.state[output_var] = out_img
         if inspect:
-            box_img = prog_step.state[box_var+'_IMAGE']
+            box_img = None
+            try:
+                box_img = prog_step.state[box_var+'_IMAGE']
+            except:
+                box_img = img
             html_str = self.html(img, out_img, output_var, box_img)
             return out_img, html_str
 
@@ -548,7 +560,11 @@ class CropLeftOfInterpreter(CropInterpreter):
 
         prog_step.state[output_var] = out_img
         if inspect:
-            box_img = prog_step.state[box_var+'_IMAGE']
+            box_img = None
+            try:
+                box_img = prog_step.state[box_var+'_IMAGE']
+            except:
+                box_img = img
             html_str = self.html(img, out_img, output_var, box_img)
             return out_img, html_str
 
@@ -580,7 +596,11 @@ class CropAboveInterpreter(CropInterpreter):
 
         prog_step.state[output_var] = out_img
         if inspect:
-            box_img = prog_step.state[box_var+'_IMAGE']
+            box_img = None
+            try:
+                box_img = prog_step.state[box_var+'_IMAGE']
+            except:
+                box_img = img
             html_str = self.html(img, out_img, output_var, box_img)
             return out_img, html_str
 
@@ -611,7 +631,11 @@ class CropBelowInterpreter(CropInterpreter):
 
         prog_step.state[output_var] = out_img
         if inspect:
-            box_img = prog_step.state[box_var+'_IMAGE']
+            box_img = None
+            try:
+                box_img = prog_step.state[box_var+'_IMAGE']
+            except:
+                box_img = img
             html_str = self.html(img, out_img, output_var, box_img)
             return out_img, html_str
 
