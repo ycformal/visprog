@@ -1,0 +1,90 @@
+multimodal input: IMAGE (640wx429h)
+
+CAPTION_IMAGE="The image shows a group of six people sitting around a dining table in a small room. The table is covered with a white tablecloth and is set with plates, bowls, glasses, and food. There are six people in total, four men and three women, all of whom are smiling and appear to be enjoying their meal. The room has a rustic and cozy atmosphere, with a wooden bench on the left side and a bookshelf on the right side. The walls are painted white and there are various items hanging on the walls. The overall mood of the image is happy and relaxed."
+
+Q="Is the man to the left of the bowl leaning on a couch?"
+
+<End of Context>
+
+From the caption, I know there are indeed people and a bowl. I can locate the bowl and find the man left to the bowl. If so, I will crop this man and whether he is leaning on a couch.
+
+<End of Thought>
+
+Step(Locate the bowl.)
+Step(Crop the left region of the bowl.)
+Step(Locate the man.)
+Step(See whether the man is leaning on a couch.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the bowl.)
+Thought(Directly use LOC to locate the bowl. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='bowl'))
+Step(Crop the left region of the bowl.)
+Step(Locate the man.)
+Step(See whether the man is leaning on a couch.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bowl.)
+Thought(Directly use LOC to locate the bowl. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='bowl'))
+<result>
+[[326, 272, 376, 298], [391, 276, 422, 296], [395, 262, 424, 277], [264, 273, 294, 291], [314, 258, 372, 281], [316, 239, 363, 255], [356, 249, 381, 259], [307, 254, 345, 265], [362, 254, 388, 261]]
+</result>
+Thought(9 bounding boxes are detected. There are probably a lot of bows. I want a bounding box to include bowls as a whole. The bounding box containing all the 9 bounding boxes is [264, 239, 424, 298].)
+Step(Crop the left region of the bowl.)
+Thought(To achieve this, I need to assign the large bounding box to a variable, named BOX1. Then I can crop the region left to BOX1. Let's divide this into two steps.)
+Substep(Assign BOX1 to be [[264, 239, 424, 298]].)
+Substep(Use CROP_LEFTOF to crop the region to the left of BOX1.)
+Step(Locate the man.)
+Step(See whether the man is leaning on a couch.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bowl.)
+Thought(Directly use LOC to locate the bowl. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='bowl'))
+<result>
+[[326, 272, 376, 298], [391, 276, 422, 296], [395, 262, 424, 277], [264, 273, 294, 291], [314, 258, 372, 281], [316, 239, 363, 255], [356, 249, 381, 259], [307, 254, 345, 265], [362, 254, 388, 261]]
+</result>
+Thought(9 bounding boxes are detected. There are probably a lot of bows. I want a bounding box to include bowls as a whole. The bounding box containing all the 9 bounding boxes is [264, 239, 424, 298].)
+Step(Crop the left region of the bowl.)
+Thought(To achieve this, I need to assign the large bounding box to a variable, named BOX1. Then I can crop the region left to BOX1. Let's divide this into two steps.)
+Substep(Assign BOX1 to be [[264, 239, 424, 298]].)
+Thought(Use EVAL to assign the value.)
+Implement(BOX1=EVAL(expr='[[264, 239, 424, 298]]'))
+Substep(Use CROP_LEFTOF to crop the region to the left of BOX1.)
+Step(Locate the man.)
+Step(See whether the man is leaning on a couch.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bowl.)
+Thought(Directly use LOC to locate the bowl. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='bowl'))
+<result>
+[[326, 272, 376, 298], [391, 276, 422, 296], [395, 262, 424, 277], [264, 273, 294, 291], [314, 258, 372, 281], [316, 239, 363, 255], [356, 249, 381, 259], [307, 254, 345, 265], [362, 254, 388, 261]]
+</result>
+Thought(9 bounding boxes are detected. There are probably a lot of bows. I want a bounding box to include bowls as a whole. The bounding box containing all the 9 bounding boxes is [264, 239, 424, 298].)
+Step(Crop the left region of the bowl.)
+Thought(To achieve this, I need to assign the large bounding box to a variable, named BOX1. Then I can crop the region left to BOX1. Let's divide this into two steps.)
+Substep(Assign BOX1 to be [[264, 239, 424, 298]].)
+Thought(Use EVAL to assign the value.)
+Implement(BOX1=EVAL(expr='[[264, 239, 424, 298]]'))
+<result>
+[[264, 239, 424, 298]]
+</result>
+Thought(Done. Now BOX1 is available. I can move to the next step.)
+Substep(Use CROP_LEFTOF to crop the region to the left of BOX1.)
+Thought(Directly call CROP_LEFTOF. The index argument is the default value 0, so I don't need to set it. Store the cropped image in IMAGE0.)
+Implement(IMAGE0=CROP_LEFTOF(image=IMAGE,box=BOX1))
+Step(Locate the man.)
+Step(See whether the man is leaning on a couch.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
