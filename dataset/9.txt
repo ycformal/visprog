@@ -1,4 +1,4 @@
-multimodal input: IMAGE
+multimodal input: IMAGE (640wx425h)
 
 CAPTION_IMAGE="The image shows a busy street in a city with tall buildings on both sides. The street is lined with trees and there are cars driving on the road. On the left side of the image, there is a tall building with a sign that reads "Main Street" and on the right side, there are several other buildings with shops and restaurants. The sky is blue and the weather appears to be sunny and clear. In the center of the street, a man is crossing the street at a red traffic light. He is wearing a black jacket and pants and is standing on the sidewalk."
 

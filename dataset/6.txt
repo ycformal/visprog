@@ -1,4 +1,4 @@
-multimodal input: IMAGE
+multimodal input: IMAGE (640wx427h)
 
 CAPTION_IMAGE="The image shows a modern bathroom with a walk-in shower. The shower has a glass door and a tiled floor. The walls are covered in beige tiles and there is a large mirror above the sink. On the left side of the shower, there are two wooden cabinets with a white countertop and a wooden vanity with a sink and a mirror above it. The countertop has a few items on it, including a pink towel, a soap dispenser, and a few bottles of soap and lotion. There is also a brown towel hanging on a towel rack next to the shower. On top of the countertop, there is an open shelf with a few framed pictures hanging on the wall. The floor is covered with a beige area rug. The overall color scheme of the bathroom is neutral and modern."
 

@@ -1,4 +1,4 @@
-multimodal input: IMAGE
+multimodal input: IMAGE (333wx500h)
 
 CAPTION_IMAGE="The image shows a young man performing a skateboard trick on a concrete ramp. He is wearing a black Nike t-shirt, blue jeans, and black and white sneakers. The skateboarder is in mid-air, with his left leg extended behind him and his right leg bent at the knee. His arms are stretched out to the sides and his head is tilted back, as if he is about to land on the skateboard. In the background, there is a building and some trees. The sky is overcast and the ground is wet, suggesting that it has recently rained."
 

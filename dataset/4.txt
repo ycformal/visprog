@@ -1,4 +1,4 @@
-multimodal input: IMAGE
+multimodal input: IMAGE (500wx333h)
 
 CAPTION_IMAGE="The image shows a herd of elephants walking through a dry grassy field. There are around 10 elephants in total, with a large number of them in the foreground and a few smaller ones in the background. The elephants are walking in a line, with some in the front and some behind them. The field is covered in tall, dry grass and there are trees and bushes scattered throughout. The sky is overcast and the overall mood of the image is peaceful and serene."
 

@@ -1,0 +1,158 @@
+multimodal input: IMAGE (640wx427h)
+
+CAPTION_IMAGE="The image shows an Oman Air airplane taking off from an airport runway. The airplane is a Boeing 777-300ER with the Oman Air logo on the tail and the words "Oman Air" written on the side. The plane is white with blue and yellow stripes on the fuselage and wings. It is in the process of taking off, with its landing gear down and the wheels slightly lifted off the ground. In the background, there is a hill covered in trees and a red crane can be seen in the distance. The sky is blue and the weather appears to be clear."
+
+Q="Do the green trees look tall and dense?"
+
+<End of Context>
+
+From the caption, I know there is a hill covered in trees. I need to locate those trees and see whether they are tall and dense.
+
+<End of Thought>
+
+Step(Locate the trees.)
+Step(Crop the region.)
+Step(Ask VQA about the density and height of those trees.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the trees.)
+Thought(Directly use LOC to locate the trees. Note that I want to locate all trees as a whole group, so the object should be "trees" instead of "tree". Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='trees'))
+Step(Crop the region.)
+Step(Ask VQA about the density and height of those trees.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the trees.)
+Thought(Directly use LOC to locate the trees. Note that I want to locate all trees as a whole group, so the object should be "trees" instead of "tree". Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='trees'))
+<result>
+[[402, 138, 492, 209], [0, 73, 637, 222]]
+</result>
+Thought(There are two bounding boxes. The first one is relatively small and included in the second one, which is much larger. So the second one is the true bounding box for all trees. In this case, the result of LOC is good. I only need to focus on the second bounding box. Now, start the next step.)
+Step(Crop the region.)
+Thought(Directly use CROP to crop the region of those dense trees. Store the result in IMAGE0. Since I want to crop on the second bounding box, the index argument should be set to 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+Step(Ask VQA about the density and height of those trees.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the trees.)
+Thought(Directly use LOC to locate the trees. Note that I want to locate all trees as a whole group, so the object should be "trees" instead of "tree". Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='trees'))
+<result>
+[[402, 138, 492, 209], [0, 73, 637, 222]]
+</result>
+Thought(There are two bounding boxes. The first one is relatively small and included in the second one, which is much larger. So the second one is the true bounding box for all trees. In this case, the result of LOC is good. I only need to focus on the second bounding box. Now, start the next step.)
+Step(Crop the region.)
+Thought(Directly use CROP to crop the region of those dense trees. Store the result in IMAGE0. Since I want to crop on the second bounding box, the index argument should be set to 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=640x222 at 0x7B46B44F1FC0>
+The image shows an Oman Air airplane on the runway. The airplane is white with blue and yellow stripes on the tail and the words "Oman Air" written in Arabic on the side. The plane is in the process of taking off from the runway, with its landing gear down. In the background, there is a green landscape with trees and hills. On the right side of the image, there are buildings and a red crane. The sky is blue and the weather appears to be sunny.
+</result>
+Thought(As I can see, there are trees. The next step is to ask whether they are tall and dense. Now, let's start the third step.)
+Step(Ask VQA about the density and height of those trees.)
+Thought(It will be more accurate if ask the two properties respectively. So let's divide this step into two substeps.)
+Substep(Ask whether the trees are dense.)
+Substep(Ask whether the trees are tall.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the trees.)
+Thought(Directly use LOC to locate the trees. Note that I want to locate all trees as a whole group, so the object should be "trees" instead of "tree". Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='trees'))
+<result>
+[[402, 138, 492, 209], [0, 73, 637, 222]]
+</result>
+Thought(There are two bounding boxes. The first one is relatively small and included in the second one, which is much larger. So the second one is the true bounding box for all trees. In this case, the result of LOC is good. I only need to focus on the second bounding box. Now, start the next step.)
+Step(Crop the region.)
+Thought(Directly use CROP to crop the region of those dense trees. Store the result in IMAGE0. Since I want to crop on the second bounding box, the index argument should be set to 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=640x222 at 0x7B46B44F1FC0>
+The image shows an Oman Air airplane on the runway. The airplane is white with blue and yellow stripes on the tail and the words "Oman Air" written in Arabic on the side. The plane is in the process of taking off from the runway, with its landing gear down. In the background, there is a green landscape with trees and hills. On the right side of the image, there are buildings and a red crane. The sky is blue and the weather appears to be sunny.
+</result>
+Thought(As I can see, there are trees. The next step is to ask whether they are tall and dense. Now, let's start the third step.)
+Step(Ask VQA about the density and height of those trees.)
+Thought(It will be more accurate if ask the two properties respectively. So let's divide this step into two substeps.)
+Substep(Ask whether the trees are dense.)
+Thought(Directly call VQA. The answer should be stored in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Are the trees dense?'))
+Substep(Ask whether the trees are tall.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the trees.)
+Thought(Directly use LOC to locate the trees. Note that I want to locate all trees as a whole group, so the object should be "trees" instead of "tree". Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='trees'))
+<result>
+[[402, 138, 492, 209], [0, 73, 637, 222]]
+</result>
+Thought(There are two bounding boxes. The first one is relatively small and included in the second one, which is much larger. So the second one is the true bounding box for all trees. In this case, the result of LOC is good. I only need to focus on the second bounding box. Now, start the next step.)
+Step(Crop the region.)
+Thought(Directly use CROP to crop the region of those dense trees. Store the result in IMAGE0. Since I want to crop on the second bounding box, the index argument should be set to 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=640x222 at 0x7B46B44F1FC0>
+The image shows an Oman Air airplane on the runway. The airplane is white with blue and yellow stripes on the tail and the words "Oman Air" written in Arabic on the side. The plane is in the process of taking off from the runway, with its landing gear down. In the background, there is a green landscape with trees and hills. On the right side of the image, there are buildings and a red crane. The sky is blue and the weather appears to be sunny.
+</result>
+Thought(As I can see, there are trees. The next step is to ask whether they are tall and dense. Now, let's start the third step.)
+Step(Ask VQA about the density and height of those trees.)
+Thought(It will be more accurate if ask the two properties respectively. So let's divide this step into two substeps.)
+Substep(Ask whether the trees are dense.)
+Thought(Directly call VQA. The answer should be stored in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Are the trees dense?'))
+<result>
+yes
+</result>
+Thought(OK. The trees are dense. Now is the next substep.)
+Substep(Ask whether the trees are tall.)
+Thought(Since dense is already known to be yes, I only need to ask whether tall is a property of those trees. Proceed to call VQA. Store the answer in ANSWER1.)
+Implement(ANSWER1=VQA(image=IMAGE0,question='Are the trees tall?'))
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the trees.)
+Thought(Directly use LOC to locate the trees. Note that I want to locate all trees as a whole group, so the object should be "trees" instead of "tree". Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='trees'))
+<result>
+[[402, 138, 492, 209], [0, 73, 637, 222]]
+</result>
+Thought(There are two bounding boxes. The first one is relatively small and included in the second one, which is much larger. So the second one is the true bounding box for all trees. In this case, the result of LOC is good. I only need to focus on the second bounding box. Now, start the next step.)
+Step(Crop the region.)
+Thought(Directly use CROP to crop the region of those dense trees. Store the result in IMAGE0. Since I want to crop on the second bounding box, the index argument should be set to 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=640x222 at 0x7B46B44F1FC0>
+The image shows an Oman Air airplane on the runway. The airplane is white with blue and yellow stripes on the tail and the words "Oman Air" written in Arabic on the side. The plane is in the process of taking off from the runway, with its landing gear down. In the background, there is a green landscape with trees and hills. On the right side of the image, there are buildings and a red crane. The sky is blue and the weather appears to be sunny.
+</result>
+Thought(As I can see, there are trees. The next step is to ask whether they are tall and dense. Now, let's start the third step.)
+Step(Ask VQA about the density and height of those trees.)
+Thought(It will be more accurate if ask the two properties respectively. So let's divide this step into two substeps.)
+Substep(Ask whether the trees are dense.)
+Thought(Directly call VQA. The answer should be stored in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Are the trees dense?'))
+<result>
+yes
+</result>
+Thought(OK. The trees are dense. Now is the next substep.)
+Substep(Ask whether the trees are tall.)
+Thought(Since dense is already known to be yes, I only need to ask whether tall is a property of those trees. Proceed to call VQA. Store the answer in ANSWER1.)
+Implement(ANSWER1=VQA(image=IMAGE0,question='Are the trees tall?'))
+<result>
+yes
+</result>
+Thought(OK. The answer should be "yes" for the question because the trees are both dense and tall. Now, the final step is to give the answer.)
+Step(Summarize and answer.)
+Thought(The answer is "yes". Store it in ANSWER2.)
+Implement(ANSWER2=RESULT(var='yes'))
+
+<End of Modified Plan>

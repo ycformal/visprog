@@ -1,4 +1,4 @@
-multimodal input: IMAGE
+multimodal input: IMAGE (640wx427h)
 
 CAPTION_IMAGE="The image shows a skateboarder performing a trick at a skate park. The skatepark has a concrete ramp with graffiti on it, and there are trees in the background. The skater is wearing a black helmet, knee pads, and protective gear. He is in the middle of a turn, with his skateboard in the air and his body leaning forward as he navigates the ramp. The sky is blue and the weather appears to be sunny and clear."
 

@@ -1,4 +1,4 @@
-multimodal input: IMAGE
+multimodal input: IMAGE (640wx427h)
 
 CAPTION_IMAGE="The image shows two elderly people sitting on a wooden bench at a beach. They are facing the ocean and the sky is clear and blue. The person on the left is wearing a beige jacket and a cap, and the person in the middle is holding a pink umbrella with a floral pattern. The umbrella is open and the people are looking out towards the horizon. The beach is sandy and there is a railing in front of the bench. The overall mood of the image is peaceful and serene."
 

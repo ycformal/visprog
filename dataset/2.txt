@@ -1,4 +1,4 @@
-multimodal input: IMAGE
+multimodal input: IMAGE (500wx281h)
 
 CAPTION_IMAGE="The image shows a black cat standing on its hind legs in a bathroom. The cat is facing towards the right side of the image and appears to be looking down at the floor. The bathroom has a white tiled wall and a white toilet in the background. There is a shower curtain hanging on the wall next to the toilet and a trash can on the left side. The floor is tiled in a light beige color."
 

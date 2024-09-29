@@ -1,0 +1,40 @@
+multimodal input: IMAGE (640wx232h)
+
+CAPTION_IMAGE="The image shows a bedroom with a large window on the right side of the room. The window has white curtains that are open, allowing natural light to enter the space. On the left side, there is a green sofa with colorful throw pillows and a wooden coffee table in front of it. Above the sofa, there are two round mirrors hanging on the wall. In front of the sofa is a fireplace with a mantelpiece and a vase of flowers on top. The bed is covered with a blue comforter with white flowers on it. The floor is carpeted in a light beige color."
+
+Q="On which side is the clean bed?"
+
+<End of Context>
+
+The caption tells us there is a bed. The question uses "on which side", so it is asking for a relative position of the bed. The bed may be the central or main object in the image. I need to locate it, and then judge its position. No need to judge whether the bed is clean if there is only one bed. I assume it is clean. I will only judge which bed is clean if multiple beds are detected, because such judgement relies on VQA, which might not be accurate on such subjective questions.
+
+<End of Thought>
+
+Step(Locate the bed.)
+Step(Judge the position of the bed.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the bed.)
+Thought(Use LOC to locate the bed. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='bed'))
+Step(Judge the position of the bed.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bed.)
+Thought(Use LOC to locate the bed. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='bed'))
+<result>
+[[265, 116, 616, 231]]
+</result>
+Thought(There is only one bounding box in BOX0. I'm sure there is only one bed. It is in the region of (265,116) to (616,231), so I have detected it. Now it is known that there is only one bed. I don't need to judge which bed is clean. Proceed to the next step.)
+Step(Judge the position of the bed.)
+Thought(We can judge this according to the bounding box. Note that the right side of the bounding box is 616. Since the width of IMAGE is 640, I know the bed is very close to the right margin of the image.)
+Step(Summarize and answer.)
+Thought(The answer is "right". Store it in ANSWER0 since no ANSWER is assigned.)
+Implement(ANSWER0=RESULT(var='The bed is on the right of the image.'))
+
+<End of Modified Plan>

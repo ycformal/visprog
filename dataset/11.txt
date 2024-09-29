@@ -1,4 +1,4 @@
-multimodal input: IMAGE
+multimodal input: IMAGE (640wx426h)
 
 CAPTION_IMAGE="The image shows a man and a woman standing in front of a giraffe. The man is on the right side of the image and is looking up at the giraffe with a smile on his face. The giraffe is facing the man and appears to be sniffing the man's nose. In the background, there are trees and bushes, and a wooden fence can be seen on the left side. The sky is blue and the overall atmosphere is peaceful and serene."
 

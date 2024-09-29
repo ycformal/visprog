@@ -1,0 +1,92 @@
+multimodal input: IMAGE (640wx480h)
+
+CAPTION_IMAGE="The image shows a young woman sitting in front of a bathroom mirror. She is holding a makeup brush in her right hand and appears to be applying makeup. The mirror is on a white countertop and there are various makeup items such as a black mug, a bottle of lotion, and a few brushes scattered around it. The woman is wearing a black and white patterned top and has blonde hair tied up in a bun. In the reflection of the mirror, she is looking at her reflection and seems to be in the process of applying her makeup."
+
+Q="Is the mirror in front of the woman made of glass?"
+
+<End of Context>
+
+From the caption, I know there is indeed a mirror, and it is in front of the woman. I need to locate the mirror and ask its material. Although the woman is also a central object, I don't need to locate it at first, because there is also a imaginary woman in the image. Just locate the mirror and see whether the question can be answered.
+
+<End of Thought>
+
+Step(Locate the mirror.)
+Step(Crop the mirror.)
+Step(Get the material of the mirror.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the mirror.)
+Thought(Directly use LOC to locate the mirror. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='mirror'))
+Step(Crop the mirror.)
+Step(Get the material of the mirror.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the mirror.)
+Thought(Directly use LOC to locate the mirror. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='mirror'))
+<result>
+[[261, 277, 362, 423], [95, 179, 163, 262], [380, 0, 547, 123], [257, 0, 355, 95], [3, 2, 336, 326], [281, 137, 339, 247], [0, 228, 304, 327], [0, 0, 103, 265]]
+</result>
+Thought(There are 8 bounding boxes in total. Their sizes (w x h) are 61x146, 68x183, 167x123, 98x95, 333x334, 58x110, 304x99, 103x265. Note that some of bounding boxes are inside a larger one. I guess this is because the mirror can reflect the light beam and the image causes a wrong detection. Therefore, I would first choose the largest bounding box, the 5th bounding box with size 333x334 as the true mirror. If anything abnormal happens, I will track back and try other bounding boxes.)
+Step(Crop the mirror.)
+Thought(Directly call CROP. Since I want crop on the 5th bounding box, the index argument should be set to 4. Store the cropped image in IMAGE0.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=4))
+Step(Get the material of the mirror.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the mirror.)
+Thought(Directly use LOC to locate the mirror. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='mirror'))
+<result>
+[[261, 277, 362, 423], [95, 179, 163, 262], [380, 0, 547, 123], [257, 0, 355, 95], [3, 2, 336, 326], [281, 137, 339, 247], [0, 228, 304, 327], [0, 0, 103, 265]]
+</result>
+Thought(There are 8 bounding boxes in total. Their sizes (w x h) are 61x146, 68x183, 167x123, 98x95, 333x334, 58x110, 304x99, 103x265. Note that some of bounding boxes are inside a larger one. I guess this is because the mirror can reflect the light beam and the image causes a wrong detection. Therefore, I would first choose the largest bounding box, the 5th bounding box with size 333x334 as the true mirror. If anything abnormal happens, I will track back and try other bounding boxes.)
+Step(Crop the mirror.)
+Thought(Directly call CROP. Since I want crop on the 5th bounding box, the index argument should be set to 4. Store the cropped image in IMAGE0.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=4))
+<result>
+<PIL.Image.Image image mode=RGB size=418x407 at 0x7B4823345B70>
+The image shows a young woman sitting in front of a bathroom mirror. She is holding a makeup brush in her right hand and appears to be applying makeup. The mirror is on a white countertop and there are several makeup brushes and a red purse on the countertop next to it. There is also a black mug and a bottle of lotion on the sink. The woman has blonde hair tied up in a bun and is looking at her reflection in the mirror.
+</result>
+Thought(Indeed, the 5th bounding box is the correct one. I've got a clear view of the mirror. Now proceed to the next step to check the material of the mirror.)
+Step(Get the material of the mirror.)
+Thought(The original question asks whether the mirror is made of glass. Use VQA to ask that question. Store the answer in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Is the mirror made of glass?'))
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the mirror.)
+Thought(Directly use LOC to locate the mirror. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='mirror'))
+<result>
+[[261, 277, 362, 423], [95, 179, 163, 262], [380, 0, 547, 123], [257, 0, 355, 95], [3, 2, 336, 326], [281, 137, 339, 247], [0, 228, 304, 327], [0, 0, 103, 265]]
+</result>
+Thought(There are 8 bounding boxes in total. Their sizes (w x h) are 61x146, 68x183, 167x123, 98x95, 333x334, 58x110, 304x99, 103x265. Note that some of bounding boxes are inside a larger one. I guess this is because the mirror can reflect the light beam and the image causes a wrong detection. Therefore, I would first choose the largest bounding box, the 5th bounding box with size 333x334 as the true mirror. If anything abnormal happens, I will track back and try other bounding boxes.)
+Step(Crop the mirror.)
+Thought(Directly call CROP. Since I want crop on the 5th bounding box, the index argument should be set to 4. Store the cropped image in IMAGE0.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=4))
+<result>
+<PIL.Image.Image image mode=RGB size=418x407 at 0x7B4823345B70>
+The image shows a young woman sitting in front of a bathroom mirror. She is holding a makeup brush in her right hand and appears to be applying makeup. The mirror is on a white countertop and there are several makeup brushes and a red purse on the countertop next to it. There is also a black mug and a bottle of lotion on the sink. The woman has blonde hair tied up in a bun and is looking at her reflection in the mirror.
+</result>
+Thought(Indeed, the 5th bounding box is the correct one. I've got a clear view of the mirror. Now proceed to the next step to check the material of the mirror.)
+Step(Get the material of the mirror.)
+Thought(The original question asks whether the mirror is made of glass. Use VQA to ask that question. Store the answer in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Is the mirror made of glass?'))
+<result>
+yes
+</result>
+Thought(The mirror is made of glass. Now I can give the answer.)
+Step(Summarize and answer.)
+Thought(The answer is yes. Store it in ANSWER1.)
+Implement(ANSWER1=RESULT(var='Yes.'))
+
+<End of Modified Plan>

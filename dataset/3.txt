@@ -1,4 +1,4 @@
-multimodal input: IMAGE
+multimodal input: IMAGE (427wx640h)
 
 CAPTION_IMAGE="The image shows a kitchen countertop with various kitchen items on it. On the left side of the countertop, there is a black chalkboard with the words "What happens next?" written on it in white chalk. Above the chalkboard, there are two framed pictures hanging on the wall. The wall is painted in a bright yellow color and there are a few kitchen utensils hanging on a hook on the right side. In the center of the image, there appears to be a white toaster, a potted plant, and a few jars and containers on the counter. The countertop is made of wood and has a white tile backsplash."
 

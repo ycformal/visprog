@@ -1,4 +1,4 @@
-multimodal input: IMAGE
+multimodal input: IMAGE (500wx500h)
 
 CAPTION_IMAGE="The image shows a young boy running on a street with a colorful kite in the air. The boy is wearing a red t-shirt and blue shorts and appears to be in mid-stride, with his arms and legs stretched out in front of him. He is running towards the kite, which is flying high in the sky. The kite has a red, yellow, and blue design on it. The street is lined with trees and there is a white garage door on the right side of the image. There is a trash can and a green bag on the ground next to the garage door. The sky is blue and there are a few clouds in the background."
 

@@ -1,0 +1,44 @@
+multimodal input: IMAGE (640wx381h)
+
+CAPTION_IMAGE="The image shows two young men sitting on a brown leather couch in a living room. The man on the left is wearing a white t-shirt and black pants, and is holding a pair of black and white sneakers in his left hand. He appears to be deep in thought, with his eyes closed and his head resting on the armrest of the couch. On the right side of the image, there is a young man wearing an orange shirt and blue jeans, sitting on the couch and smiling at the camera. He is also holding a book in his right hand. In the background, there are two lamps and a clock on the wall."
+
+Q="Is there a lamp in this picture that is large?"
+
+<End of Context>
+
+From the caption, I know there are lamps. I plan locate the lamps and see their sizes. I need to judge whether the lamps are large based on their sizes. After knowing whether there are lamps and their sizes, I can answer the question whether there is a large lamp.
+
+<End of Thought>
+
+Step(Locate the lamps.)
+Step(Measure the size of the lamps.)
+Step(Judge whether there is a large lamp.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the lamps.)
+Thought(Directly use LOC to locate the lamps. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='lamp'))
+Step(Measure the size of the lamps.)
+Step(Judge whether there is a large lamp.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the lamps.)
+Thought(Directly use LOC to locate the lamps. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='lamp'))
+<result>
+[[533, 61, 629, 185], [0, 183, 44, 284]]
+</result>
+Thought(There are two bounding boxes. I'll judge their sizes then.)
+Step(Measure the size of the lamps.)
+Thought(629-533=76, 185-61=124. For the first bounding box, it is 76wx124h. 284-183=101. For the second one, the size is 44wx101h. The first one is larger. The size of the image is 640wx381h, so the height of the first bounding box is about 33% height as opposed to the whole image. It is large.)
+Step(Judge whether there is a large lamp.)
+Thought(Yes, there is a large lamp.)
+Step(Summarize and answer.)
+Thought(From the above analysis, I know there is a lamp whose height is about 33% of the overall height of the image. This size is large enough. Store the answer in ANSWER0.)
+Implement(ANSWER0=RESULT(var='Yes. There is a lamp whose height is about 33% of the overall height of the image.'))
+
+<End of Modified Plan>

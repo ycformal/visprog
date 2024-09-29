@@ -1,4 +1,4 @@
-multimodal input: IMAGE
+multimodal input: IMAGE (640wx396h)
 
 CAPTION_IMAGE="The image shows a group of horses running on a rocky hillside. The hill is covered in shrubs and bushes, and the sky is blue with a few scattered clouds. The horses are of different sizes and colors, with some being brown and others being black. They are galloping across the hill, with their manes and tails flowing in the wind. The sky is clear and blue, and there are no clouds in sight. The overall mood of the image is peaceful and serene."
 

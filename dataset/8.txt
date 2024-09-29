@@ -1,4 +1,4 @@
-multimodal input: IMAGE
+multimodal input: IMAGE (640wx480h)
 
 CAPTION_IMAGE="The image shows a plate with a sandwich and a salad on it. The plate is white with blue stripes and has a blue rim. The sandwich is made with a toasted bun and is placed on top of a bed of green arugula leaves. There are two slices of red apple on the plate, one on each side of the sandwich. The salad is made up of broccoli, red bell peppers, and yellow cheese. There is a fork and knife on the table next to the plate. In the background, there is a glass of water and a black and white patterned cup."
 

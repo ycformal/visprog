@@ -1,4 +1,4 @@
-multimodal input: IMAGE
+multimodal input: IMAGE (640wx480h)
 
 CAPTION_IMAGE="The image shows an orange tabby cat lying on its side on a glass desk. The cat is resting its head on a white mouse pad and appears to be sleeping. On the desk, there is a laptop, a keyboard, a lamp, and a few pens and pencils in a holder. There are also a few books and a potted plant on the desk."
 
