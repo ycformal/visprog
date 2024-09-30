@@ -1,0 +1,107 @@
+multimodal input: IMAGE (500wx375h)
+
+CAPTION_IMAGE="The image shows a woman in a grocery store, reaching for a large pile of bananas. She is wearing a black jacket and has her hair tied back in a ponytail. The bananas are stacked on top of each other in two woven baskets. In the background, there is a man standing next to a vending machine with a sign that reads "Try Our New Iced Coffee". The store appears to be well-stocked with various items for sale."
+
+Q="Are these small bananas?"
+
+<End of Context>
+
+From the caption, I know there is a large pile of bananas. I can locate the bananas and see their size. If the size is small, then I can directly answer them as small bananas. The judgement of size is subjective, so I need to carefully craft the question. I can let VQA to make a choice between small, large and medium, instead of asking whether the bananas are small.
+
+<End of Thought>
+
+Step(Locate the bananas.)
+Step(Crop the region.)
+Step(Ask the VQA model about the size of those bananas.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the bananas.)
+Thought(Directly use LOC to locate the bananas. I want to locate all bananas as a whole, so use "bananas" as the keyword instead of "banana". Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='bananas'))
+Step(Crop the region.)
+Step(Ask the VQA model about the size of those bananas.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bananas.)
+Thought(Directly use LOC to locate the bananas. I want to locate all bananas as a whole, so use "bananas" as the keyword instead of "banana". Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='bananas'))
+<result>
+[[31, 122, 396, 305], [85, 355, 223, 374]]
+</result>
+Thought(There are two bounding boxes. The first one is much larger, so it must be the large pile of bananas. The second one is probably a long shape banana or several bananas in a line. For this question, I'm more concerned about the first one. Now, let's start the next step.)
+Step(Crop the region.)
+Thought(Directly use CROP. Crop the first bounding box. Store the cropped image in IMAGE0.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=0))
+Step(Ask the VQA model about the size of those bananas.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bananas.)
+Thought(Directly use LOC to locate the bananas. I want to locate all bananas as a whole, so use "bananas" as the keyword instead of "banana". Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='bananas'))
+<result>
+[[31, 122, 396, 305], [85, 355, 223, 374]]
+</result>
+Thought(There are two bounding boxes. The first one is much larger, so it must be the large pile of bananas. The second one is probably a long shape banana or several bananas in a line. For this question, I'm more concerned about the first one. Now, let's start the next step.)
+Step(Crop the region.)
+Thought(Directly use CROP. Crop the first bounding box. Store the cropped image in IMAGE0.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=0))
+Step(Ask the VQA model about the size of those bananas.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bananas.)
+Thought(Directly use LOC to locate the bananas. I want to locate all bananas as a whole, so use "bananas" as the keyword instead of "banana". Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='bananas'))
+<result>
+[[31, 122, 396, 305], [85, 355, 223, 374]]
+</result>
+Thought(There are two bounding boxes. The first one is much larger, so it must be the large pile of bananas. The second one is probably a long shape banana or several bananas in a line. For this question, I'm more concerned about the first one. Now, let's start the next step.)
+Step(Crop the region.)
+Thought(Directly use CROP. Crop the first bounding box. Store the cropped image in IMAGE0.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=0))
+<result>
+<PIL.Image.Image image mode=RGB size=486x274 at 0x797745753DF0>
+The image shows a woman in a grocery store, reaching for a bunch of bananas. She is wearing a black shirt and has long dark hair. The bananas are in two large wicker baskets, one on top of the other. The woman is standing in front of a black refrigerator with a sign that reads "Red Coffee". There are other people in the background, but they are not visible. The store appears to be well-stocked with various items.
+</result>
+Thought(OK, I think I cropped the right region. I need to know the size of bananas. Note what is said before, it's better to let VQA to choose between "large", "medium" and "small" instead of directly asking whether the bananas are small.)
+Step(Ask the VQA model about the size of those bananas.)
+Thought(Be careful about the question. The result is stored in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Are those bananas small, large or in medium size?'))
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bananas.)
+Thought(Directly use LOC to locate the bananas. I want to locate all bananas as a whole, so use "bananas" as the keyword instead of "banana". Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='bananas'))
+<result>
+[[31, 122, 396, 305], [85, 355, 223, 374]]
+</result>
+Thought(There are two bounding boxes. The first one is much larger, so it must be the large pile of bananas. The second one is probably a long shape banana or several bananas in a line. For this question, I'm more concerned about the first one. Now, let's start the next step.)
+Step(Crop the region.)
+Thought(Directly use CROP. Crop the first bounding box. Store the cropped image in IMAGE0.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=0))
+<result>
+<PIL.Image.Image image mode=RGB size=486x274 at 0x797745753DF0>
+The image shows a woman in a grocery store, reaching for a bunch of bananas. She is wearing a black shirt and has long dark hair. The bananas are in two large wicker baskets, one on top of the other. The woman is standing in front of a black refrigerator with a sign that reads "Red Coffee". There are other people in the background, but they are not visible. The store appears to be well-stocked with various items.
+</result>
+Thought(OK, I think I cropped the right region. I need to know the size of bananas. Note what is said before, it's better to let VQA to choose between "large", "medium" and "small" instead of directly asking whether the bananas are small.)
+Step(Ask the VQA model about the size of those bananas.)
+Thought(Be careful about the question. The result is stored in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Are those bananas small, large or in medium size?'))
+<result>
+small
+</result>
+Thought(OK, the bananas are small. Now I can give the answer.)
+Step(Summarize and answer.)
+Thought(Those are small bananas, so the answer is "yes". The result is stored in ANSWER1.)
+Implement(ANSWER1=RESULT(var='Yes, these are small bananas.'))
+
+<End of Modified Plan>

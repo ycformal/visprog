@@ -1,0 +1,280 @@
+multimodal input: IMAGE (640wx427h)
+
+CAPTION_IMAGE="The image shows a vase of white roses on a wooden table in a living room. The vase is made of clear glass and has a gold rim. The roses are in full bloom with green leaves and stems. In the background, there are two people standing in the living room, one of them is holding a cup of coffee and the other is looking at the roses. The room is decorated with a brick fireplace, a couch, and a bookshelf. The floor is covered with a red carpet."
+
+Q="What is in front of the bricks?"
+
+<End of Context>
+
+From the caption, I know there is a brick fireplace. One possible understanding of "in front of the bricks" is something is facing the fireplace, which is a typical spatial relation. However, it is difficult to get the orientation of bricks, because bricks do not have a face like human. But I'm still capable to locate the corresponding region because "in front of" means the target object is near the bricks. Therefore, I only need to crop the bricks. Since bricks are the main object in the problem, let's locate them first.
+
+<End of Thought>
+
+Step(Locate the bricks.)
+Step(Crop the region in front of the bricks.)
+Step(Ask VQA about the cropped image and get the answer.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the bricks.)
+Thought(Directly use LOC to locate the bricks. Store the result in BOX0. Note that I want to locate the group of bricks as a whole, so use "bricks" as the object instead of "brick".)
+Implement(BOX0=LOC(image=IMAGE,object='bricks'))
+Step(Crop the region in front of the bricks.)
+Step(Ask VQA about the cropped image and get the answer.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bricks.)
+Thought(Directly use LOC to locate the bricks. Store the result in BOX0. Note that I want to locate the group of bricks as a whole, so use "bricks" as the object instead of "brick".)
+Implement(BOX0=LOC(image=IMAGE,object='bricks'))
+<result>
+[]
+</result>
+Thought(LOC cannot locate the bricks. This may because the bricks are too dense. Let's try a more general object "fireplace", and see if I can locate any region facing the bricks.)
+Step(Modify and try locating again.)
+Step(Crop the region in front of the bricks.)
+Step(Ask VQA about the cropped image and get the answer.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bricks.)
+Thought(Directly use LOC to locate the bricks. Store the result in BOX0. Note that I want to locate the group of bricks as a whole, so use "bricks" as the object instead of "brick".)
+Implement(BOX0=LOC(image=IMAGE,object='bricks'))
+<result>
+[]
+</result>
+Thought(LOC cannot locate the bricks. This may because the bricks are too dense. Let's try a more general object "fireplace", and see if I can locate any region facing the bricks.)
+Step(Modify and try locating again.)
+Thought(I can try to use the keyword "fireplace". If this time LOC successfully locates, then crop the region and see if it is made of bricks.)
+Substep(Locate the fireplace.)
+Substep(If succeed, verify it is made of bricks so that I've cropped the correct region.)
+Step(Crop the region in front of the bricks.)
+Step(Ask VQA about the cropped image and get the answer.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bricks.)
+Thought(Directly use LOC to locate the bricks. Store the result in BOX0. Note that I want to locate the group of bricks as a whole, so use "bricks" as the object instead of "brick".)
+Implement(BOX0=LOC(image=IMAGE,object='bricks'))
+<result>
+[]
+</result>
+Thought(LOC cannot locate the bricks. This may because the bricks are too dense. Let's try a more general object "fireplace", and see if I can locate any region facing the bricks.)
+Step(Modify and try locating again.)
+Thought(I can try to use the keyword "fireplace". If this time LOC successfully locates, then crop the region and see if it is made of bricks.)
+Substep(Locate the fireplace.)
+Thought(Directly use LOC. Store the result in BOX1, as BOX0 is assigned.)
+Implement(BOX1=LOC(image=IMAGE,object='fireplace'))
+Substep(If succeed, verify it is made of bricks so that I've cropped the correct region.)
+Step(Crop the region in front of the bricks.)
+Step(Ask VQA about the cropped image and get the answer.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bricks.)
+Thought(Directly use LOC to locate the bricks. Store the result in BOX0. Note that I want to locate the group of bricks as a whole, so use "bricks" as the object instead of "brick".)
+Implement(BOX0=LOC(image=IMAGE,object='bricks'))
+<result>
+[]
+</result>
+Thought(LOC cannot locate the bricks. This may because the bricks are too dense. Let's try a more general object "fireplace", and see if I can locate any region facing the bricks.)
+Step(Modify and try locating again.)
+Thought(I can try to use the keyword "fireplace". If this time LOC successfully locates, then crop the region and see if it is made of bricks.)
+Substep(Locate the fireplace.)
+Thought(Directly use LOC. Store the result in BOX1, as BOX0 is assigned.)
+Implement(BOX1=LOC(image=IMAGE,object='fireplace'))
+<result>
+[[281, 41, 388, 145], [267, 2, 534, 210]]
+</result>
+Thought(There are two bounding boxes, but [267, 2, 534, 210] is comprised in [281, 41, 388, 145]. To crop more region and find the object in front of it, I prefer the larger one, [267, 2, 534, 210].)
+Substep(If succeed, verify it is made of bricks so that I've cropped the correct region.)
+Thought(Now that LOC successfully located the fireplace. Let's crop it and see what the caption says first. The cropped image is stored in IMAGE0. Since I want to crop on the second bounding box, set the index argument to be 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX1,index=1))
+Step(Crop the region in front of the bricks.)
+Step(Ask VQA about the cropped image and get the answer.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bricks.)
+Thought(Directly use LOC to locate the bricks. Store the result in BOX0. Note that I want to locate the group of bricks as a whole, so use "bricks" as the object instead of "brick".)
+Implement(BOX0=LOC(image=IMAGE,object='bricks'))
+<result>
+[]
+</result>
+Thought(LOC cannot locate the bricks. This may because the bricks are too dense. Let's try a more general object "fireplace", and see if I can locate any region facing the bricks.)
+Step(Modify and try locating again.)
+Thought(I can try to use the keyword "fireplace". If this time LOC successfully locates, then crop the region and see if it is made of bricks.)
+Substep(Locate the fireplace.)
+Thought(Directly use LOC. Store the result in BOX1, as BOX0 is assigned.)
+Implement(BOX1=LOC(image=IMAGE,object='fireplace'))
+<result>
+[[281, 41, 388, 145], [267, 2, 534, 210]]
+</result>
+Thought(There are two bounding boxes, but [267, 2, 534, 210] is comprised in [281, 41, 388, 145]. To crop more region and find the object in front of it, I prefer the larger one, [267, 2, 534, 210].)
+Substep(If succeed, verify it is made of bricks so that I've cropped the correct region.)
+Thought(Now that LOC successfully located the fireplace. Let's crop it and see what the caption says first. The cropped image is stored in IMAGE0. Since I want to crop on the second bounding box, set the index argument to be 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX1,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=400x262 at 0x7977457539D0>
+The image shows a bunch of white roses in a vase on a table. The roses are in full bloom and are arranged in a way that they are facing towards the right side of the image. The vase is made of glass and has green leaves. In the background, there is a brick wall and a wooden chair. On the left side, there are two people standing and one person is holding a cup of coffee. The image appears to be taken in a room with a brick fireplace.
+</result>
+Thought(Indeed! There is a brick wall. I'm sure the major brick is made of bricks, and I guess that the answer is the wooden chair. However, to make sure of it, I need to ask VQA. The CROP step is already done. Just as what previously said, it is hard to know the orientation of the wall, but the CROP module itself can crop the surrounding of the wall. Since this is a room, everything near the wall can be regarded as in front of it. Let's remove the CROP step and directly head to VQA.)
+Step(Ask VQA about the cropped image and get the answer.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bricks.)
+Thought(Directly use LOC to locate the bricks. Store the result in BOX0. Note that I want to locate the group of bricks as a whole, so use "bricks" as the object instead of "brick".)
+Implement(BOX0=LOC(image=IMAGE,object='bricks'))
+<result>
+[]
+</result>
+Thought(LOC cannot locate the bricks. This may because the bricks are too dense. Let's try a more general object "fireplace", and see if I can locate any region facing the bricks.)
+Step(Modify and try locating again.)
+Thought(I can try to use the keyword "fireplace". If this time LOC successfully locates, then crop the region and see if it is made of bricks.)
+Substep(Locate the fireplace.)
+Thought(Directly use LOC. Store the result in BOX1, as BOX0 is assigned.)
+Implement(BOX1=LOC(image=IMAGE,object='fireplace'))
+<result>
+[[281, 41, 388, 145], [267, 2, 534, 210]]
+</result>
+Thought(There are two bounding boxes, but [267, 2, 534, 210] is comprised in [281, 41, 388, 145]. To crop more region and find the object in front of it, I prefer the larger one, [267, 2, 534, 210].)
+Substep(If succeed, verify it is made of bricks so that I've cropped the correct region.)
+Thought(Now that LOC successfully located the fireplace. Let's crop it and see what the caption says first. The cropped image is stored in IMAGE0. Since I want to crop on the second bounding box, set the index argument to be 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX1,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=400x262 at 0x7977457539D0>
+The image shows a bunch of white roses in a vase on a table. The roses are in full bloom and are arranged in a way that they are facing towards the right side of the image. The vase is made of glass and has green leaves. In the background, there is a brick wall and a wooden chair. On the left side, there are two people standing and one person is holding a cup of coffee. The image appears to be taken in a room with a brick fireplace.
+</result>
+Thought(Indeed! There is a brick wall. I'm sure the major brick is made of bricks, and I guess that the answer is the wooden chair. However, to make sure of it, I need to ask VQA. The CROP step is already done. Just as what previously said, it is hard to know the orientation of the wall, but the CROP module itself can crop the surrounding of the wall. Since this is a room, everything near the wall can be regarded as in front of it. Let's remove the CROP step and directly head to VQA.)
+Step(Ask VQA about the cropped image and get the answer.)
+Thought(Ask what is in front of the brick wall. Directly use VQA on the cropped image, and store the result in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='What is in front of the brick wall?'))
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bricks.)
+Thought(Directly use LOC to locate the bricks. Store the result in BOX0. Note that I want to locate the group of bricks as a whole, so use "bricks" as the object instead of "brick".)
+Implement(BOX0=LOC(image=IMAGE,object='bricks'))
+<result>
+[]
+</result>
+Thought(LOC cannot locate the bricks. This may because the bricks are too dense. Let's try a more general object "fireplace", and see if I can locate any region facing the bricks.)
+Step(Modify and try locating again.)
+Thought(I can try to use the keyword "fireplace". If this time LOC successfully locates, then crop the region and see if it is made of bricks.)
+Substep(Locate the fireplace.)
+Thought(Directly use LOC. Store the result in BOX1, as BOX0 is assigned.)
+Implement(BOX1=LOC(image=IMAGE,object='fireplace'))
+<result>
+[[281, 41, 388, 145], [267, 2, 534, 210]]
+</result>
+Thought(There are two bounding boxes, but [267, 2, 534, 210] is comprised in [281, 41, 388, 145]. To crop more region and find the object in front of it, I prefer the larger one, [267, 2, 534, 210].)
+Substep(If succeed, verify it is made of bricks so that I've cropped the correct region.)
+Thought(Now that LOC successfully located the fireplace. Let's crop it and see what the caption says first. The cropped image is stored in IMAGE0. Since I want to crop on the second bounding box, set the index argument to be 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX1,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=400x262 at 0x7977457539D0>
+The image shows a bunch of white roses in a vase on a table. The roses are in full bloom and are arranged in a way that they are facing towards the right side of the image. The vase is made of glass and has green leaves. In the background, there is a brick wall and a wooden chair. On the left side, there are two people standing and one person is holding a cup of coffee. The image appears to be taken in a room with a brick fireplace.
+</result>
+Thought(Indeed! There is a brick wall. I'm sure the major brick is made of bricks, and I guess that the answer is the wooden chair. However, to make sure of it, I need to ask VQA. The CROP step is already done. Just as what previously said, it is hard to know the orientation of the wall, but the CROP module itself can crop the surrounding of the wall. Since this is a room, everything near the wall can be regarded as in front of it. Let's remove the CROP step and directly head to VQA.)
+Step(Ask VQA about the cropped image and get the answer.)
+Thought(Ask what is in front of the brick wall. Directly use VQA on the cropped image, and store the result in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='What is in front of the brick wall?'))
+<result>
+flowers
+</result>
+Thought(This is not the desired answer, because the flowers are on the table. I'll directly ask if the chair is in front of the brick wall. If the answer is yes, then it's the chair. Otherwise, the answer for question Q has to be flowers. I need one more step to do this.)
+Step(Ask whether the chair is in front of the brick wall.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bricks.)
+Thought(Directly use LOC to locate the bricks. Store the result in BOX0. Note that I want to locate the group of bricks as a whole, so use "bricks" as the object instead of "brick".)
+Implement(BOX0=LOC(image=IMAGE,object='bricks'))
+<result>
+[]
+</result>
+Thought(LOC cannot locate the bricks. This may because the bricks are too dense. Let's try a more general object "fireplace", and see if I can locate any region facing the bricks.)
+Step(Modify and try locating again.)
+Thought(I can try to use the keyword "fireplace". If this time LOC successfully locates, then crop the region and see if it is made of bricks.)
+Substep(Locate the fireplace.)
+Thought(Directly use LOC. Store the result in BOX1, as BOX0 is assigned.)
+Implement(BOX1=LOC(image=IMAGE,object='fireplace'))
+<result>
+[[281, 41, 388, 145], [267, 2, 534, 210]]
+</result>
+Thought(There are two bounding boxes, but [267, 2, 534, 210] is comprised in [281, 41, 388, 145]. To crop more region and find the object in front of it, I prefer the larger one, [267, 2, 534, 210].)
+Substep(If succeed, verify it is made of bricks so that I've cropped the correct region.)
+Thought(Now that LOC successfully located the fireplace. Let's crop it and see what the caption says first. The cropped image is stored in IMAGE0. Since I want to crop on the second bounding box, set the index argument to be 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX1,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=400x262 at 0x7977457539D0>
+The image shows a bunch of white roses in a vase on a table. The roses are in full bloom and are arranged in a way that they are facing towards the right side of the image. The vase is made of glass and has green leaves. In the background, there is a brick wall and a wooden chair. On the left side, there are two people standing and one person is holding a cup of coffee. The image appears to be taken in a room with a brick fireplace.
+</result>
+Thought(Indeed! There is a brick wall. I'm sure the major brick is made of bricks, and I guess that the answer is the wooden chair. However, to make sure of it, I need to ask VQA. The CROP step is already done. Just as what previously said, it is hard to know the orientation of the wall, but the CROP module itself can crop the surrounding of the wall. Since this is a room, everything near the wall can be regarded as in front of it. Let's remove the CROP step and directly head to VQA.)
+Step(Ask VQA about the cropped image and get the answer.)
+Thought(Ask what is in front of the brick wall. Directly use VQA on the cropped image, and store the result in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='What is in front of the brick wall?'))
+<result>
+flowers
+</result>
+Thought(This is not the desired answer, because the flowers are on the table. I'll directly ask if the chair is in front of the brick wall. If the answer is yes, then it's the chair. Otherwise, the answer for question Q has to be flowers. I need one more step to do this.)
+Step(Ask whether the chair is in front of the brick wall.)
+Thought(I already know there is a chair in IMAGE0, so directly ask VQA on IMAGE0. The answer should be stored in ANSWER1.)
+Implement(ANSWER1=VQA(image=IMAGE0,question='Is the chair in front of the brick wall?'))
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the bricks.)
+Thought(Directly use LOC to locate the bricks. Store the result in BOX0. Note that I want to locate the group of bricks as a whole, so use "bricks" as the object instead of "brick".)
+Implement(BOX0=LOC(image=IMAGE,object='bricks'))
+<result>
+[]
+</result>
+Thought(LOC cannot locate the bricks. This may because the bricks are too dense. Let's try a more general object "fireplace", and see if I can locate any region facing the bricks.)
+Step(Modify and try locating again.)
+Thought(I can try to use the keyword "fireplace". If this time LOC successfully locates, then crop the region and see if it is made of bricks.)
+Substep(Locate the fireplace.)
+Thought(Directly use LOC. Store the result in BOX1, as BOX0 is assigned.)
+Implement(BOX1=LOC(image=IMAGE,object='fireplace'))
+<result>
+[[281, 41, 388, 145], [267, 2, 534, 210]]
+</result>
+Thought(There are two bounding boxes, but [267, 2, 534, 210] is comprised in [281, 41, 388, 145]. To crop more region and find the object in front of it, I prefer the larger one, [267, 2, 534, 210].)
+Substep(If succeed, verify it is made of bricks so that I've cropped the correct region.)
+Thought(Now that LOC successfully located the fireplace. Let's crop it and see what the caption says first. The cropped image is stored in IMAGE0. Since I want to crop on the second bounding box, set the index argument to be 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX1,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=400x262 at 0x7977457539D0>
+The image shows a bunch of white roses in a vase on a table. The roses are in full bloom and are arranged in a way that they are facing towards the right side of the image. The vase is made of glass and has green leaves. In the background, there is a brick wall and a wooden chair. On the left side, there are two people standing and one person is holding a cup of coffee. The image appears to be taken in a room with a brick fireplace.
+</result>
+Thought(Indeed! There is a brick wall. I'm sure the major brick is made of bricks, and I guess that the answer is the wooden chair. However, to make sure of it, I need to ask VQA. The CROP step is already done. Just as what previously said, it is hard to know the orientation of the wall, but the CROP module itself can crop the surrounding of the wall. Since this is a room, everything near the wall can be regarded as in front of it. Let's remove the CROP step and directly head to VQA.)
+Step(Ask VQA about the cropped image and get the answer.)
+Thought(Ask what is in front of the brick wall. Directly use VQA on the cropped image, and store the result in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='What is in front of the brick wall?'))
+<result>
+flowers
+</result>
+Thought(This is not the desired answer, because the flowers are on the table. I'll directly ask if the chair is in front of the brick wall. If the answer is yes, then it's the chair. Otherwise, the answer for question Q has to be flowers. I need one more step to do this.)
+Step(Ask whether the chair is in front of the brick wall.)
+Thought(I already know there is a chair in IMAGE0, so directly ask VQA on IMAGE0. The answer should be stored in ANSWER1.)
+Implement(ANSWER1=VQA(image=IMAGE0,question='Is the chair in front of the brick wall?'))
+<result>
+yes
+</result>
+Thought(The chair is the answer, as what is expected. Now I can get to the Summarize step and give the answer.)
+Step(Summarize and answer.)
+Thought(From the above analysis, I know the chair is the object in front of the brick fireplace. The answer is "chair". Store it in ANSWER2.)
+Implement(ANSWER2=RESULT(var='The chair is in front of the bricks.',ANSWER2))
+
+<End of Modified Plan>

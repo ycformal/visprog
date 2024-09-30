@@ -1,0 +1,179 @@
+multimodal input: IMAGE (640wx427h)
+
+CAPTION_IMAGE="The image shows two men standing next to a brown horse on a dirt path in a wooded area. The horse is tied up with a saddle and bridle, and there is a blue duffel bag on the ground next to it. The man on the left is wearing a black jacket, jeans, and a baseball cap, and is bending down to pet the horse. The other man is standing behind the horse, wearing a white shirt, blue jeans, a black baseball cap and a plaid shirt. There are several other bags and equipment scattered around the path, including a backpack and a camera. In the background, there are trees and bushes, and the sky is blue and clear."
+
+Q="What type of animal are the trees in front of?"
+
+<End of Context>
+
+From the caption, I know there is a horse, which is probably the answer, but I'm not 100% sure. The question asks the type of the animal the trees in front of. I can understand it as: there are some trees, and there is an animal in front of the trees. I need to locate the tree and the animal, and judge whether the tree is in front of the animal. If it is, then I will ask figure out what the animal is. If there are many animals, then I will check them one by one.
+
+<End of Thought>
+
+Step(Locate the animal.)
+Step(Locate the trees.)
+Step(Judge whether the trees are in front of the animal.)
+Step(Figure out what the animal is.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the animal.)
+Thought(Directly use LOC to locate the animal. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='animal'))
+Step(Locate the trees.)
+Step(Judge whether the trees are in front of the animal.)
+Step(Figure out what the animal is.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the animal.)
+Thought(Directly use LOC to locate the animal. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='animal'))
+<result>
+[]
+</result>
+Thought(The LOC module cannot detect the animal. I'll try to directly search for the horse, and judge whether the trees are in front of the horse. Therefore, I need to add a step to locate the horse.)
+Step(Locate the horse.)
+Step(Locate the trees.)
+Step(Judge whether the trees are in front of the animal.)
+Step(Figure out what the animal is.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the animal.)
+Thought(Directly use LOC to locate the animal. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='animal'))
+<result>
+[]
+</result>
+Thought(The LOC module cannot detect the animal. I'll try to directly search for the horse, and judge whether the trees are in front of the horse. Therefore, I need to add a step to locate the horse.)
+Step(Locate the horse.)
+Thought(Directly use LOC to locate the horse. Store the result in BOX1 because BOX0 is already assigned.)
+Implement(BOX1=LOC(image=IMAGE,object='horse'))
+Step(Locate the trees.)
+Step(Judge whether the trees are in front of the animal.)
+Step(Figure out what the animal is.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the animal.)
+Thought(Directly use LOC to locate the animal. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='animal'))
+<result>
+[]
+</result>
+Thought(The LOC module cannot detect the animal. I'll try to directly search for the horse, and judge whether the trees are in front of the horse. Therefore, I need to add a step to locate the horse.)
+Step(Locate the horse.)
+Thought(Directly use LOC to locate the horse. Store the result in BOX1 because BOX0 is already assigned.)
+Implement(BOX1=LOC(image=IMAGE,object='horse'))
+<result>
+[[88, 133, 381, 346]]
+</result>
+Thought(There is only 1 bounding box in BOX1. It is safe to say there is only 1 horse. Just as expected, there is a horse. I can proceed to the next step.)
+Step(Locate the trees.)
+Thought(Directly use LOC to locate the trees. I want to locate the group of trees so the object is "trees" instead of "tree". Store the result in BOX2.)
+Implement(BOX2=LOC(image=IMAGE,object='trees'))
+Step(Judge whether the trees are in front of the animal.)
+Step(Figure out what the animal is.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the animal.)
+Thought(Directly use LOC to locate the animal. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='animal'))
+<result>
+[]
+</result>
+Thought(The LOC module cannot detect the animal. I'll try to directly search for the horse, and judge whether the trees are in front of the horse. Therefore, I need to add a step to locate the horse.)
+Step(Locate the horse.)
+Thought(Directly use LOC to locate the horse. Store the result in BOX1 because BOX0 is already assigned.)
+Implement(BOX1=LOC(image=IMAGE,object='horse'))
+<result>
+[[88, 133, 381, 346]]
+</result>
+Thought(There is only 1 bounding box in BOX1. It is safe to say there is only 1 horse. Just as expected, there is a horse. I can proceed to the next step.)
+Step(Locate the trees.)
+Thought(Directly use LOC to locate the trees. I want to locate the group of trees so the object is "trees" instead of "tree". Store the result in BOX2.)
+Implement(BOX2=LOC(image=IMAGE,object='trees'))
+<result>
+[[0, 0, 633, 259], [0, 0, 142, 157], [149, 1, 383, 154], [107, 0, 229, 157], [358, 0, 609, 223]]
+</result>
+Thought(There are 5 bounding boxes in total. The first one is the bounding box that contains all the other bounding boxes. The other 4 are relatively small bounding boxes, probably containing several trees each. In this situation, the index 0 bounding box is the one I want. Now, only the index 0 bounding box is large enough. It contains all the other bounding boxes. I'm sure these bounding boxes are detected trees. Let's move to the next step.)
+Step(Judge whether the trees are in front of the animal.)
+Thought(The bounding box for trees is very wide, almost covering the whole image in its width. Therefore, it is hard to judge the spatial position to the horse by getting the orientation of the horse and the position of trees' bounding box. I have no choice but to resort to the VQA model. I should use the entire image to ask because "in front of the horse" doesn't mean "near the horse", and there's a chance that main objects are cropped if I CROP the horse or trees. Moreover, I the bounding boxes for trees and the horse are already large enough, so the VQA model can already focus on main objects.)
+Implement(ANSWER0=VQA(image=IMAGE,question='Are those trees in front of the horse?'))
+Step(Figure out what the animal is.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the animal.)
+Thought(Directly use LOC to locate the animal. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='animal'))
+<result>
+[]
+</result>
+Thought(The LOC module cannot detect the animal. I'll try to directly search for the horse, and judge whether the trees are in front of the horse. Therefore, I need to add a step to locate the horse.)
+Step(Locate the horse.)
+Thought(Directly use LOC to locate the horse. Store the result in BOX1 because BOX0 is already assigned.)
+Implement(BOX1=LOC(image=IMAGE,object='horse'))
+<result>
+[[88, 133, 381, 346]]
+</result>
+Thought(There is only 1 bounding box in BOX1. It is safe to say there is only 1 horse. Just as expected, there is a horse. I can proceed to the next step.)
+Step(Locate the trees.)
+Thought(Directly use LOC to locate the trees. I want to locate the group of trees so the object is "trees" instead of "tree". Store the result in BOX2.)
+Implement(BOX2=LOC(image=IMAGE,object='trees'))
+<result>
+[[0, 0, 633, 259], [0, 0, 142, 157], [149, 1, 383, 154], [107, 0, 229, 157], [358, 0, 609, 223]]
+</result>
+Thought(There are 5 bounding boxes in total. The first one is the bounding box that contains all the other bounding boxes. The other 4 are relatively small bounding boxes, probably containing several trees each. In this situation, the index 0 bounding box is the one I want. Now, only the index 0 bounding box is large enough. It contains all the other bounding boxes. I'm sure these bounding boxes are detected trees. Let's move to the next step.)
+Step(Judge whether the trees are in front of the animal.)
+Thought(The bounding box for trees is very wide, almost covering the whole image in its width. Therefore, it is hard to judge the spatial position to the horse by getting the orientation of the horse and the position of trees' bounding box. I have no choice but to resort to the VQA model. I should use the entire image to ask because "in front of the horse" doesn't mean "near the horse", and there's a chance that main objects are cropped if I CROP the horse or trees. Moreover, I the bounding boxes for trees and the horse are already large enough, so the VQA model can already focus on main objects.)
+Implement(ANSWER0=VQA(image=IMAGE,question='Are those trees in front of the horse?'))
+<result>
+yes
+</result>
+Thought(Now I know there is a horse and the trees are in front of the horse. I can directly answer the question. Since I directly located the horse, I don't need to figure out the animal anymore because it must be a horse. I'll delete the step to figure out the animal and proceed to the final step.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the animal.)
+Thought(Directly use LOC to locate the animal. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='animal'))
+<result>
+[]
+</result>
+Thought(The LOC module cannot detect the animal. I'll try to directly search for the horse, and judge whether the trees are in front of the horse. Therefore, I need to add a step to locate the horse.)
+Step(Locate the horse.)
+Thought(Directly use LOC to locate the horse. Store the result in BOX1 because BOX0 is already assigned.)
+Implement(BOX1=LOC(image=IMAGE,object='horse'))
+<result>
+[[88, 133, 381, 346]]
+</result>
+Thought(There is only 1 bounding box in BOX1. It is safe to say there is only 1 horse. Just as expected, there is a horse. I can proceed to the next step.)
+Step(Locate the trees.)
+Thought(Directly use LOC to locate the trees. I want to locate the group of trees so the object is "trees" instead of "tree". Store the result in BOX2.)
+Implement(BOX2=LOC(image=IMAGE,object='trees'))
+<result>
+[[0, 0, 633, 259], [0, 0, 142, 157], [149, 1, 383, 154], [107, 0, 229, 157], [358, 0, 609, 223]]
+</result>
+Thought(There are 5 bounding boxes in total. The first one is the bounding box that contains all the other bounding boxes. The other 4 are relatively small bounding boxes, probably containing several trees each. In this situation, the index 0 bounding box is the one I want. Now, only the index 0 bounding box is large enough. It contains all the other bounding boxes. I'm sure these bounding boxes are detected trees. Let's move to the next step.)
+Step(Judge whether the trees are in front of the animal.)
+Thought(The bounding box for trees is very wide, almost covering the whole image in its width. Therefore, it is hard to judge the spatial position to the horse by getting the orientation of the horse and the position of trees' bounding box. I have no choice but to resort to the VQA model. I should use the entire image to ask because "in front of the horse" doesn't mean "near the horse", and there's a chance that main objects are cropped if I CROP the horse or trees. Moreover, I the bounding boxes for trees and the horse are already large enough, so the VQA model can already focus on main objects.)
+Implement(ANSWER0=VQA(image=IMAGE,question='Are those trees in front of the horse?'))
+<result>
+yes
+</result>
+Thought(Now I know there is a horse and the trees are in front of the horse. I can directly answer the question. Since I directly located the horse, I don't need to figure out the animal anymore because it must be a horse. I'll delete the step to figure out the animal and proceed to the final step.)
+Step(Summarize and answer.)
+Thought(The answer is a horse. Since I already know the horse is the answer, I can directly give the final answer. Store the result in ANSWER1 since ANSWER0 is already assigned.)
+Implement(ANSWER1=RESULT(var='The horse.'))
+
+<End of Modified Plan>
