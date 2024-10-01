@@ -1,0 +1,111 @@
+multimodal input: IMAGE (333wx500h)
+
+CAPTION_IMAGE="The image shows a young man playing tennis on a clay court. He is wearing a white t-shirt with red stripes on the sleeves and black shorts. He has a pair of glasses on and is holding a red and black tennis racket in his right hand. The sky is dark and cloudy, suggesting that it is either night or early morning. The man is standing with his left leg extended and his right leg bent at the knee, ready to hit the ball. The image is taken from a low angle, looking up at the sky."
+
+Q="What is the company the made the shoes called?"
+
+<End of Context>
+
+From the caption, I know there is a man. I will try to locate the shoes. If successful, I will ask VQA about the company who made the shoes.
+
+<End of Thought>
+
+Step(Locate the shoes.)
+Step(If the locating is successful, ask VQA for the company who made the shoes.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the shoes.)
+Thought(Directly use LOC to locate the shoes. The result is in bounding boxes. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='shoes'))
+Step(If the locating is successful, ask VQA for the company who made the shoes.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the shoes.)
+Thought(Directly use LOC to locate the shoes. The result is in bounding boxes. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='shoes'))
+<result>
+[[188, 364, 227, 390], [197, 401, 256, 440]]
+</result>
+Thought(There are two bounding boxes, probably they are two shoes. I can focus on one bounding box to ask the brand of the shoes. 227-188=39, 390-364=26, 256-197=59, 440-401=39. The second bounding box is larger. Therefore, I will focus on the second bounding box because the region here has a higher resolution.)
+Step(If the locating is successful, ask VQA for the company who made the shoes.)
+Thought(Before asking VQA, I should crop the region. So divide this step into two substeps.)
+Substep(Crop the second shoe.)
+Substep(Ask VQA what is the company who made the shoes called.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the shoes.)
+Thought(Directly use LOC to locate the shoes. The result is in bounding boxes. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='shoes'))
+<result>
+[[188, 364, 227, 390], [197, 401, 256, 440]]
+</result>
+Thought(There are two bounding boxes, probably they are two shoes. I can focus on one bounding box to ask the brand of the shoes. 227-188=39, 390-364=26, 256-197=59, 440-401=39. The second bounding box is larger. Therefore, I will focus on the second bounding box because the region here has a higher resolution.)
+Step(If the locating is successful, ask VQA for the company who made the shoes.)
+Thought(Before asking VQA, I should crop the region. So divide this step into two substeps.)
+Substep(Crop the second shoe.)
+Thought(Use CROP to crop the region. The result should be stored in IMAGE0. Since I need to crop on the second bounding box, set the index argument to 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+Substep(Ask VQA what is the company who made the shoes called.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the shoes.)
+Thought(Directly use LOC to locate the shoes. The result is in bounding boxes. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='shoes'))
+<result>
+[[188, 364, 227, 390], [197, 401, 256, 440]]
+</result>
+Thought(There are two bounding boxes, probably they are two shoes. I can focus on one bounding box to ask the brand of the shoes. 227-188=39, 390-364=26, 256-197=59, 440-401=39. The second bounding box is larger. Therefore, I will focus on the second bounding box because the region here has a higher resolution.)
+Step(If the locating is successful, ask VQA for the company who made the shoes.)
+Thought(Before asking VQA, I should crop the region. So divide this step into two substeps.)
+Substep(Crop the second shoe.)
+Thought(Use CROP to crop the region. The result should be stored in IMAGE0. Since I need to crop on the second bounding box, set the index argument to 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=88x58 at 0x7AEFFD4DBB20>
+The image shows a close-up of a person's foot wearing a pair of white sneakers. The sneakers have a metallic silver color with blue and black stripes on the sides. The laces are white and the sole of the shoe is white. The person is standing on a brown carpeted floor. The image is taken from a slightly elevated angle, looking down on the person's feet.
+</result>
+Thought(OK, I've known the cropped region contains a shoe. It is the right region. From the description, I guess the brand is adidas. Let me ask VQA the company name. If VQA doesn't know, I'll give my answer adidas. Otherwise, give the answer according to VQA.)
+Substep(Ask VQA what is the company who made the shoes called.)
+Thought(Use VQA to ask the question. The answer should be stored in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='What is the company that made the shoes called?'))
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the shoes.)
+Thought(Directly use LOC to locate the shoes. The result is in bounding boxes. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='shoes'))
+<result>
+[[188, 364, 227, 390], [197, 401, 256, 440]]
+</result>
+Thought(There are two bounding boxes, probably they are two shoes. I can focus on one bounding box to ask the brand of the shoes. 227-188=39, 390-364=26, 256-197=59, 440-401=39. The second bounding box is larger. Therefore, I will focus on the second bounding box because the region here has a higher resolution.)
+Step(If the locating is successful, ask VQA for the company who made the shoes.)
+Thought(Before asking VQA, I should crop the region. So divide this step into two substeps.)
+Substep(Crop the second shoe.)
+Thought(Use CROP to crop the region. The result should be stored in IMAGE0. Since I need to crop on the second bounding box, set the index argument to 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=88x58 at 0x7AEFFD4DBB20>
+The image shows a close-up of a person's foot wearing a pair of white sneakers. The sneakers have a metallic silver color with blue and black stripes on the sides. The laces are white and the sole of the shoe is white. The person is standing on a brown carpeted floor. The image is taken from a slightly elevated angle, looking down on the person's feet.
+</result>
+Thought(OK, I've known the cropped region contains a shoe. It is the right region. From the description, I guess the brand is adidas. Let me ask VQA the company name. If VQA doesn't know, I'll give my answer adidas. Otherwise, give the answer according to VQA.)
+Substep(Ask VQA what is the company who made the shoes called.)
+Thought(Use VQA to ask the question. The answer should be stored in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='What is the company that made the shoes called?'))
+<result>
+adidas
+</result>
+Thought(As expected, the answer is adidas.)
+Step(Summarize and answer.)
+Thought(The answer is adidas. Store it in ANSWER1.)
+Implement(ANSWER1=RESULT(var='adidas'))
+
+<End of Modified Plan>

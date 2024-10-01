@@ -1,0 +1,21 @@
+multimodal input: IMAGE (640wx425h)
+
+CAPTION_IMAGE="The image shows a young man riding a brown horse in an equestrian competition. The man is wearing a white polo shirt, beige pants, and a black helmet. He is holding onto the reins with both hands and appears to be in the middle of a jump. The horse is galloping over a colorful obstacle, which is made up of pink, yellow, and blue poles. The background shows a grassy field and trees."
+
+Q="What is the person that looks young wearing?"
+
+<End of Context>
+
+From the caption, I know there is a person riding a horse. The caption says a young man is riding, so it is probably accurate. The man is wearing a white polo shirt and beige pants. It is almost sure because the caption uses "is wearing" and the description is detailed. For such a problem, the caption is more trustworthy than VQA because I will VQA has limitations on the sentence length of the answer. I think I can directly draw the conclusion from the caption.
+
+<End of Thought>
+
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Summarize and answer.)
+Thought(I already know that there is a man riding a horse. The caption provides a lot of details on the man's appearance. It says the man is young, wearing a white polo shirt, and beige pants. I'm sure that is the answer.)
+Implement(ANSWER0=Result(var='A white polo shirt and beige pants.'))
+
+<End of Modified Plan>

@@ -3,8 +3,6 @@ COUNT(box=*) returns the total number of specified bounding boxes.
 CROP(image=*, box=*) returns the cropped image within the specified bounding box.
 CROP_RIGHTOF(image=*, box=*) returns the cropped image to the right of the specified bounding box.
 CROP_LEFTOF(image=*, box=*) returns the cropped image to the left of the specified bounding box.
-CROP_FRONTOF(image=*, box=*) returns the cropped image in front of the specified bounding box.
-CROP_BEHIND(image=*, box=*) returns the cropped image behind the specified bounding box.
 CROP_ABOVE(image=*, box=*) returns the cropped image above the specified bounding box.
 CROP_BELOW(image=*, box=*) returns the cropped image below the specified bounding box.
 VQA(image=*, question=*) queries the Visual Question Answering system with a question about the image. Note: Responses may be brief and not fully accurate.

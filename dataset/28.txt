@@ -1,0 +1,82 @@
+multimodal input: IMAGE (333wx500h)
+
+CAPTION_IMAGE="The image shows a young man walking on a sidewalk with a large blue Nike duffel bag in his hand. He is wearing a blue shirt, khaki pants, and a striped tie. He has blonde hair and is looking off to the side with a serious expression on his face. Behind him, there are several people walking on the sidewalk, some of them are carrying bags and one person is holding a water bottle. There is a car parked on the left side of the image and a building in the background."
+
+Q="Did Nike make the bag to the right of the lady?"
+
+<End of Context>
+
+From the caption, I know there is a Nike bag. I believe this is true because the caption directly points out the "Nike" bag, which is consistent to the question. The normal way for solving the problem is to locate the central object, the lady, and then crop the right region of her (first assume right is the plane position, try spatial position only if the former simpler understanding fails), and locate the bag and ask the brand of it. However, this is not efficient because there are many people in the image, and also many bags. Now that I know exactly there is a bag of brand Nike, as a time-saving approach, I would like to first locate the Nike bag (try "Nike bag" as the keyword for LOC because the Nike brand seems to be apparent. If including the brand leads to failure, try purely "bag"), and crop the left side of it and see if there is a lady.
+
+<End of Thought>
+
+Step(Locate the Nike bag.)
+Step(Crop the left side of the bag.)
+Step(See if there is a lady.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the Nike bag.)
+Thought(Try LOC to locate the bag. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='Nike bag'))
+Step(Crop the left side of the bag.)
+Step(See if there is a lady.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the Nike bag.)
+Thought(Try LOC to locate the bag. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='Nike bag'))
+<result>
+[[150, 234, 312, 388]]
+</result>
+Thought(There is only one bounding box in BOX0. It must be the bag. Now I can move to the next step.)
+Step(Crop the left side of the bag.)
+Thought(Use CROP_LEFTOF to achieve this. The index argument is 0 by default, so I don't need to set it. Store the result in IMAGE0.)
+Implement(IMAGE0=CROP_LEFTOF(image=IMAGE,box=BOX0))
+Step(See if there is a lady.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the Nike bag.)
+Thought(Try LOC to locate the bag. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='Nike bag'))
+<result>
+[[150, 234, 312, 388]]
+</result>
+Thought(There is only one bounding box in BOX0. It must be the bag. Now I can move to the next step.)
+Step(Crop the left side of the bag.)
+Thought(Use CROP_LEFTOF to achieve this. The index argument is 0 by default, so I don't need to set it. Store the result in IMAGE0.)
+Implement(IMAGE0=CROP_LEFTOF(image=IMAGE,box=BOX0))
+<result>
+<PIL.Image.Image image mode=RGB size=231x499 at 0x7C5DA8B4BD60>
+The image shows a group of young people standing on a sidewalk next to a car. There are six people in the image, three men and two women. The man on the right is wearing a blue shirt, khaki pants, and a tie, and is carrying a blue duffel bag. He is standing with his hands in his pockets and appears to be looking at something off-camera. The woman on the left is standing next to him, wearing a black top, blue jeans, and black sneakers. She has long blonde hair and is looking down at something in her hand. Behind them, there are other people walking on the sidewalk and a building in the background.
+</result>
+Thought(From the caption of the cropped image, I already know there is a lady. So the step to see if there is a lady can be deleted. I'll delete that step and directly summarize the answer.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the Nike bag.)
+Thought(Try LOC to locate the bag. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='Nike bag'))
+<result>
+[[150, 234, 312, 388]]
+</result>
+Thought(There is only one bounding box in BOX0. It must be the bag. Now I can move to the next step.)
+Step(Crop the left side of the bag.)
+Thought(Use CROP_LEFTOF to achieve this. The index argument is 0 by default, so I don't need to set it. Store the result in IMAGE0.)
+Implement(IMAGE0=CROP_LEFTOF(image=IMAGE,box=BOX0))
+<result>
+<PIL.Image.Image image mode=RGB size=231x499 at 0x7C5DA8B4BD60>
+The image shows a group of young people standing on a sidewalk next to a car. There are six people in the image, three men and two women. The man on the right is wearing a blue shirt, khaki pants, and a tie, and is carrying a blue duffel bag. He is standing with his hands in his pockets and appears to be looking at something off-camera. The woman on the left is standing next to him, wearing a black top, blue jeans, and black sneakers. She has long blonde hair and is looking down at something in her hand. Behind them, there are other people walking on the sidewalk and a building in the background.
+</result>
+Thought(From the caption of the cropped image, I already know there is a lady. So the step to see if there is a lady can be deleted. I'll delete that step and directly summarize the answer.)
+Step(Summarize and answer.)
+Thought(Now I know there is a Nike bag, and also women to the left of the bag. I can infer that the answer to question Q is "yes". Store the result in ANSWER0.)
+Implement(ANSWER0=RESULT(var='Yes, the bag was made by nike.'))
+
+<End of Modified Plan>

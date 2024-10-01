@@ -1,0 +1,21 @@
+multimodal input: IMAGE (640wx480h)
+
+CAPTION_IMAGE="The image shows a desk with a teddy bear wearing a blue beret and a green shirt. Next to the desk, there is a white fax machine with a red label on it. The fax machine is open and there are several stacks of papers in front of it. There is also a stack of papers on the desk next to the fax machine. The desk appears to be in an office or a similar setting."
+
+Q="What toy is this, a doll or a stuffed bear?"
+
+<End of Context>
+
+The caption mentions there is a teddy bear and doesn't mention any doll, so the toy must be a bear instead of a doll. I can directly give my answer without wasting my time to locate the toy and identify what it is.
+
+<End of Thought>
+
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Summarize and answer.)
+Thought(Directly answer the question. From the caption, we know the toy is a bear.)
+Implement(RESULT, answer='This is a stuffed bear.')
+
+<End of Modified Plan>

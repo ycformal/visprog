@@ -1,0 +1,132 @@
+multimodal input: IMAGE (640wx480h)
+
+CAPTION_IMAGE="The image shows a living room with a Christmas tree in the center. The tree is decorated with colorful ornaments, lights, and a star on top. On the left side of the tree, there is a snowman with a top hat and scarf. Next to the snowman, there are two small figurines of a dog and a cat. The dog is wearing a red Santa hat and is sitting on the floor in front of the Christmas tree. The room has a window with white curtains and a painting hanging on the wall."
+
+Q="What kind of furniture has the same color as the tree in front of the wall?"
+
+<End of Context>
+
+From the caption, I know there is a tree in the image. Also, I know the color of the tree (because it is the main object of the question, I need to make sure its color). I will use LOC to locate the tree, and then use CROP to get the image of the tree. After that, I will ask VQA about the color of the tree. To know the furniture, I can only ask VQA. For instance, if the tree is green, then I'll ask what furniture is green. I cannot use LOC to identify all pieces of furniture, because "furniture" is such a broad concept..
+
+<End of Thought>
+
+Step(Locate the tree.)
+Step(Crop the tree.)
+Step(Ask VQA about the color of the tree.)
+Step(Ask VQA about the furniture with the same color.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the tree.)
+Thought(Directly use LOC to locate the tree. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='tree'))
+Step(Crop the tree.)
+Step(Ask VQA about the color of the tree.)
+Step(Ask VQA about the furniture with the same color.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the tree.)
+Thought(Directly use LOC to locate the tree. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='tree'))
+<result>
+[[202, 1, 475, 332]]
+</result>
+Thought(There is only one bounding box in BOX0. I'm sure this is the tree. Now let's move to the next step.)
+Step(Crop the tree.)
+Thought(Directly use CROP. Store the cropped image in IMAGE0. Since I want to crop on the first bounding box, set index argument to 0. This is the default value so I can omit that argument.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0))
+Step(Ask VQA about the color of the tree.)
+Step(Ask VQA about the furniture with the same color.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the tree.)
+Thought(Directly use LOC to locate the tree. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='tree'))
+<result>
+[[202, 1, 475, 332]]
+</result>
+Thought(There is only one bounding box in BOX0. I'm sure this is the tree. Now let's move to the next step.)
+Step(Crop the tree.)
+Thought(Directly use CROP. Store the cropped image in IMAGE0. Since I want to crop on the first bounding box, set index argument to 0. This is the default value so I can omit that argument.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0))
+<result>
+<PIL.Image.Image image mode=RGB size=408x414 at 0x7C5DABB020B0>
+The image shows a living room with a Christmas tree in the center. The tree is decorated with gold and blue ornaments and a star on top. On the right side of the image, there is a white dog wearing a red Santa hat. The dog is looking directly at the camera with its tongue hanging out. In the background, there are several stuffed animals and a snowman figurine. The room appears to be decorated for the holiday season.
+</result>
+Thought(I know I indeed cropped the tree. However, the caption only mentions the color of ornaments but doesn't mention the color of the tree. Now let's ask the question.)
+Step(Ask VQA about the color of the tree.)
+Thought(Directly use VQA to ask the color of the tree. Store the answer in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='What is the color of the tree?'))
+Step(Ask VQA about the furniture with the same color.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the tree.)
+Thought(Directly use LOC to locate the tree. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='tree'))
+<result>
+[[202, 1, 475, 332]]
+</result>
+Thought(There is only one bounding box in BOX0. I'm sure this is the tree. Now let's move to the next step.)
+Step(Crop the tree.)
+Thought(Directly use CROP. Store the cropped image in IMAGE0. Since I want to crop on the first bounding box, set index argument to 0. This is the default value so I can omit that argument.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0))
+<result>
+<PIL.Image.Image image mode=RGB size=408x414 at 0x7C5DABB020B0>
+The image shows a living room with a Christmas tree in the center. The tree is decorated with gold and blue ornaments and a star on top. On the right side of the image, there is a white dog wearing a red Santa hat. The dog is looking directly at the camera with its tongue hanging out. In the background, there are several stuffed animals and a snowman figurine. The room appears to be decorated for the holiday season.
+</result>
+Thought(I know I indeed cropped the tree. However, the caption only mentions the color of ornaments but doesn't mention the color of the tree. Now let's ask the question.)
+Step(Ask VQA about the color of the tree.)
+Thought(Directly use VQA to ask the color of the tree. Store the answer in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='What is the color of the tree?'))
+<result>
+green
+</result>
+Thought(The color of the tree is green. Now let's let know the answer green and ask VQA about the furniture.)
+Step(Ask VQA about the furniture with the same color.)
+Thought(We should ask VQA what furniture is green. Store the answer in ANSWER1.)
+Implement(ANSWER1=VQA(image=IMAGE,question='What furniture is green?'))
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the tree.)
+Thought(Directly use LOC to locate the tree. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='tree'))
+<result>
+[[202, 1, 475, 332]]
+</result>
+Thought(There is only one bounding box in BOX0. I'm sure this is the tree. Now let's move to the next step.)
+Step(Crop the tree.)
+Thought(Directly use CROP. Store the cropped image in IMAGE0. Since I want to crop on the first bounding box, set index argument to 0. This is the default value so I can omit that argument.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0))
+<result>
+<PIL.Image.Image image mode=RGB size=408x414 at 0x7C5DABB020B0>
+The image shows a living room with a Christmas tree in the center. The tree is decorated with gold and blue ornaments and a star on top. On the right side of the image, there is a white dog wearing a red Santa hat. The dog is looking directly at the camera with its tongue hanging out. In the background, there are several stuffed animals and a snowman figurine. The room appears to be decorated for the holiday season.
+</result>
+Thought(I know I indeed cropped the tree. However, the caption only mentions the color of ornaments but doesn't mention the color of the tree. Now let's ask the question.)
+Step(Ask VQA about the color of the tree.)
+Thought(Directly use VQA to ask the color of the tree. Store the answer in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='What is the color of the tree?'))
+<result>
+green
+</result>
+Thought(The color of the tree is green. Now let's let know the answer green and ask VQA about the furniture.)
+Step(Ask VQA about the furniture with the same color.)
+Thought(We should ask VQA what furniture is green. Store the answer in ANSWER1.)
+Implement(ANSWER1=VQA(image=IMAGE,question='What furniture is green?'))
+<result>
+couch
+</result>
+Thought(OK, I should give the answer "couch" because it is the furniture of which color is the same as the tree. Now give the answer.)
+Step(Summarize and answer.)
+Thought(The answer is couch. Store it in ANSWER2.)
+Implement(ANSWER2=RESULT(var='The couch is the same color as the tree.'))
+
+<End of Modified Plan>

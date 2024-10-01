@@ -1,0 +1,21 @@
+multimodal input: IMAGE (640wx480h)
+
+CAPTION_IMAGE="The image shows a breakfast meal on a white plate. On the left side of the plate, there is a stack of pancakes with a dollop of sour cream on top. Next to the pancakes, there are two pieces of scrambled eggs and two strips of bacon. The plate is on a wooden table with a cup of coffee and a saucer in the background."
+
+Q="Is that coffee mug on top of a sofa?"
+
+<End of Context>
+
+From the caption, I know there is a coffee mug but it is on a table. I think it is accurate because the caption did not mention sofa. If the cup is on the sofa, it must be much smaller than the sofa, so the caption will notice the sofa as long as it notices the cup. Therefore, I can directly give the no answer to this question.
+
+<End of Thought>
+
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Summarize and answer.)
+Thought(Since the caption clearly states that there is a coffee mug on the table, we know that the coffee mug is not on top of a sofa. I will directly answer this question is "no".)
+Implement(ANSWER0=RESULT(var='No, the coffee mug is on top of a table.'))
+
+<End of Modified Plan>
