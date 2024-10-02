@@ -1,0 +1,21 @@
+multimodal input: IMAGE (640wx428h)
+
+CAPTION_IMAGE="The image shows a baseball game in progress. The batter is at home plate and is in the process of swinging his bat. He is wearing a white uniform with the number 27 on it and a red helmet. The catcher is crouched behind home plate, ready to catch the ball. The umpire is standing on the right side of the image, watching the play closely. The field is covered in dirt and there is a fence surrounding the home plate. The image appears to have been taken from a high angle, looking down on the batter and the catcher."
+
+Q="Are there any helmets or rackets that are red?"
+
+<End of Context>
+
+From the caption, I know there is a red helmet. I'm sure this is true because the caption directly mentions the "red helmet" which is highly consistent with the question. Althought there may be other helmets, the question is true no matter what the colors of other helmets are. Therefore, I can directly draw the conclusion without wasting extra time to locate all helmets or rackets and look into them one by one.
+
+<End of Thought>
+
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Summarize and answer.)
+Thought(I already know there is a red helmet from the caption. I can directly answer the question. The result should be stored in ANSWER0.)
+Implement(ANSWER0=RESULT(var='Yes, there is a red helmet.'))
+
+<End of Modified Plan>

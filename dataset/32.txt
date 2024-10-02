@@ -1,0 +1,154 @@
+multimodal input: IMAGE (640wx480h)
+
+CAPTION_IMAGE="The image shows a dining room with a long table set for a meal. The table is covered with a white tablecloth and has red and gold plates, silverware, and cutlery. There are wine glasses and a menu card on the table. A man and a woman are sitting at the table, and there are other people in the background. The room has a high ceiling with wooden beams and chandeliers hanging from it. The walls are decorated with red curtains, and the overall atmosphere is elegant and cozy."
+
+Q="What type of furniture is made of the same material as the white ceiling?"
+
+<End of Context>
+
+Note that the caption mentions "The room has a high ceiling with wooden beams". The ceiling is probably made of wood. However, the caption didn't mention anything about "wood", and the caption does not contain further details about the wood. Moreover, the accurate judgement of material is hard for caption modules. I need to crop the ceiling and use VQA to confirm this. If LOC or VQA fails, I can judge the meterial as wood according to the caption. If two results are different, I will judge the true answer according to the soundness of each answer. After determining the meterial of the ceiling, I'm able to ask VQA about the furniture which is made of the same material as the ceiling.
+
+<End of Thought>
+
+Step(Locate the ceiling.)
+Step(Ask VQA about the meterial of the ceiling.)
+Step(Ask VQA about the furniture made of the same material.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the ceiling.)
+Thought(Directly use LOC to locate the ceiling. The ceiling is large enough so that LOC will surely return a bounding box. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='ceiling'))
+Step(Ask VQA about the meterial of the ceiling.)
+Step(Ask VQA about the furniture made of the same material.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the ceiling.)
+Thought(Directly use LOC to locate the ceiling. The ceiling is large enough so that LOC will surely return a bounding box. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='ceiling'))
+<result>
+[[0, 0, 518, 115]]
+</result>
+Thought(There is only one bounding box. I'm sure this is the ceiling. Now it's safe to move to the next step.)
+Step(Ask VQA about the meterial of the ceiling.)
+Thought(I need to crop the ceiling before asking the question. So let's decompose this into two substeps.)
+Substep(Crop the ceiling.)
+Substep(Ask VQA.)
+Step(Ask VQA about the furniture made of the same material.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the ceiling.)
+Thought(Directly use LOC to locate the ceiling. The ceiling is large enough so that LOC will surely return a bounding box. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='ceiling'))
+<result>
+[[0, 0, 518, 115]]
+</result>
+Thought(There is only one bounding box. I'm sure this is the ceiling. Now it's safe to move to the next step.)
+Step(Ask VQA about the meterial of the ceiling.)
+Thought(I need to crop the ceiling before asking the question. So let's decompose this into two substeps.)
+Substep(Crop the ceiling.)
+Thought(Use CROP to crop the ceiling. Store the result in IMAGE0. The index argument is 0 and I don't need to set it.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0))
+Substep(Ask VQA.)
+Step(Ask VQA about the furniture made of the same material.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the ceiling.)
+Thought(Directly use LOC to locate the ceiling. The ceiling is large enough so that LOC will surely return a bounding box. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='ceiling'))
+<result>
+[[0, 0, 518, 115]]
+</result>
+Thought(There is only one bounding box. I'm sure this is the ceiling. Now it's safe to move to the next step.)
+Step(Ask VQA about the meterial of the ceiling.)
+Thought(I need to crop the ceiling before asking the question. So let's decompose this into two substeps.)
+Substep(Crop the ceiling.)
+Thought(Use CROP to crop the ceiling. Store the result in IMAGE0. The index argument is 0 and I don't need to set it.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0))
+<result>
+<PIL.Image.Image image mode=RGB size=640x143 at 0x7E98BC4E93C0>
+The image shows a large room with a high ceiling and wooden beams. The walls are painted in a light beige color and there is a large window with red curtains on the left side of the image. On the right side, there are several potted plants and a wooden bench. Hanging from the ceiling are several light fixtures with white glass shades. The overall atmosphere of the room is cozy and inviting.
+</result>
+Thought(The caption of the cropped image mentions the wooden ceiling and the wooden bench. I think the answer is bench. However, it doesn't have a detailed description about the ceiling and the bench, so the information may still be wrong. I'll continue to check the material of the ceiling and the furniture made of that material. If anything fails or abnormal during the subsequent steps, I'll directly judge the answer as "bench".)
+Substep(Ask VQA.)
+Thought(Ask on IMAGE0 about what is the ceiling made of. Store the result in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='What the ceiling is made of?'))
+Step(Ask VQA about the furniture made of the same material.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the ceiling.)
+Thought(Directly use LOC to locate the ceiling. The ceiling is large enough so that LOC will surely return a bounding box. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='ceiling'))
+<result>
+[[0, 0, 518, 115]]
+</result>
+Thought(There is only one bounding box. I'm sure this is the ceiling. Now it's safe to move to the next step.)
+Step(Ask VQA about the meterial of the ceiling.)
+Thought(I need to crop the ceiling before asking the question. So let's decompose this into two substeps.)
+Substep(Crop the ceiling.)
+Thought(Use CROP to crop the ceiling. Store the result in IMAGE0. The index argument is 0 and I don't need to set it.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0))
+<result>
+<PIL.Image.Image image mode=RGB size=640x143 at 0x7E98BC4E93C0>
+The image shows a large room with a high ceiling and wooden beams. The walls are painted in a light beige color and there is a large window with red curtains on the left side of the image. On the right side, there are several potted plants and a wooden bench. Hanging from the ceiling are several light fixtures with white glass shades. The overall atmosphere of the room is cozy and inviting.
+</result>
+Thought(The caption of the cropped image mentions the wooden ceiling and the wooden bench. I think the answer is bench. However, it doesn't have a detailed description about the ceiling and the bench, so the information may still be wrong. I'll continue to check the material of the ceiling and the furniture made of that material. If anything fails or abnormal during the subsequent steps, I'll directly judge the answer as "bench".)
+Substep(Ask VQA.)
+Thought(Ask on IMAGE0 about what is the ceiling made of. Store the result in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='What the ceiling is made of?'))
+<result>
+wood
+</result>
+Thought(OK. The ceiling is made of wood. Now let's proceed to the next step.)
+Step(Ask VQA about the furniture made of the same material.)
+Thought(I need to ask VQA about the furniture made of wood. Store the result in ANSWER1.)
+Implement(ANSWER1=VQA(image=IMAGE,question='What furniture is made of wood?'))
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the ceiling.)
+Thought(Directly use LOC to locate the ceiling. The ceiling is large enough so that LOC will surely return a bounding box. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='ceiling'))
+<result>
+[[0, 0, 518, 115]]
+</result>
+Thought(There is only one bounding box. I'm sure this is the ceiling. Now it's safe to move to the next step.)
+Step(Ask VQA about the meterial of the ceiling.)
+Thought(I need to crop the ceiling before asking the question. So let's decompose this into two substeps.)
+Substep(Crop the ceiling.)
+Thought(Use CROP to crop the ceiling. Store the result in IMAGE0. The index argument is 0 and I don't need to set it.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0))
+<result>
+<PIL.Image.Image image mode=RGB size=640x143 at 0x7E98BC4E93C0>
+The image shows a large room with a high ceiling and wooden beams. The walls are painted in a light beige color and there is a large window with red curtains on the left side of the image. On the right side, there are several potted plants and a wooden bench. Hanging from the ceiling are several light fixtures with white glass shades. The overall atmosphere of the room is cozy and inviting.
+</result>
+Thought(The caption of the cropped image mentions the wooden ceiling and the wooden bench. I think the answer is bench. However, it doesn't have a detailed description about the ceiling and the bench, so the information may still be wrong. I'll continue to check the material of the ceiling and the furniture made of that material. If anything fails or abnormal during the subsequent steps, I'll directly judge the answer as "bench".)
+Substep(Ask VQA.)
+Thought(Ask on IMAGE0 about what is the ceiling made of. Store the result in ANSWER0.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='What the ceiling is made of?'))
+<result>
+wood
+</result>
+Thought(OK. The ceiling is made of wood. Now let's proceed to the next step.)
+Step(Ask VQA about the furniture made of the same material.)
+Thought(I need to ask VQA about the furniture made of wood. Store the result in ANSWER1.)
+Implement(ANSWER1=VQA(image=IMAGE,question='What furniture is made of wood?'))
+<result>
+chairs
+</result>
+Thought(I guessed the bench is made of wood before. The result of VQA is very closed of what the caption of IMAGE0 says. Therefore, I am certain that chairs are made of wood. Let's give the answer.)
+Step(Summarize and answer.)
+Thought(The question asks "What type of furniture is made of the same material as the white ceiling?". I know that the ceiling is made of wood, and the chairs are made of wood. Therefore, the answer can be "chairs". Store the result in ANSWER2.)
+Implement(ANSWER2=RESULT(var='The chair is made of the same material as the ceiling.'))
+
+<End of Modified Plan>

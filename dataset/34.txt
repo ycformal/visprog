@@ -1,0 +1,70 @@
+multimodal input: IMAGE (480wx640h)
+
+CAPTION_IMAGE="The image shows a large glass refrigerator with a yellow sign that reads "Mates Beer" above it. The refrigerator is located in a dimly lit room with wooden walls and a wooden door in the background. On the left side of the refrigerator, there is a clock with the time 9:35 displayed on it. Inside the refrigerator there are several rows of empty beer glasses neatly arranged in the glass shelves. The sign also has a picture of a beer bottle and a menu on the wall behind it."
+
+Q="Is the clock both rectangular and black?"
+
+<End of Context>
+
+From the caption, I know there is a clock. I need to locate the clock and see its appearance. To make the result accurate, I decompose the attribute "rectangular and black" into two attributes, "rectangular" and "black", and ask VQA whether the clock is rectangular and whether the clock is black respectively.
+
+<End of Thought>
+
+Step(Locate the clock.)
+Step(Crop the clock.)
+Step(Ask VQA whether the clock is rectangular.)
+Step(Ask VQA whether the clock is black.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the clock.)
+Thought(Directly use LOC to locate the clock. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='clock'))
+Step(Crop the clock.)
+Step(Ask VQA whether the clock is rectangular.)
+Step(Ask VQA whether the clock is black.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the clock.)
+Thought(Directly use LOC to locate the clock. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='clock'))
+<result>
+[[0, 0, 40, 79], [30, 87, 152, 161]]
+</result>
+Thought(According to the caption and the question, there should only be one clock. There are two bounding boxes. However, the first bounding box is too small (only 40x79), so it must be a wrong detection or something else looks like a clock. The second bounding box is normal. I will only focus on the second bounding box. If the second bounding box is not a clock, I will track back and consider the first one.)
+Step(Crop the clock.)
+Thought(Use CROP to crop the clock. Store the cropped image in IMAGE0. Since I need to operate on the second bounding box, set index argument to be 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+Step(Ask VQA whether the clock is rectangular.)
+Step(Ask VQA whether the clock is black.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the clock.)
+Thought(Directly use LOC to locate the clock. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='clock'))
+<result>
+[[0, 0, 40, 79], [30, 87, 152, 161]]
+</result>
+Thought(According to the caption and the question, there should only be one clock. There are two bounding boxes. However, the first bounding box is too small (only 40x79), so it must be a wrong detection or something else looks like a clock. The second bounding box is normal. I will only focus on the second bounding box. If the second bounding box is not a clock, I will track back and consider the first one.)
+Step(Crop the clock.)
+Thought(Use CROP to crop the clock. Store the cropped image in IMAGE0. Since I need to operate on the second bounding box, set index argument to be 1.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=182x110 at 0x79E7397A62F0>
+The image is a close-up of a digital clock display. The clock is rectangular in shape and has a black background with red numbers in the center. The numbers are arranged in a grid-like pattern and are slightly tilted to the right. The display appears to be in a dimly lit room with a brick wall in the background. There is a small window on the right side of the image with a yellow light shining on it.
+</result>
+Thought(The result is very clear. The clock is both rectangular and black. I only need to head to the answer step.)
+Step(Ask VQA whether the clock is rectangular.)
+Thought(The result shows the clock is rectangular. No need to ask anymore.)
+Step(Ask VQA whether the clock is black.)
+Thought(The result shows the background of the clock is black. No need to ask anymore.)
+Step(Summarize and answer.)
+Thought(The question asks whether the clock is both rectangular and black. Since I have known that the clock is both rectangular and black, I can give the answer now. The answer should be stored in ANSWER0.)
+Implement(ANSWER0=RESULT(var='Yes, the clock is rectangular and black.'))
+
+<End of Modified Plan>

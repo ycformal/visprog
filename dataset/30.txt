@@ -16,6 +16,6 @@ Step(Summarize and answer.)
 
 Step(Summarize and answer.)
 Thought(Directly answer the question. From the caption, we know the toy is a bear.)
-Implement(RESULT, answer='This is a stuffed bear.')
+Implement(ANSWER0=RESULT(var='This is a stuffed bear.'))
 
 <End of Modified Plan>

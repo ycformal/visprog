@@ -1,0 +1,21 @@
+multimodal input: IMAGE (500wx375h)
+
+CAPTION_IMAGE="The image shows an adult elephant and a baby elephant in an enclosure. The adult elephant is standing on the right side of the image, while the baby elephant is walking on the left side. The enclosure is made of dirt and there are several large rocks scattered around. In the background, there is a tree trunk and a fence. The baby elephant appears to be walking towards the adult elephant, as it is holding a piece of food in its trunk. The background is filled with trees and greenery."
+
+Q="Does the elephant near the stones seem to be sitting?"
+
+<End of Context>
+
+Based on the caption, I know there are two elephants near the stone, either walking or standing. I’m confident about this because distinguishing between standing (or walking) and sitting is quite easy and the caption module cannot go wrong. I can provide the answer directly without relying on external models like VQA.
+
+<End of Thought>
+
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Summarize and answer.)
+Thought(The question asks "Does the elephant near the stones seem to be sitting?". From the previous analysis, I know the elephants are walking and standing, but not sitting. I can give the "no" answer. The result should be stored in ANSWER0.)
+Implement(ANSWER0=RESULT(var='No. I detected two elephants, but one is walking and another one is sitting.'))
+
+<End of Modified Plan>
