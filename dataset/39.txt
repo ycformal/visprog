@@ -1,0 +1,88 @@
+multimodal input: IMAGE (640wx480h)
+
+CAPTION_IMAGE="The image shows a young woman standing in front of an open refrigerator. She is wearing a white tank top and blue jeans. The woman is bending over the door of the refrigerator, with her head down and her hands on the handle. She appears to be looking down at the contents inside the fridge. There are various food items visible, including a bottle of condiments, a bag of chips, and a container of fruit. On the right side of the image, there is a sign that reads "Sewing on change liners". The background is a white wall."
+
+Q="Are there either any small refrigerators or microwaves in the picture?"
+
+<End of Context>
+
+From the caption, I know there is only one refrigerator. The refrigerator may be large or small, and I have no idea about its size. I need to judge whether the refrigerator is small according to its bounding box. If it is not small, then I'll try to locate the microwave, and then judge the size of the microwave. For now, let's deal with the refrigerator first.
+
+<End of Thought>
+
+Step(Locate the refrigerator.)
+Step(Measure the size of the refrigerator.)
+Step(If the refrigerator is not small, then locate the microwave.)
+Step(If there is a microwave, then measure its size.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the refrigerator.)
+Thought(Directly use LOC to locate the refrigerator. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='refrigerator'))
+Step(Measure the size of the refrigerator.)
+Step(If the refrigerator is not small, then locate the microwave.)
+Step(If there is a microwave, then measure its size.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the refrigerator.)
+Thought(Directly use LOC to locate the refrigerator. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='refrigerator'))
+<result>
+[[290, 2, 636, 479]]
+</result>
+Thought(Note that the size of IMAGE is 640wx480h. The size of the bounding box is 346wx477h. It almost filled the image in height. I think the real height of the refrigerator even exceeds the image, so it must be large.)
+Step(Measure the size of the refrigerator.)
+Thought(As analyzed above, the refrigerator is large.)
+Step(If the refrigerator is not small, then locate the microwave.)
+Thought(The refrigerator is not small. So let's locate the microwave. Store the result in BOX1 as BOX0 is assigned.)
+Implement(BOX1=LOC(image=IMAGE,object='microwave'))
+Step(If there is a microwave, then measure its size.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the refrigerator.)
+Thought(Directly use LOC to locate the refrigerator. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='refrigerator'))
+<result>
+[[290, 2, 636, 479]]
+</result>
+Thought(Note that the size of IMAGE is 640wx480h. The size of the bounding box is 346wx477h. It almost filled the image in height. I think the real height of the refrigerator even exceeds the image, so it must be large.)
+Step(Measure the size of the refrigerator.)
+Thought(As analyzed above, the refrigerator is large.)
+Step(If the refrigerator is not small, then locate the microwave.)
+Thought(The refrigerator is not small. So let's locate the microwave. Store the result in BOX1 as BOX0 is assigned.)
+Implement(BOX1=LOC(image=IMAGE,object='microwave'))
+<result>
+[[290, 2, 636, 479]]
+</result>
+Thought(The bounding box is the same as BOX0. I'm sure the LOC module mistakenly recognizes the refrigerator as the microwave, as the caption says there's a refrigerator but the microwave is not mentioned. No need to measure the size again. I can delete the step to measure the size of BOX1 and directly answer the question.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the refrigerator.)
+Thought(Directly use LOC to locate the refrigerator. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='refrigerator'))
+<result>
+[[290, 2, 636, 479]]
+</result>
+Thought(Note that the size of IMAGE is 640wx480h. The size of the bounding box is 346wx477h. It almost filled the image in height. I think the real height of the refrigerator even exceeds the image, so it must be large.)
+Step(Measure the size of the refrigerator.)
+Thought(As analyzed above, the refrigerator is large.)
+Step(If the refrigerator is not small, then locate the microwave.)
+Thought(The refrigerator is not small. So let's locate the microwave. Store the result in BOX1 as BOX0 is assigned.)
+Implement(BOX1=LOC(image=IMAGE,object='microwave'))
+<result>
+[[290, 2, 636, 479]]
+</result>
+Thought(The bounding box is the same as BOX0. I'm sure the LOC module mistakenly recognizes the refrigerator as the microwave, as the caption says there's a refrigerator but the microwave is not mentioned. No need to measure the size again. I can delete the step to measure the size of BOX1 and directly answer the question.)
+Step(Summarize and answer.)
+Thought(The question asks if there are either any small refrigerators or microwaves in the picture. From the above analysis, I know there is a refrigerator but it is large, and there is no microwave. Store the final answer in ANSWER0.)
+Implement(ANSWER0=RESULT(var='No, there is a refrigerator but it is large.'))
+
+<End of Modified Plan>
