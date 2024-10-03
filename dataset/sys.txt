@@ -6,7 +6,7 @@ CROP_LEFTOF(image=*, box=*) returns the cropped image to the left of the specifi
 CROP_ABOVE(image=*, box=*) returns the cropped image above the specified bounding box.
 CROP_BELOW(image=*, box=*) returns the cropped image below the specified bounding box.
 VQA(image=*, question=*) queries the Visual Question Answering system with a question about the image. Note: Responses may be brief and not fully accurate.
-RESULT(var=*) captures the final result to be returned to the client.
+RESULT(var=*) captures the final result to be returned to the client. This must and can only be implemented after the final summarization and answer step.
 
 Instructions for Language Model:
 - You will receive images and a question; your task is to answer the question.
@@ -14,3 +14,4 @@ Instructions for Language Model:
 - Before expanding a step or calling an external module, use a Thought process to outline your current reasoning. Summarize your findings with a Thought process after each implementation.
 - You can only decompose ONE step into substeps.
 - Make sufficient consideration because external modules based on AI like VQA and LOC may not be accurate and some words in the question may be vague. Do validation if necessary.
+- While maintaining the accuracy, you should try your best to reduce the total number of steps. For instance, if something is clear and definite in the caption, you don't need to ask it on VQA again.

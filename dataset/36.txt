@@ -1,0 +1,105 @@
+multimodal input: IMAGE (640wx453h)
+
+CAPTION_IMAGE="The image shows a group of people gathered around an elephant in a park. The elephant is standing on the left side of the image and is facing towards the right side. It has large tusks and appears to be walking towards the camera. There are two people sitting on a bench in front of the elephant, one of them is holding a basket and the other is looking at the elephant. In the background, there is a red tent and a small wooden structure with a red roof. The people are dressed in casual clothes and appear to be enjoying the scene. The park is surrounded by trees and there are potted plants scattered around."
+
+Q="What is the woman that is standing doing?"
+
+<End of Context>
+
+The caption only mentions there are people, but I don't know any information about the standing woman and things she is doing. I need to locate the woman and ask what she's doing via VQA (or judge this by the caption of the cropped image).
+
+<End of Thought>
+
+Step(Locate the woman.)
+Step(Crop the woman.)
+Step(Ask VQA about what the woman is doing.)
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Locate the woman.)
+Thought(Directly use LOC to locate the woman. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='woman'))
+Step(Crop the woman.)
+Step(Ask VQA about what the woman is doing.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the woman.)
+Thought(Directly use LOC to locate the woman. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='woman'))
+<result>
+[[368, 223, 556, 431], [524, 157, 639, 326], [539, 175, 564, 238], [457, 281, 558, 381], [564, 184, 579, 207], [203, 231, 235, 299], [466, 144, 527, 293], [577, 158, 617, 197], [555, 203, 565, 223], [464, 176, 476, 221]]
+</result>
+Thought(I think there might be some wrong detections. Let's filter abnormal boxes first. First I will get the size of all boxes. 556-368=188, 431-223=208, so the first box is 188wx208h. 639-524=115, 326-157=169, so the second box is 115wx169h. 564-539=25, 238-175=63, so the third box is 25wx63h. 558-457=101, 381-281=100, so the fourth box is 101wx100h. 579-564=15, 207-184=23, so the fifth box is 15wx23h. 235-203=32, 299-231=68, so the sixth box is 32wx68h. 527-466=61, 293-144=149, so the seventh box is 61wx149h. 617-577=40, 197-158=39, so the eighth box is 40wx39h. 565-555=10, 223-203=20, so the ninth box is 10wx20h. 476-464=12, 221-176=45, so the tenth box is 12wx45h. Boxes of size 25wx63h, 15wx23h, 32wx68h, 40wx39h, 10wx20h, 12wx45h are too small, so filter them out and only leave boxes of size 188wx208h, 115wx169h, 101wx100h and 61wx149h. Note that there is a standing woman, so filter out square boxes of size 188wx208h and 101wx100h. Only two boxes remained: 115wx169h and 61wx149h, which are the second box and the seventh box. I need crop them one by one and decide which one is the right bounding box. If none of them is right, I may track back and try those square boxes.)
+Step(Crop the woman.)
+Thought(Since there are two candidate bounding boxes, I need to crop them one by one. So I will divide this into two steps.)
+Substep(Crop the second bounding box.)
+Substep(Crop the seventh bounding box.)
+Step(Ask VQA about what the woman is doing.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the woman.)
+Thought(Directly use LOC to locate the woman. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='woman'))
+<result>
+[[368, 223, 556, 431], [524, 157, 639, 326], [539, 175, 564, 238], [457, 281, 558, 381], [564, 184, 579, 207], [203, 231, 235, 299], [466, 144, 527, 293], [577, 158, 617, 197], [555, 203, 565, 223], [464, 176, 476, 221]]
+</result>
+Thought(I think there might be some wrong detections. Let's filter abnormal boxes first. First I will get the size of all boxes. 556-368=188, 431-223=208, so the first box is 188wx208h. 639-524=115, 326-157=169, so the second box is 115wx169h. 564-539=25, 238-175=63, so the third box is 25wx63h. 558-457=101, 381-281=100, so the fourth box is 101wx100h. 579-564=15, 207-184=23, so the fifth box is 15wx23h. 235-203=32, 299-231=68, so the sixth box is 32wx68h. 527-466=61, 293-144=149, so the seventh box is 61wx149h. 617-577=40, 197-158=39, so the eighth box is 40wx39h. 565-555=10, 223-203=20, so the ninth box is 10wx20h. 476-464=12, 221-176=45, so the tenth box is 12wx45h. Boxes of size 25wx63h, 15wx23h, 32wx68h, 40wx39h, 10wx20h, 12wx45h are too small, so filter them out and only leave boxes of size 188wx208h, 115wx169h, 101wx100h and 61wx149h. Note that there is a standing woman, so filter out square boxes of size 188wx208h and 101wx100h. Only two boxes remained: 115wx169h and 61wx149h, which are the second box and the seventh box. I need crop them one by one and decide which one is the right bounding box. If none of them is right, I may track back and try those square boxes.)
+Step(Crop the woman.)
+Thought(Since there are two candidate bounding boxes, I need to crop them one by one. So I will divide this into two steps.)
+Substep(Crop the second bounding box.)
+Thought(Directly use CROP to crop the second bounding box. The index argument should be set to 1. The result should be stored in IMAGE0.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+Substep(Crop the seventh bounding box.)
+Step(Ask VQA about what the woman is doing.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the woman.)
+Thought(Directly use LOC to locate the woman. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='woman'))
+<result>
+[[368, 223, 556, 431], [524, 157, 639, 326], [539, 175, 564, 238], [457, 281, 558, 381], [564, 184, 579, 207], [203, 231, 235, 299], [466, 144, 527, 293], [577, 158, 617, 197], [555, 203, 565, 223], [464, 176, 476, 221]]
+</result>
+Thought(I think there might be some wrong detections. Let's filter abnormal boxes first. First I will get the size of all boxes. 556-368=188, 431-223=208, so the first box is 188wx208h. 639-524=115, 326-157=169, so the second box is 115wx169h. 564-539=25, 238-175=63, so the third box is 25wx63h. 558-457=101, 381-281=100, so the fourth box is 101wx100h. 579-564=15, 207-184=23, so the fifth box is 15wx23h. 235-203=32, 299-231=68, so the sixth box is 32wx68h. 527-466=61, 293-144=149, so the seventh box is 61wx149h. 617-577=40, 197-158=39, so the eighth box is 40wx39h. 565-555=10, 223-203=20, so the ninth box is 10wx20h. 476-464=12, 221-176=45, so the tenth box is 12wx45h. Boxes of size 25wx63h, 15wx23h, 32wx68h, 40wx39h, 10wx20h, 12wx45h are too small, so filter them out and only leave boxes of size 188wx208h, 115wx169h, 101wx100h and 61wx149h. Note that there is a standing woman, so filter out square boxes of size 188wx208h and 101wx100h. Only two boxes remained: 115wx169h and 61wx149h, which are the second box and the seventh box. I need crop them one by one and decide which one is the right bounding box. If none of them is right, I may track back and try those square boxes.)
+Step(Crop the woman.)
+Thought(Since there are two candidate bounding boxes, I need to crop them one by one. So I will divide this into two steps.)
+Substep(Crop the second bounding box.)
+Thought(Directly use CROP to crop the second bounding box. The index argument should be set to 1. The result should be stored in IMAGE0.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=145x252 at 0x7CECA9E43AF0>
+The image shows a group of people gathered under a red canopy. There are three people in the image, two women and two children. The woman on the left is wearing a green t-shirt and is sitting on a wooden bench, while the woman in the middle is standing and holding a basket. The child on the right is sitting in a blue shirt and is looking up at the canopy. In the background, there are other people walking on the sidewalk and trees. The image appears to be taken in a park or outdoor area.
+</result>
+Thought(From the result, I already know the woman in the middle is standing and holding a basket, which is the answer of this question. No need to consider the other bounding box and ask VQA. I can directly give the answer. I'll remove the step to crop the seventh bounding box and the step to ask VQA now.)
+Step(Summarize and answer.)
+
+<End of Modified Plan>
+
+Step(Locate the woman.)
+Thought(Directly use LOC to locate the woman. Store the result in BOX0.)
+Implement(BOX0=LOC(image=IMAGE,object='woman'))
+<result>
+[[368, 223, 556, 431], [524, 157, 639, 326], [539, 175, 564, 238], [457, 281, 558, 381], [564, 184, 579, 207], [203, 231, 235, 299], [466, 144, 527, 293], [577, 158, 617, 197], [555, 203, 565, 223], [464, 176, 476, 221]]
+</result>
+Thought(I think there might be some wrong detections. Let's filter abnormal boxes first. First I will get the size of all boxes. 556-368=188, 431-223=208, so the first box is 188wx208h. 639-524=115, 326-157=169, so the second box is 115wx169h. 564-539=25, 238-175=63, so the third box is 25wx63h. 558-457=101, 381-281=100, so the fourth box is 101wx100h. 579-564=15, 207-184=23, so the fifth box is 15wx23h. 235-203=32, 299-231=68, so the sixth box is 32wx68h. 527-466=61, 293-144=149, so the seventh box is 61wx149h. 617-577=40, 197-158=39, so the eighth box is 40wx39h. 565-555=10, 223-203=20, so the ninth box is 10wx20h. 476-464=12, 221-176=45, so the tenth box is 12wx45h. Boxes of size 25wx63h, 15wx23h, 32wx68h, 40wx39h, 10wx20h, 12wx45h are too small, so filter them out and only leave boxes of size 188wx208h, 115wx169h, 101wx100h and 61wx149h. Note that there is a standing woman, so filter out square boxes of size 188wx208h and 101wx100h. Only two boxes remained: 115wx169h and 61wx149h, which are the second box and the seventh box. I need crop them one by one and decide which one is the right bounding box. If none of them is right, I may track back and try those square boxes.)
+Step(Crop the woman.)
+Thought(Since there are two candidate bounding boxes, I need to crop them one by one. So I will divide this into two steps.)
+Substep(Crop the second bounding box.)
+Thought(Directly use CROP to crop the second bounding box. The index argument should be set to 1. The result should be stored in IMAGE0.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=145x252 at 0x7CECA9E43AF0>
+The image shows a group of people gathered under a red canopy. There are three people in the image, two women and two children. The woman on the left is wearing a green t-shirt and is sitting on a wooden bench, while the woman in the middle is standing and holding a basket. The child on the right is sitting in a blue shirt and is looking up at the canopy. In the background, there are other people walking on the sidewalk and trees. The image appears to be taken in a park or outdoor area.
+</result>
+Thought(From the result, I already know the woman in the middle is standing and holding a basket, which is the answer of this question. No need to consider the other bounding box and ask VQA. I can directly give the answer. I'll remove the step to crop the seventh bounding box and the step to ask VQA now.)
+Step(Summarize and answer.)
+Thought(The question asks what is the woman that is standing doing. From the above analysis, I know there is a standing woman and she is holding the basket. I'll directly give this answer.)
+Implement(ANSWER0=RESULT(var='The woman is holding a basket.'))
+
+<End of Modified Plan>
