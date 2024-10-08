@@ -1,0 +1,28 @@
+multimodal input: IMAGE (640wx396h)
+
+CAPTION_IMAGE="The image shows a group of horses running on a rocky hillside. The hill is covered in shrubs and bushes, and the sky is blue with a few scattered clouds. The horses are of different sizes and colors, with some being brown and others being black. They are galloping across the hill, with their manes and tails flowing in the wind. The sky is clear and blue, and there are no clouds in sight. The overall mood of the image is peaceful and serene."
+
+Q="Do you think the horse is walking?"
+
+<End of Context>
+
+Thought(Analyze the question: The main objects in the question is the horse. I need to locate it and figure out whether it is walking. Analyze the caption: From the caption, there is a group of horse. This is true because it is consistent with the question. However, the caption mentions the horses are running. I need to verify whether this is true. Unknown or unsure: Are the horses really walking instead of running? Plan: I need to locate the group of horses first.)
+Implement(BOX0=LOC(image=IMAGE,object='horses'))
+<result>
+[[109, 235, 135, 265], [239, 215, 254, 234], [337, 150, 421, 251], [514, 116, 614, 235], [188, 224, 204, 254], [168, 224, 205, 265], [321, 189, 348, 234], [176, 226, 191, 257], [269, 205, 299, 247], [285, 203, 300, 237], [303, 197, 337, 246], [269, 213, 285, 245], [169, 237, 185, 266], [270, 195, 347, 246], [326, 181, 385, 241], [296, 216, 307, 234], [271, 121, 616, 252], [305, 208, 319, 244]]
+</result>
+Thought(Analyze the result: There are a lot bounding boxes. However, it is hard to filter out wrong detections because the amount is too large, and it is unnecessary to do so since I only want to locate the group of horses. I need to combine the bounding boxes to a large one. The minimum x coordinate of the left margin is 109, the maximum x coordinate of the right margin is 616, the minimum y coordinate of the top margin is 116, and the maximum y coordinate of the bottom margin is 266. Therefore, the combined bounding box is [109, 116, 616, 266]. Plan: Assign [[109, 116, 616, 266]] to BOX1.)
+Implement(BOX1=EVAL(expr='[[109, 116, 616, 266]]'))
+<result>
+[[109, 116, 616, 266]]
+</result>
+Thought(Analyze the result: BOX1 is successfully assigned. Plan: Use CROP to crop the region of BOX1. The index is set to 0 because I need to crop on BOX1[0].)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX1,index=0))
+<result>
+<PIL.Image.Image image mode=RGB size=640x224 at 0x7E67097F6DA0>
+The image shows a group of horses running on a rocky hillside. The sky is blue with a few white clouds scattered across it. The hill is covered in green shrubs and bushes, and there is a hill in the background. The horses are of different sizes and colors, with some being brown and others being black. They are galloping across the hill, and some are running towards the right side of the image. The image appears to be taken from a low angle, looking up at the sky.
+</result>
+Thought(Analyze the result: The caption mentions "running" many times, and it also mentions "galloping", which has a similar meaning to running. Now I'm sure the horses are running instead of walking. No need to ask VQA. Plan: I can give the answer. The question asks whether the horse is walking. From the caption of IMAGE and IMAGE0, I can make sure that the horses are running. So the answer is no.)
+Implement(ANSWER1=RESULT(var='No. Those horses are running.'))
+
+<End of Plan>

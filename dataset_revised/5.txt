@@ -1,0 +1,38 @@
+multimodal input: IMAGE (333wx500h)
+
+CAPTION_IMAGE="The image shows a young man performing a skateboard trick on a concrete ramp. He is wearing a black Nike t-shirt, blue jeans, and black and white sneakers. The skateboarder is in mid-air, with his left leg extended behind him and his right leg bent at the knee. His arms are stretched out to the sides and his head is tilted back, as if he is about to land on the skateboard. In the background, there is a building and some trees. The sky is overcast and the ground is wet, suggesting that it has recently rained."
+
+Q="Are there windows in this photo that are long?"
+
+<End of Context>
+
+Thought(Analyze the question: The main object in the question is the group of windows. I need to locate them and figure out if they are long. Analyze the caption: From the caption, there is building but no information about the windows. Unknown or unsure: Are the windows of the building long. Plan: I need to locate the windows first.)
+Implement(BOX0=LOC(image=IMAGE,object='windows'))
+<result>
+[]
+</result>
+Thought(Analyze the result: No bounding boxes detected. However, there's a building so there must be windows. I need to change a search keyword. Plan: Try to locate the building.)
+Implement(BOX1=LOC(image=IMAGE,object='building'))
+<result>
+[[156, 100, 330, 314]]
+</result>
+Thought(Analyze the result: There is only one bounding box. No steps need to be taken to filter false detections. Plan: use CROP to crop the area on the bounding box. The index argument is set to 0 since I crop on BOX1[0].)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX1,index=0))
+<result>
+<PIL.Image.Image image mode=RGB size=220x320 at 0x7A9E7C122290>
+The image shows a young man performing a skateboard trick on a concrete surface. He is wearing a black Nike t-shirt with the word "Nike" written in yellow on the front. He has dark hair and is wearing glasses. His arms are stretched out to the sides and his legs are bent at the knees. In the background, there is a building with large windows and a tree. The sky is overcast and the overall mood of the image is playful and energetic.
+</result>
+Thought(Analyze the result: I know there's a building with large windows, but I don't know whether the windows are long. Plan: use LOC to locate the windows again on the cropped image.)
+Implement(BOX2=LOC(image=IMAGE0,object='windows'))
+<result>
+[]
+</result>
+Thought(Analyze the result: Still no bounding boxes detected. It seems LOC fails on detecting the windows. Plan: Directly ask VQA whether the windows on the buildings are long. Use "on the building" to let VQA focus on the building, as I'm sure there are windows on the building.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Are the windows on the building long?'))
+<result>
+yes
+</result>
+Thought(Analyze the result: VQA says "yes", which means the windows are long. Plan: I can give the answer. The question asks whether there are long windows, and I know there are. Therefore, the answer is yes.)
+Implement(ANSWER1=RESULT(var='yes'))
+
+<End of Plan>

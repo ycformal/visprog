@@ -1,0 +1,33 @@
+multimodal input: IMAGE (640wx427h)
+
+CAPTION_IMAGE="The image shows an Oman Air airplane taking off from an airport runway. The airplane is a Boeing 777-300ER with the Oman Air logo on the tail and the words "Oman Air" written on the side. The plane is white with blue and yellow stripes on the fuselage and wings. It is in the process of taking off, with its landing gear down and the wheels slightly lifted off the ground. In the background, there is a hill covered in trees and a red crane can be seen in the distance. The sky is blue and the weather appears to be clear."
+
+Q="Do the green trees look tall and dense?"
+
+<End of Context>
+
+Thought(Analyze the question: The main object in the question is the group of trees. I need to locate them and figure out if they are tall and dense. Analyze the caption: From the caption, there is a hill covered in trees. This is true because the caption directly mentions the trees which are included in the question. Unknown or unsure: Whether the trees are  tall and dense. Plan: I need to locate the trees first.)
+Implement(BOX0=LOC(image=IMAGE,object='trees'))
+<result>
+[[402, 138, 492, 209], [0, 73, 637, 222]]
+</result>
+Thought(Analyze the result: There are two bounding boxes, and I need to filter wrong detections. Judge the size: The sizes are 90x71 and 637x149. Both of them are of normal size. Judge the position: 402>>0, 492<673, 138>73, 209<222, so the first one is fully included in the second one. It is safe to filter out the first bounding box and focus on the second one. Plan: Crop on the second bounding box. Set index=1 because I want to crop on BOX0[1].)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=640x222 at 0x7B46B44F1FC0>
+The image shows an Oman Air airplane on the runway. The airplane is white with blue and yellow stripes on the tail and the words "Oman Air" written in Arabic on the side. The plane is in the process of taking off from the runway, with its landing gear down. In the background, there is a green landscape with trees and hills. On the right side of the image, there are buildings and a red crane. The sky is blue and the weather appears to be sunny.
+</result>
+Thought(Analyze the result: From the caption, I know there are green trees, so I cropped the right region. Plan: Ask VQA with the question "Are the trees tall?".)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Are the trees tall?'))
+<result>
+yes
+</result>
+Thought(Analyze the result: The VQA gives "yes", which means the trees are tall. Plan: I also need to ask if the trees are dense. The question is "Are the trees dense?".)
+Implement(ANSWER1=VQA(image=IMAGE0,question='Are the trees dense?'))
+<result>
+yes
+</result>
+Thought(Analyze the result: The VQA gives "yes" again, which means the trees are dense. Plan: I can give the answer. The question asks if the green trees look tall and dense. I know they are tall and dense, so the answer is yes.)
+Implement(ANSWER2=RESULT(var='yes'))
+
+<End of Plan>

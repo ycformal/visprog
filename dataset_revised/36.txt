@@ -1,0 +1,23 @@
+multimodal input: IMAGE (640wx453h)
+
+CAPTION_IMAGE="The image shows a group of people gathered around an elephant in a park. The elephant is standing on the left side of the image and is facing towards the right side. It has large tusks and appears to be walking towards the camera. There are two people sitting on a bench in front of the elephant, one of them is holding a basket and the other is looking at the elephant. In the background, there is a red tent and a small wooden structure with a red roof. The people are dressed in casual clothes and appear to be enjoying the scene. The park is surrounded by trees and there are potted plants scattered around."
+
+Q="What is the woman that is standing doing?"
+
+<End of Context>
+
+Thought(Analyze the question: The main object in the question is the standing woman. I need to locate the woman and figure out what is she doing. Analyze the caption: From the caption, there is a group of people. It contains the correct information because the question is asking about a woman in the group. Unknown or unsure: Where is the woman and what is she doing. Plan: I need to locate the woman first.)
+Implement(BOX0=LOC(image=IMAGE,object='woman'))
+<result>
+[[368, 223, 556, 431], [524, 157, 639, 326], [539, 175, 564, 238], [457, 281, 558, 381], [564, 184, 579, 207], [203, 231, 235, 299], [466, 144, 527, 293], [577, 158, 617, 197], [555, 203, 565, 223], [464, 176, 476, 221]]
+</result>
+Thought(Analyze the result: There are multiple bounding boxes. I need to filter out the wrong detections. Judge the size: The sizes for the bounding boxes are 188x208, 115x169, 25x63, 101x100, 15x23, 32x68, 61x149, 40x39, 10x20, 12x45. Bounding boxes with index 2, 4, 8 and 9 are too small. Filter them out. Judge the position: Remaining bounding boxes are: [368, 223, 556, 431], [524, 157, 639, 326], [457, 281, 558, 381], [203, 231, 235, 299], [466, 144, 527, 293], [577, 158, 617, 197]. 368<524, 556>524, 556<639, so [368, 223, 556, 431] slightly overlaps with [524, 157, 639, 326]. 368<457, 556<558, 556>457, 223<281, 431>381, so [457, 281, 558, 381] is almost included in [368, 223, 556, 431]. I can filter it out. [203, 231, 235, 299] is the left most one, so there's no overlapping with it. 368<466, 556>527, 223>144, 431>293, so [466, 144, 527, 293] overlaps with [368, 223, 556, 431] heavily. I need to filter out the smaller one, [466, 144, 527, 293]. 556<577, so has no intersection with [368, 223, 556, 431]. Now [368, 223, 556, 431], [524, 157, 639, 326], [203, 231, 235, 299] and [466, 144, 527, 293] are remained. 524>466, 524-527=-3, so [524, 157, 639, 326] almost has no intersection with [466, 144, 527, 293]. Recall that [203, 231, 235, 299] is the left most one, these four bounding boxes are all remained. Plan: Crop on the bounding box of the woman. However, there are four bounding boxes, so I first crop on the bounding box that is most likely to be the woman. Since the question mentions a standing woman, let's judge this by shape. [368, 223, 556, 431] has a shape of 188x208, and it is close to a square. [524, 157, 639, 326] has a shape of 115x169, which is a rectangular, and it might be a standing woman. [203, 231, 235, 299] has a shape of 32x68, also a rectangular. [466, 144, 527, 293] has a shape of 61x148, also a rectangular. So first choose a rectangular with the biggest size, [524, 157, 639, 326]. Let's locate on BOX0[1].)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=145x252 at 0x7CECA9E43AF0>
+The image shows a group of people gathered under a red canopy. There are three people in the image, two women and two children. The woman on the left is wearing a green t-shirt and is sitting on a wooden bench, while the woman in the middle is standing and holding a basket. The child on the right is sitting in a blue shirt and is looking up at the canopy. In the background, there are other people walking on the sidewalk and trees. The image appears to be taken in a park or outdoor area.
+</result>
+Thought(Analyze the result: I know the question asks what the standing woman is doing. Now I already located the standing woman. There is indeed a standing woman in the image, and she is holding a basket. This is consistent with the previous caption and I can make sure the woman is in the question. Plan: I can give the answer. The question asks what is the woman that is standing doing. I know there is a standing woman holding a basket. So the answer is the woman is holding a basket.).
+Implement(ANSWER0=RESULT(var='The woman is holding a basket.'))
+
+<End of Plan>

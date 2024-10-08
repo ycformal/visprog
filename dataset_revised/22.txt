@@ -1,0 +1,17 @@
+multimodal input: IMAGE (500wx375h)
+
+CAPTION_IMAGE="The image shows a woman in a grocery store, reaching for a large pile of bananas. She is wearing a black jacket and has her hair tied back in a ponytail. The bananas are stacked on top of each other in two woven baskets. In the background, there is a man standing next to a vending machine with a sign that reads "Try Our New Iced Coffee". The store appears to be well-stocked with various items for sale."
+
+Q="Are these small bananas?"
+
+<End of Context>
+
+Thought(Analyze the question: The main object in the question is the pile of bananas. I need to locate them and figure out if they are small. Analyze the caption: From the caption, there is a large pile of bananas. This is true because it is consistent with the question that also mentions bananas. Unknown or unsure: Whether the bananas are small. Plan: VQA on asking the size of the bananas. The question is what is the size of the bananas instead of are those bananas small because this will lead to a high false positive rate as the judgement of size is subjective.)
+Implement(ANSWER0=VQA(image=IMAGE,question='What is the size of the bananas?'))
+<result>
+small
+</result>
+Thought(Analyze the result: The VQA module gives the answer "small", which means the bananas are small. Plan: I can give the answer. The question asks whether these are small bananas, and I know they are indeed small, so the answer is yes.)
+Implement(ANSWER1=RESULT(var='Yes. These are small bananas.'))
+
+<End of Plan>

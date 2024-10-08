@@ -1,0 +1,28 @@
+multimodal input: IMAGE (333wx500h)
+
+CAPTION_IMAGE="The image shows a young man walking on a sidewalk with a large blue Nike duffel bag in his hand. He is wearing a blue shirt, khaki pants, and a striped tie. He has blonde hair and is looking off to the side with a serious expression on his face. Behind him, there are several people walking on the sidewalk, some of them are carrying bags and one person is holding a water bottle. There is a car parked on the left side of the image and a building in the background."
+
+Q="Did Nike make the bag to the right of the lady?"
+
+<End of Context>
+
+Thought(Analyze the question: The main object in the question is the bag to the right of the lady. I need to locate the lady first and find the bag to her right. Analyze the caption: From the caption, there is a man with a large blue Nike duffel bag. This is correct because the bag and "Nike" is consistent to the caption. Unknown or unsure: Whether the Nike bag is to the left of the lady. Plan: I need to locate the Nike bag first.)
+Implement(BOX0=LOC(image=IMAGE,object='Nike bag'))
+<result>
+[[150, 234, 312, 388]]
+</result>
+Thought(Analyze the result: There is only one bounding box. No steps need to be taken to filter false detections. Plan: Also locate the lady.)
+Implement(BOX1=LOC(image=IMAGE,object='lady'))
+<result>
+[[39, 41, 118, 361], [281, 75, 331, 393], [266, 0, 303, 123], [111, 1, 170, 187]]
+</result>
+Thought(Analyze the result: There are multiple bounding boxes for the ladies, I need to filter out the wrong ones. Judge the size: The sizes are 79x321, 50x318, 37x123 and 59x186. They are of normal size. Judge the position: [39, 41, 118, 361] is obviously to the left of other bounding boxes. 281>266, 281<303, 331>303, so the second one slightly overlaps with the third one. 170<281, 170<266, so the last one is to the left of the second and the third one, and they don't overlap. There's nothing abnormal in positions. Plan: I only need to focus on the left most one, [39, 41, 118, 361], which is to the left of BOX0. I need to crop on that bounding box and verify it is a lady. If so, the Nike bag is to the right of the lady.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX1,index=0))
+<result>
+<PIL.Image.Image image mode=RGB size=118x441 at 0x7952456B99C0>
+The image shows a young woman standing on a sidewalk with her back to the camera. She is wearing a black tank top, blue jeans, and black sneakers. She has long blonde hair and is carrying a large gray tote bag over her shoulder. Behind her, there are other people walking on the sidewalk and a car parked on the side of the street. The woman appears to be looking down at something in her hand.
+</result>
+Thought(Analyze the result: There is a lady in the bounding box. I can see it is a lady. Plan: I can give the answer. The question asks whether Nike makes the bag to the right of the lady. I know there is a man with a Nike bag, and I also know the position of the lady and the Nike bag. The Nike bag is to the right of the lady, so the answer is yes.)
+Implement(ANSWER0=RESULT(var='Yes, the bag was made by nike.'))
+
+<End of Plan>

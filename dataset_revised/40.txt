@@ -1,0 +1,21 @@
+multimodal input: IMAGE (334wx500h)
+
+CAPTION_IMAGE="The image shows a young man standing in a coffee shop. He is wearing a blue and white patterned shirt, black jeans, and black shoes. He has short brown hair and is smiling at the camera. In front of him, there is a black bicycle leaning against a wooden shelf. On the shelf, there are various coffee machines and coffee beans. The background shows a counter with a coffee machine and other coffee-related items."
+
+Q="Which kind of furniture is the coffee cup on?"
+
+<End of Context>
+
+From the caption, I know there is a shelf with coffee machines and coffee beans. I think this is accurate because shelves are easy to recognize and the caption module will not be wrong on this. The coffee cup is very likely to be on the shelf .There might be a lot of coffee cups since this is a coffee shop, and the LOC module cannot perform well in locating them because they are dense and LOC is not accurate on small objects. Locating cups and crop them one by one is also time consuming, and the cropped region may not be large enough to judge what the cup is on. Therefore, I can only judge the position of coffee cups from the caption.
+
+<End of Thought>
+
+Step(Summarize and answer.)
+
+<End of Plan>
+
+Step(Summarize and answer.)
+Thought(The question asks which kind of furniture is the coffee cup on. From the above analysis, I know the cup is on the shelf. The answer should be stored in ANSWER0.)
+Implement(ANSWER0=RESULT(var='The coffee cup is on the shelf.'))
+
+<End of Modified Plan>

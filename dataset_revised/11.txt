@@ -1,0 +1,27 @@
+multimodal input: IMAGE (640wx426h)
+
+CAPTION_IMAGE="The image shows a man and a woman standing in front of a giraffe. The man is on the right side of the image and is looking up at the giraffe with a smile on his face. The giraffe is facing the man and appears to be sniffing the man's nose. In the background, there are trees and bushes, and a wooden fence can be seen on the left side. The sky is blue and the overall atmosphere is peaceful and serene."
+
+Q="Is the old woman to the right or to the left of the man near the giraffe?"
+
+<End of Context>
+
+Thought(Analyze the question: The main objects in the question are the giraffe, the man and the woman. I need to locate the man near the giraffe, and find the relative position of the old woman to the man. Analyze the caption: From the caption, there is a man and a giraffe. This is true because the caption directly mentions them which are included in the question. Unknown or unsure: The position of the woman and the relative position between the woman and the man. Plan: I need to locate the man first.)
+Implement(BOX0=LOC(image=IMAGE,object='man'))
+<result>
+[[462, 187, 639, 425]]
+</result>
+Thought(Analyze the result: There is only one bounding box. No steps need to be taken to filter false detections. Plan: Also locate the giraffe.)
+Implement(BOX1=LOC(image=IMAGE,object='giraffe'))
+<result>
+[[0, 0, 482, 248], [2, 3, 259, 187]]
+</result>
+Thought(Analyze the result: There are two bounding boxes, I need to judge the size and position of them to find if there are wrong detections. Judge the size: The size for two bounding boxes are 482x248 and 257x184. Both of them are of normal size. Judge the position: 2>0, 259<482, 3>0, 187<248, so the second bounding box is included in the first one. It is safe to only focus on the first bounding box. Plan: Judge whether the giraffe is near the man first. 482-462=20, which is small, so the bounding box of the giraffe is very close to the bounding box of the man. Now locate the woman.)
+Implement(BOX2=LOC(image=IMAGE,object='woman'))
+<result>
+[[376, 346, 485, 424]]
+</result>
+Thought(Analyze the result: There is only one bounding box. No steps need to be taken to filter false detections. Plan: Judge the relative position between the woman and the man. (376+485)/2=861/2=430.5, so the center of the woman's bounding box is (430.5,*). (462+639)/2=1101/2=550.5, so the center of the man' bounding box is (550.5,*). Since 430.5<550.5, I know the woman is to the left of the man. Plan: I can give the answer. The question asks whether the old woman is to the left, and I know she is indeed to the left, so the answer is yes.)
+Implement(ANSWER0=RESULT(var='yes'))
+
+<End of Plan>

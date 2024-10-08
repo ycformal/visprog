@@ -1,0 +1,12 @@
+multimodal input: IMAGE (640wx480h)
+
+CAPTION_IMAGE="The image shows a desk with a teddy bear wearing a blue beret and a green shirt. Next to the desk, there is a white fax machine with a red label on it. The fax machine is open and there are several stacks of papers in front of it. There is also a stack of papers on the desk next to the fax machine. The desk appears to be in an office or a similar setting."
+
+Q="What toy is this, a doll or a stuffed bear?"
+
+<End of Context>
+
+Thought(Analyze the question: The main object in the question is the toy. I need to locate the toy and figure out what it is. Analyze the caption: From the caption, there is a teddy bear. This is true because the caption directly mentions it which is included in the question. Unknown or unsure: Nothing. Plan: I can give the answer. The question asks whether it is a doll or a stuffed bear. I know there is a teddy bear, so the stuffed bear is the answer.)
+Implement(ANSWER0=RESULT(var='This is a stuffed bear.'))
+
+<End of Plan>

@@ -1,0 +1,23 @@
+multimodal input: IMAGE (640wx425h)
+
+CAPTION_IMAGE="The image shows a young man riding a brown horse in an equestrian competition. The man is wearing a white polo shirt, beige pants, and a black helmet. He is holding onto the reins with both hands and appears to be in the middle of a jump. The horse is galloping over a colorful obstacle, which is made up of pink, yellow, and blue poles. The background shows a grassy field and trees."
+
+Q="What is the person that looks young wearing?"
+
+<End of Context>
+
+Thought(Analyze the question: The main object in the question is the person. I need to locate the person and figure what he is wearing. Analyze the caption: From the caption, there is a young man and he is wearing a white polo shirt, beige pants, and a black helmet. Unknown or unsure: Whether the young man is indeed wearing a white polo shirt, beige pants, and a black helmet. Plan: I need to locate the man first, so that I can ask VQA to verify what he is wearing.)
+Implement(BOX0=LOC(image=IMAGE,object='man'))
+<result>
+[[53, 5, 315, 445]]
+</result>
+Thought(Analyze the result: There is only one bounding box. No steps need to be taken to filter false detections. Plan: Crop on the region. Set index=0 because I want to crop on BOX0[0].)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=0))
+<result>
+<PIL.Image.Image image mode=RGB size=380x555 at 0x79524543D000>
+The image shows a young man riding a brown horse over an obstacle. The man is wearing a white polo shirt, beige pants, and a black helmet. He is holding onto the reins with both hands and appears to be in the middle of a jump. The horse is galloping forward with its front legs stretched out and its tail flowing behind it. The obstacle is made up of colorful poles and there is a blue sign in the background that reads "Parking". The background is a grassy field with trees and bushes.
+</result>
+Thought(Analyze the result: I know the man is wearing a white polo shirt, beige pants, and a black helmet. No need to ask VQA because the two captions are fully consistent. Plan: I can give the answer. The question asks what the person is wearing. I need to include the polo shirt, pants, and the helmet. The color is also important. The polo shirt is white, the pants are beige, and the helmet is black.).
+Implement(ANSWER0=RESULT(var='The person is wearing a white polo shirt and beige pants, and a black helmet.'))
+
+<End of Plan>

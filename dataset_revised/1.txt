@@ -1,0 +1,12 @@
+multimodal input: IMAGE (640wx427h)
+
+CAPTION_IMAGE="The image shows two elderly people sitting on a wooden bench at a beach. They are facing the ocean and the sky is clear and blue. The person on the left is wearing a beige jacket and a cap, and the person in the middle is holding a pink umbrella with a floral pattern. The umbrella is open and the people are looking out towards the horizon. The beach is sandy and there is a railing in front of the bench. The overall mood of the image is peaceful and serene."
+
+Q="Is there an umbrella in the picture that is not closed?"
+
+<End of Context>
+
+Thought(Analyze the question: The main object in the question is umbrella. I need to find if there is an open umbrella. Analyze the caption: From the caption, there is an umbrella and it is open. They are correct because the umbrella corresponds to the question and the caption explicitly points out the umbrella is open. This is easy to judge so the module won't make mistakes. Unknown or unsure: Nothing. Plan: I can directly give the yes answer.)
+Implement(ANSWER1=RESULT(var='yes'))
+
+<End of Plan>

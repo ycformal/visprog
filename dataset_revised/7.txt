@@ -1,0 +1,22 @@
+multimodal input: IMAGE (640wx480h)
+
+CAPTION_IMAGE="The image shows an orange tabby cat lying on its side on a glass desk. The cat is resting its head on a white mouse pad and appears to be sleeping. On the desk, there is a laptop, a keyboard, a lamp, and a few pens and pencils in a holder. There are also a few books and a potted plant on the desk."
+
+Q="Is the tall lamp to the left or to the right of the laptop computer?"
+
+<End of Context>
+
+Thought(Analyze the question: The main objects in the question are the lamp and the laptop. I need to locate them and figure out their relative position. Analyze the caption: From the caption, there is a laptop and a lamp. This is true because the caption directly mentions them which are included in the question. Unknown or unsure: The relative position of the lamp to the laptop. Plan: I need to locate the lamp first.)
+Implement(BOX0=LOC(image=IMAGE,object='lamp'))
+<result>
+[[95, 1, 183, 231]]
+</result>
+Thought(Analyze the result: There is only one bounding box. No steps need to be taken to filter false detections. Plan: Also locate the laptop.)
+Implement(BOX1=LOC(image=IMAGE,object='laptop'))
+<result>
+[[0, 0, 120, 222]]
+</result>
+Thought(Analyze the result: There is only one bounding box. No steps need to be taken to filter false detections. Plan: I need to judge the relative position. (95+183)/2=278/2=139, (0+120)/2=60, 139>>60, so the lamp is to the left of the laptop. I can give the answer. The question asks the relative position of lamp to the laptop. I know it is at the right side. So the answer is right.)
+Implement(ANSWER0=RESULT(var='right'))
+
+<End of Plan>

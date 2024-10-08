@@ -1,0 +1,12 @@
+multimodal input: IMAGE (500wx346h)
+
+CAPTION_IMAGE="The image shows a mother and her young son playing baseball in a park. The mother is standing on a grassy field with trees in the background. She is holding a yellow baseball bat and is in the process of hitting the ball with it. The son is running towards the mother, who is wearing a yellow shirt and a helmet. The ball is in mid-air, and the mother is looking down at it with a focused expression on her face. The image appears to be taken from a low angle, looking up at the mother and son."
+
+Q="Who is playing?"
+
+<End of Context>
+
+Thought(Analyze the question: The main point of the question is to ask who is playing. From the caption, I know it is the mother and her young son. This is true because it is consistent with "playing" which is mentioned in the question, and the caption contains details of the mother and the son. Plan: I can give the answer. The question asks who is playing, and I know a mother and her young son is playing, so this is the answer.)
+Implement(ANSWER0=RESULT(var='A mother and her young son.'))
+
+<End of Plan>

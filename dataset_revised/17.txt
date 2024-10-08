@@ -1,0 +1,17 @@
+multimodal input: IMAGE (640wx381h)
+
+CAPTION_IMAGE="The image shows two young men sitting on a brown leather couch in a living room. The man on the left is wearing a white t-shirt and black pants, and is holding a pair of black and white sneakers in his left hand. He appears to be deep in thought, with his eyes closed and his head resting on the armrest of the couch. On the right side of the image, there is a young man wearing an orange shirt and blue jeans, sitting on the couch and smiling at the camera. He is also holding a book in his right hand. In the background, there are two lamps and a clock on the wall."
+
+Q="Is there a lamp in this picture that is large?"
+
+<End of Context>
+
+Thought(Analyze the question: The main object in the question is the lamp. I need to locate the lamp and figure out if it is large. Analyze the caption: From the caption, there are two lamps. This is true because the caption directly mentions them, and it is included in the question. Unknown or unsure: Whether the lamp is large. Plan: I need to locate the lamp first.)
+Implement(BOX0=LOC(image=IMAGE,object='lamp'))
+<result>
+[[533, 61, 629, 185], [0, 183, 44, 284]]
+</result>
+Thought(Analyze the result: There are two bounding boxes. This is consistent with the caption that there are two lamps, so no need to filter wrong detections. Plan: Judge if any of the two bounding boxes are large. The sizes of bounding boxes are 96x124 and 44x101. The first one is very large given that the size of the image is just 640x381. I can give the answer. The question asks if there is a large lamp, and I know there are two lamps, and the right most one is very large. So the answer is yes.)
+Implement(ANSWER0=RESULT(var='Yes. There is a lamp whose height is about 33% of the overall height of the image.'))
+
+<End of Plan>

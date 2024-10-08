@@ -1,0 +1,12 @@
+multimodal input: IMAGE (640wx480h)
+
+CAPTION_IMAGE="The image shows a plate with a sandwich and a salad on it. The plate is white with blue stripes and has a blue rim. The sandwich is made with a toasted bun and is placed on top of a bed of green arugula leaves. There are two slices of red apple on the plate, one on each side of the sandwich. The salad is made up of broccoli, red bell peppers, and yellow cheese. There is a fork and knife on the table next to the plate. In the background, there is a glass of water and a black and white patterned cup."
+
+Q="Is there broccoli near the round food?"
+
+<End of Context>
+
+Thought(Analyze the question: The main objects in the question is the round food. I need to locate it and find if there is broccoli nearby. Analyze the caption: From the caption, there is a sandwich which is a round food and there is indeed a salad with broccoli near the sandwich. This is true because the caption directly mentions them which are included in the question. Unknown or unsure: Nothing. Plan: I can give the answer. The question asks if there is broccoli near the round food. I know the round food is the sandwich, and there is a salad with broccoli near the sandwich, so the answer is yes.)
+Implement(ANSWER0=RESULT(var='yes'))
+
+<End of Plan>

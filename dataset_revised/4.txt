@@ -1,0 +1,22 @@
+multimodal input: IMAGE (500wx333h)
+
+CAPTION_IMAGE="The image shows a herd of elephants walking through a dry grassy field. There are around 10 elephants in total, with a large number of them in the foreground and a few smaller ones in the background. The elephants are walking in a line, with some in the front and some behind them. The field is covered in tall, dry grass and there are trees and bushes scattered throughout. The sky is overcast and the overall mood of the image is peaceful and serene."
+
+Q="Which direction is the gray elephant facing?"
+
+<End of Context>
+
+Thought(Analyze the question: The main object in the question is the gray elephant. I need to locate elephants and focus on the gray one. Analyze the caption: From the caption, there is a herd of elephants. It is correct because the caption directly mentions the elephant which is included in the question. Unknown or unsure: Where is the gray one and the direction it is facing. Plan: I need to locate elephants first.)
+Implement(BOX0=LOC(image=IMAGE,object='elephant'))
+<result>
+[[370, 137, 437, 228], [159, 113, 271, 251], [37, 142, 125, 249], [97, 119, 175, 231], [267, 140, 343, 228], [285, 124, 385, 210], [429, 130, 499, 213], [1, 135, 97, 236], [265, 128, 313, 215], [25, 196, 62, 244], [273, 123, 310, 146], [269, 119, 453, 226], [24, 196, 50, 226], [5, 104, 499, 253], [69, 138, 105, 154], [305, 123, 337, 132], [52, 135, 91, 156]]
+</result>
+Thought(Analyze the result: There are a lot of bounding boxes. I should recognize wrong detections but it is too hard because there seems to be a large herd of elephants and too many bounding boxes. Plan: directly ask VQA the question on the whole image.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Which direction is the gray elephant facing?'))
+<result>
+left
+</result>
+Thought(Analyze the result: the VQA gives "left". Plan: I can give the answer. The question asks about the direction the gray elephant is facing. From VQA, I know it is facing to the left. So the answer is left.)
+Implement(ANSWER1=RESULT(var='left'))
+
+<End of Plan>

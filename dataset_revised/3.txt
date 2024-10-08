@@ -1,0 +1,23 @@
+multimodal input: IMAGE (427wx640h)
+
+CAPTION_IMAGE="The image shows a kitchen countertop with various kitchen items on it. On the left side of the countertop, there is a black chalkboard with the words "What happens next?" written on it in white chalk. Above the chalkboard, there are two framed pictures hanging on the wall. The wall is painted in a bright yellow color and there are a few kitchen utensils hanging on a hook on the right side. In the center of the image, there appears to be a white toaster, a potted plant, and a few jars and containers on the counter. The countertop is made of wood and has a white tile backsplash."
+
+Q="Do you see canisters near the appliance below the chalkboard?"
+
+<End of Context>
+
+Thought(Analyze the question: The main object in the question is the chalkboard. I need to find the chalkboard first. Analyze the caption: From the caption, there is a chalkboard. This is correct because the caption directly mentions it which is included in the question. Unknown or unsure: I don't know what appliance is below the chalkboard and if there are canisters near the appliance below the chalkboard. Plan: I need to locate the chalkboard first.)
+Implement(BOX0=LOC(image=IMAGE,object='chalkboard'))
+<result>
+[[21, 310, 156, 446]]
+</result>
+Thought(Analyze the result: There is only one bounding box. No steps need to be taken to filter false detections. Plan: use CROP_BELOW to crop the area below the bounding box. The index argument is set to 0 since I crop on BOX0[0].)
+Implement(IMAGE0=CROP_BELOW(image=IMAGE,box=BOX0,index=0))
+<result>
+<PIL.Image.Image image mode=RGB size=426x261 at 0x7A9FF6381F00>
+The image shows a kitchen countertop with various kitchen items on it. On the left side of the countertop, there is a white toaster with the words "Happy New Year" written on it in black chalk. Next to the toaster, there are two white salt and pepper shakers, a black coffee maker, and a glass jar with a lid. In the center of the image, there appears to be a potted plant with green leaves and a wooden cutting board with a knife on it next to a window. There are also a few onions and a bowl of fruit on the counter. The countertop is made of wood and there are white tiles on the wall behind it.
+</result>
+Thought(Analyze the result: I know the appliance is the toaster. There are two shakers and a glass jar near the toaster, and all of them belong to canisters. Plan: I can give the answer. The question asks if there are canisters near the appliance below the chalkboard, and I know the appliance is a toaster, and there are canisters near the toaster. So the answer is yes.)
+Implement(ANSWER0=RESULT(var='yes'))
+
+<End of Plan>

@@ -1,0 +1,34 @@
+multimodal input: IMAGE (640wx480h)
+
+CAPTION_IMAGE="The image shows a young woman sitting in front of a bathroom mirror. She is holding a makeup brush in her right hand and appears to be applying makeup. The mirror is on a white countertop and there are various makeup items such as a black mug, a bottle of lotion, and a few brushes scattered around it. The woman is wearing a black and white patterned top and has blonde hair tied up in a bun. In the reflection of the mirror, she is looking at her reflection and seems to be in the process of applying her makeup."
+
+Q="Is the mirror in front of the woman made of glass?"
+
+<End of Context>
+
+Thought(Analyze the question: The main object in the question is the mirror. I need to locate the mirror and figure out what it is made of. Analyze the caption: From the caption, there is a mirror on the countertop, and it is in front of the woman. This is true because the caption directly mentions them which are included in the question. Unknown or unsure: I don't know what the mirror is made of. Plan: I need to locate the mirror first.)
+Implement(BOX0=LOC(image=IMAGE,object='mirror'))
+<result>
+[[261, 277, 362, 423], [95, 179, 163, 262], [380, 0, 547, 123], [257, 0, 355, 95], [3, 2, 336, 326], [281, 137, 339, 247], [0, 228, 304, 327], [0, 0, 103, 265]]
+</result>
+Thought(Analyze the result: There are too many bounding boxes. I need to filter out the false detections. Judge the size: The sizes of bounding boxes are 101x146, 68x83, 167x123, 98x95, 333x324, 58x110, 304x99, and 103x265. They are all of normal shape. Judge the position: There are too many bounding boxes and judge one pair by one pair is not efficient. Focus on the largest one, [3, 2, 336, 326] which has a size of 333x324, filter out bounding boxes which are included in or heavily overlapped with this bounding boxes. 261>3, 362>336, 261<336, 423>>262, so the first bounding box is overlapped with [3, 2, 336, 326], but not heavily overlapped. 91>3, 169<336, 179>2, 262<326, so the second one is included in the largest one, filter it out. 380>336, so the third one is to the right of the largest one, with no overlapping. 253>3, 355>336, 253<336, 0<2, 95>2, 95<336, so the fourth one is overlapped with the largest one. 355-336=19, 2-0=2, only a small margin, so they are heavily overlapped. Filter out the fourth one. 281>3, 281<336, 339 is very close to 336, 137>2, 247<326, so the sixth one is almost included in the largest bounding box. Filter it out. 0 is close to 3, 103<336, 0 is close to 2, 265<326, so the last one is also almost included in the largest bounding box. Three bounding boxes remained: [261, 277, 362, 423], [257, 0, 355, 95] and [3, 2, 336, 326], corresponding to BOX[0], BOX[3] and BOX[4]. Plan: Crop BOX[0] first to check whether it is made of glass.)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=0))
+<result>
+<PIL.Image.Image image mode=RGB size=150x218 at 0x7FEFE0226EC0>
+The image shows a person's hand holding a makeup brush and applying makeup to their face in front of a round mirror. The mirror is placed on a white countertop and there is a pair of scissors on the left side of the image. The person's hair is blonde and they are holding the brush with both hands. The reflection of the person's face can be seen in the mirror.
+</result>
+Thought(Analyze the result: I know the mirror is included in the bounding box. Judge the material: From the caption of the cropped image, I can see there is a mirror, but I can't judge whether it is made of glass because the caption doesn't mention it and I can't tell the material of the mirror from the appearance. Plan: use VQA to ask the question on the cropped image.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Is the mirror made of glass?'))
+<result>
+no
+</result>
+Thought(Analyze the result: VQA says no, so this mirror is not made of glass. Plan: Crop on BOX[3].)
+Implement(IMAGE1=CROP(image=IMAGE,box=BOX0,index=3))
+<result>
+<PIL.Image.Image image mode=RGB size=146x118 at 0x7FEFE02245B0>
+The image shows a small rectangular mirror hanging on a white wall. The mirror is rectangular in shape and appears to be made of glass. It is attached to the wall with a white frame. The reflection in the mirror shows a person's hand holding a pair of shoes. The person is wearing a black t-shirt and blue jeans. The background of the image is blurred, but it seems to be a room with a window and a door.
+</result>
+Thought(Analyze the result: I know there is a mirror included in the bounding box. Judge the material: From the caption of the cropped image, I can see there is a mirror, and it is made of glass. This is true because the caption explicitly mentions it, which corresponds to the question. Plan: I can give the answer. The question asks whether the mirror in front of the woman is made of glass. There are three mirrors in front of the woman, and I know one mirror is made of glass. So the answer is yes.)
+Implement(ANSWER1=RESULT(var='yes'))
+
+<End of Plan>

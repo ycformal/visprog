@@ -1,0 +1,34 @@
+multimodal input: IMAGE (640wx427h)
+
+CAPTION_IMAGE="The image shows two men standing next to a brown horse on a dirt path in a wooded area. The horse is tied up with a saddle and bridle, and there is a blue duffel bag on the ground next to it. The man on the left is wearing a black jacket, jeans, and a baseball cap, and is bending down to pet the horse. The other man is standing behind the horse, wearing a white shirt, blue jeans, a black baseball cap and a plaid shirt. There are several other bags and equipment scattered around the path, including a backpack and a camera. In the background, there are trees and bushes, and the sky is blue and clear."
+
+Q="What type of animal are the trees in front of?"
+
+<End of Context>
+
+Thought(Analyze the question: The main object in the question is the group of trees. I need to locate where the group of trees figure out animals the trees in front of. Analyze the caption: From the caption, there are two men, a horse and trees. This is true because the caption directly mentions them which are included in the question. Unknown or unsure: Whether the trees are in front of the horse. Plan: Locate the horse.)
+Implement(BOX0=LOC(image=IMAGE,object='horse'))
+<result>
+[[88, 133, 381, 346]]
+</result>
+Thought(Analyze the result: There is only one bounding box. No steps need to be taken to filter false detections. Plan: Crop the horse to ask VQA about the direction the horse is facing, so that I can understand "in front of". Set index=0 since I want to crop on BOX0[0].)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=0))
+<result>
+<PIL.Image.Image image mode=RGB size=438x318 at 0x7969C5A1BA90>
+The image shows two men standing next to a brown horse on a dirt path in a wooded area. The horse is wearing a saddle and bridle and has a large black bag attached to its back. The man on the left is bending down to pet the horse, while the man in the middle is standing with his back to the camera. There is a blue backpack on the ground next to the horse. The background shows a wooden fence and trees.
+</result>
+Thought(Analyze the result: I know the horse is in the center of the image, but this does not help me with the question. Plan: I can give the answer. The question asks .)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Which direction is the horse facing?'))
+<result>
+right
+</result>
+Thought(Analyze the result: The horse is facing to the right. Plan: I need to crop the right of the horse to locate the trees. The index is set to 0 because I want to crop on BOX0[0].)
+Implement(IMAGE1=CROP_RIGHTOF(image=IMAGE,box=BOX0,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=319x426 at 0x7969C5713FD0>
+The image shows two young men standing next to a wooden fence with a horse in the background. The man on the left is wearing a black jacket, blue jeans, and a white baseball cap. He is holding a blue duffel bag and appears to be unloading it from the ground. The other man is standing behind the fence, looking at the horse. The background shows a mountain range with trees and bushes. The sky is blue and the overall scene is peaceful and serene.
+</result>
+Thought(Analyze the result: I know there are trees in the cropped image. Therefore, the trees are in front of the horse. Plan: I can give the answer. The question asks the type of animal that the trees are in front of. I know the trees are in front a horse. So the answer is horse.)
+Implement(ANSWER1=RESULT(var='The horse.'))
+
+<End of Plan>

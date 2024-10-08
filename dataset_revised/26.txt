@@ -1,0 +1,28 @@
+multimodal input: IMAGE (333wx500h)
+
+CAPTION_IMAGE="The image shows a young man playing tennis on a clay court. He is wearing a white t-shirt with red stripes on the sleeves and black shorts. He has a pair of glasses on and is holding a red and black tennis racket in his right hand. The sky is dark and cloudy, suggesting that it is either night or early morning. The man is standing with his left leg extended and his right leg bent at the knee, ready to hit the ball. The image is taken from a low angle, looking up at the sky."
+
+Q="What is the company the made the shoes called?"
+
+<End of Context>
+
+Thought(Analyze the question: The main object in the question is the shoes. I need to locate the shoes and figure out the brand. Analyze the caption: There is a man so I guess the man is wearing the shoes. Unknown or unsure: Where are the shoes and the brand. Plan: I will first call LOC to locate the shoes.)
+Implement(BOX0=LOC(image=IMAGE,object='shoes'))
+<result>
+[[188, 364, 227, 390], [197, 401, 256, 440]]
+</result>
+Thought(Analyze the result: There are two bounding boxes, and I need to filter wrong detections. Judge the size: The size for two bounding boxes are 39x26 and 59x39. These sizes are both normal for shoes. Judge the position: 188<197, 188<256, 227<256, 364<401, 364<440, 390<440, so the first bounding box is at the left upper side of the second bounding box. They overlap but not heavily. Both of them are correct detections, which correspond to two shoes. Plan: To know the brand of the shoes, I only need to focus on one bounding box. I'd like to choose the largest one. The second one is larger, so choose the second one. Now crop on BOX0[1].)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=1))
+<result>
+<PIL.Image.Image image mode=RGB size=88x58 at 0x7AEFFD4DBB20>
+The image shows a close-up of a person's foot wearing a pair of white sneakers. The sneakers have a metallic silver color with blue and black stripes on the sides. The laces are white and the sole of the shoe is white. The person is standing on a brown carpeted floor. The image is taken from a slightly elevated angle, looking down on the person's feet.
+</result>
+Thought(Analyze the result: I know the shoes are sneakers, and I can see the details of the sneakers. From the appearance of the sneakers, I guess the brand is Adidas. Plan: Call VQA to ask the question.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='What is the brand of the sneakers?'))
+<result>
+adidas
+</result>
+Thought(Analyze the result: The VQA gives the answer, which is "adidas". Plan: I can give the answer. The question asks for the company that made the shoes. It's equivalent to ask for the brand of the shoes. I know the brand is Adidas, so the answer is Adidas.)
+Implement(ANSWER1=RESULT(var='Adidas'))
+
+<End of Plan>

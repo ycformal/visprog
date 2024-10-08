@@ -1,0 +1,12 @@
+multimodal input: IMAGE (640wx425h)
+
+CAPTION_IMAGE="The image shows a busy street in a city with tall buildings on both sides. The street is lined with trees and there are cars driving on the road. On the left side of the image, there is a tall building with a sign that reads "Main Street" and on the right side, there are several other buildings with shops and restaurants. The sky is blue and the weather appears to be sunny and clear. In the center of the street, a man is crossing the street at a red traffic light. He is wearing a black jacket and pants and is standing on the sidewalk."
+
+Q="What is this, a fire hydrant or a traffic light?"
+
+<End of Context>
+
+Thought(Analyze the question: The main objects in the question is the traffic light or fire hydrant. I need to find either of them. Analyze the caption: From the caption, there is a red traffic light. This is true because the background is a street and it is hard to recognize other things as traffic lights, and the caption even mentions the color of the light. Unknown or unsure: Nothing. Plan: I can give the answer. The question asks whether there is a fire hydrant or traffic light. I already know there is a traffic light, so the answer is traffic light.)
+Implement(ANSWER=RESULT(var='traffic light))
+
+<End of Plan>

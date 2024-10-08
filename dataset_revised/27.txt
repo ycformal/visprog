@@ -1,0 +1,12 @@
+multimodal input: IMAGE (640wx480h)
+
+CAPTION_IMAGE="The image shows a breakfast meal on a white plate. On the left side of the plate, there is a stack of pancakes with a dollop of sour cream on top. Next to the pancakes, there are two pieces of scrambled eggs and two strips of bacon. The plate is on a wooden table with a cup of coffee and a saucer in the background."
+
+Q="Is that coffee mug on top of a sofa?"
+
+<End of Context>
+
+Thought(Analyze the question: The main object in the question is the coffee mug. I need to locate it and figure out whether it is on top of a sofa. Analyze the caption: From the caption, there is a cup of coffee on the wooden table. This is true because the cup of coffee corresponds to the coffee mug which is mentioned in the question, and it is very reasonable that the breakfast is on a table. Unknown or unsure: Nothing. Plan: I can give the answer. The question asks if the coffee mug is on top of a sofa, but I know it is on a table, so the answer is no.)
+Implement(ANSWER0=RESULT(var='No, the coffee mug is on top of a table.'))
+
+<End of Plan>

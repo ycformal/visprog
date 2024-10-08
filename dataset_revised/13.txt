@@ -1,0 +1,33 @@
+multimodal input: IMAGE (640wx427h)
+
+CAPTION_IMAGE="The image shows a skateboarder performing a trick at a skate park. The skatepark has a concrete ramp with graffiti on it, and there are trees in the background. The skater is wearing a black helmet, knee pads, and protective gear. He is in the middle of a turn, with his skateboard in the air and his body leaning forward as he navigates the ramp. The sky is blue and the weather appears to be sunny and clear."
+
+Q="Is the person to the right of the other person staring or sleeping?"
+
+<End of Context>
+
+Thought(Analyze the question: The main objects in the question are persons. I need to find them, find the right most one and judge what is it doing. Analyze the caption: From the caption, there is one person in the foreground. This is true because the caption directly mentions the person which asks about. Unknown or unsure: I don' t know whether the person is to the right of the other person and what is he doing. Plan: I need to locate the person first.)
+Implement(BOX0=LOC(image=IMAGE,object='person'))
+<result>
+[[178, 153, 322, 297], [143, 96, 158, 129], [149, 144, 178, 180], [184, 94, 200, 134], [5, 116, 83, 141], [54, 115, 82, 129], [36, 147, 55, 165], [318, 114, 323, 123], [587, 80, 593, 92], [397, 95, 441, 108], [338, 107, 344, 118], [577, 82, 582, 91], [0, 124, 26, 136], [322, 95, 444, 121], [30, 125, 46, 141], [52, 118, 59, 130], [594, 79, 600, 91], [28, 121, 34, 133], [41, 122, 48, 134], [0, 127, 10, 136], [588, 79, 602, 93], [71, 116, 78, 125], [16, 126, 20, 133], [372, 103, 378, 112], [360, 104, 365, 111], [76, 116, 81, 125], [45, 147, 59, 164], [336, 106, 341, 113], [44, 124, 51, 134], [55, 118, 62, 131], [0, 127, 5, 134], [36, 150, 48, 163], [397, 99, 402, 108], [410, 98, 416, 107], [558, 89, 565, 98], [601, 79, 608, 88], [320, 104, 347, 122], [37, 121, 43, 129], [429, 97, 435, 106], [357, 104, 362, 111]]
+</result>
+Thought(Analyze the result: There are a lot of bounding boxes, I have to filter wrong detections. Judge the size: The sizes of bounding boxes are 144x144, 15x33, 29x36, 16x40, 78x25, 28x14, 19x18, 5x9, 6x12, 44x13, 6x11, 5x9, 26x12, 122x26, 16x16, 7x12, 6x12, 6x12, 7x12, 10x9, 14x14, 7x9, 4x7, 6x9, 5x7, 5x9, 14x17, 5x7, 7x10, 7x13, 5x7, 12x13, 5x9, 6x9, 7x9, 7x9, 27x18, 6x8, 6x9, 5x7. Only bounding boxes with size 144x144, 15x33, 29x36, 16x40, 78x25, 28x14, 44x13, 122x26 are left. Also filter out boxes whose width is much larger than the height because there should be a person inside. Therefore, only bounding boxes with size 144x144, 15x33, 29x36, 16x40 are left. Those left bounding boxes are [[178, 153, 322, 297], [143, 96, 158, 129], [149, 144, 178, 180], [184, 94, 200, 134]]. Judge the position: 178>158, 78>178, so [178, 153, 322, 297] does not overlap with [143, 96, 158, 129] and [149, 144, 178, 180]. However, 184>178, 200<322, so [184, 94, 200, 134] is included in [178, 153, 322, 297]. Let's filter it out. 143<148, 158<178, 158>149, so the other two boxes have some overlap, but no one is included in another, so no need to filter any of them. Plan: Judge the right most person. There are three bounding boxes left now: [178, 153, 322, 297], [143, 96, 158, 129] and [149, 144, 178, 180]. Since 178>158, 178=178, the first bounding box is the right most one. This corresponds to the first bounding box in BOX0. Now crop the image on this bounding box to figure out what is the person doing. Set index argument to 0 because I want to crop on BOX0[0].)
+Implement(IMAGE0=CROP(image=IMAGE,box=BOX0,index=0))
+<result>
+<PIL.Image.Image image mode=RGB size=216x216 at 0x79D2FB13C430>
+The image shows a young man riding a skateboard down the side of a concrete ramp. He is wearing a black helmet, a gray t-shirt, and knee pads. The skateboarder is in the middle of a turn, with his body slightly turned to the side as he navigates the ramp. The ramp is covered in graffiti and there are trees in the background. The sky is blue and the weather appears to be sunny.
+</result>
+Thought(Analyze the result: From the caption, there is indeed a person in the cropped image. As guessed before, he is the skateboarder in the foreground. Plan: Ask VQA whether he is staring or sleeping.)
+Implement(ANSWER0=VQA(image=IMAGE0,question='Is the person staring or sleeping?'))
+<result>
+no
+</result>
+Thought(Analyze the result. VQA gives "no". However, the original question requires to make a choice between staring and sleeping. VQA misunderstood my question. I need to restate my question. Plan: Now change a new question, forcing VQA to make a choice between staring and sleeping.)
+Implement(ANSWER1=VQA(image=IMAGE0,question='What is the man doing? Sleeping or staring?'))
+<result>
+watching
+</result>
+Thought(Analyze the result: VQA gives "watching". Plan: I can give the answer. The question asks whether the person is staring or sleeping. Watching is similar to staring, and they are actually the same in this context. Therefore, the person is staring.)
+Implement(ANSWER2=RESULT(var='The person is staring.'))
+
+<End of Plan>

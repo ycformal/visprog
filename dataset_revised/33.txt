@@ -1,0 +1,12 @@
+multimodal input: IMAGE (500wx375h)
+
+CAPTION_IMAGE="The image shows an adult elephant and a baby elephant in an enclosure. The adult elephant is standing on the right side of the image, while the baby elephant is walking on the left side. The enclosure is made of dirt and there are several large rocks scattered around. In the background, there is a tree trunk and a fence. The baby elephant appears to be walking towards the adult elephant, as it is holding a piece of food in its trunk. The background is filled with trees and greenery."
+
+Q="Does the elephant near the stones seem to be sitting?"
+
+<End of Context>
+
+Thought(Analyze the question: The main object in the question is elephant. I need to find the elephants near the stones and figure out if one of them is sitting. Analyze the caption: From the caption, there are an adult elephant and a baby elephant. They are both near the stones. The adult one is standing and the baby one is walking. This is true because the caption directly mentions them which are included in the question. I'm sure none of them is sitting because it is impossible to recognize sitting as walking or standing, as they differ a lot. Unknown or unsure: Nothing. Plan: I can give the answer. The question asks whether the elephant near the stones seem to be sitting. I know the elephants are walking and standing, but not sitting, so the answer is no.)
+Implement(ANSWER0=RESULT(var='No. I detected two elephants, but one is walking and another one is sitting.'))
+
+<End of Plan>
